@@ -8,16 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 
-public class Controller implements Initializable{
+public class Controller{
 
-	@FXML
-	private Button buttonTest;
-	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		buttonTest.setOnMouseClicked(event->{
-			System.out.println("test");
-		});
-	}
+	public void initailize() {
+    	
+    }
 
 }
