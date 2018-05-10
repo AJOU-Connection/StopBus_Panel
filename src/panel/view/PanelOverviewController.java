@@ -20,8 +20,6 @@ public class PanelOverviewController {
 	private TableColumn<ArrivingBus, String> timeRemainingColumn;
 	@FXML
 	private TableColumn<ArrivingBus, String> currentStopColumn;
-	@FXML
-	private TableColumn<ArrivingBus, Integer> availabilityColumn;
 
 	@FXML
 	private Label busStopNumLabel;
@@ -47,8 +45,6 @@ public class PanelOverviewController {
 		busNumberColumn.setCellValueFactory(cellData -> cellData.getValue().busNumberProperty());
 		timeRemainingColumn.setCellValueFactory(cellData -> cellData.getValue().timeRemainingProperty());
 		currentStopColumn.setCellValueFactory(cellData -> cellData.getValue().currentStopProperty());
-		availabilityColumn.setCellValueFactory(cellData -> cellData.getValue().availabilityProperty().asObject());
-		
 
 		busNumberColumn.setCellFactory(column -> {
 			return new TableCell<ArrivingBus, String>(){
@@ -64,11 +60,21 @@ public class PanelOverviewController {
 					
 					//add delay
 					currentRow.setOnMouseClicked(event-> {
-						rowData.setAvailability(1);
+						if(event.getClickCount() == 2 && (! currentRow.isEmpty())) {
+							rowData.setAvailability(1);
+						}
 					});
+
+					if(!isEmpty()) {
+						if(rowData.getAvailability() != 0) {
+							currentRow.setStyle("-fx-background-color:lightcoral");
+						}
+					}
+					arrivingBusTable.refresh();
 				}
 			};
 		});
+		
 	}
 	
 	
