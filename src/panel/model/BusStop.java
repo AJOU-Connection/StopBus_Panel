@@ -14,15 +14,15 @@ public class BusStop {
 	private final StringProperty busStopInfo;
 	
 	public BusStop() {
-		this(null);
+		this(0, null, null);
 	}
 	
-	public BusStop(String busStopName){
+	public BusStop(int busStopNum, String busStopName, String busStopInfo){
 		
 		this.busStopName = new SimpleStringProperty(busStopName);
 		
-		this.busStopNum = new SimpleIntegerProperty(0);
-		this.busStopInfo = new SimpleStringProperty("버스 방면");
+		this.busStopNum = new SimpleIntegerProperty(busStopNum);
+		this.busStopInfo = new SimpleStringProperty(busStopInfo);
 	}
 	
 	public int getBusStopNum() {

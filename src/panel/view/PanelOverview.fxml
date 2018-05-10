@@ -38,7 +38,8 @@
         <columns>
           <TableColumn fx:id="busNumberColumn" prefWidth="75.0" text="Bus Number" />
           <TableColumn fx:id="timeRemainingColumn" prefWidth="75.0" text="Time Remaining" />
-            <TableColumn fx:id="currentStopColumn" prefWidth="75.0" text="Current Stop" />
+            <TableColumn fx:id="currentStopColumn" prefWidth="241.59988403320312" text="Current Stop" />
+            <TableColumn fx:id="availabilityColumn" prefWidth="58.4000244140625" text="Availability" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

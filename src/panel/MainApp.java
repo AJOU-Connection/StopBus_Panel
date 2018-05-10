@@ -22,9 +22,16 @@ public class MainApp extends Application {
 	
 	//panel에 대한 observable 리스트
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
+	private ObservableList<BusStop> busStopData = FXCollections.observableArrayList();
 	
 	//생성자
 	public MainApp() {
+		addArrivingBusInfo();
+		addBusStopInfo();
+	}
+	
+	//도착하는 버스 정보 삽입
+	public void addArrivingBusInfo() {
 		arrivingBusData.add(new ArrivingBus("202", "1min", "A"));
 		arrivingBusData.add(new ArrivingBus("18", "1min", "B"));
 		arrivingBusData.add(new ArrivingBus("32", "2min", "C"));
@@ -35,8 +42,19 @@ public class MainApp extends Application {
 		arrivingBusData.add(new ArrivingBus("7001", "4min", "H"));
 	}
 	
-	public ObservableList<ArrivingBus> getPanelData(){
+	//버스 정류장 정보 삽입
+	public void addBusStopInfo() {
+		busStopData.add(new BusStop(12345, "아주대, 아주대병원 입구", "창현고교, 유신고교 방면"));
+	}
+	
+	//도착하는 버스 정보를 리스트로부터 가져오기
+	public ObservableList<ArrivingBus> getArrivingBusData(){
 		return arrivingBusData;
+	}
+	
+	//버스 정류장 정보를 리스트로부터 가져오기
+	public ObservableList<BusStop> getBusStopData(){
+		return busStopData;
 	}
 	
 	@Override
