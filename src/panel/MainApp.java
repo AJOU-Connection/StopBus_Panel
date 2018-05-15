@@ -48,7 +48,7 @@ public class MainApp extends Application {
 	//버스 정류장 정보 삽입
 	public void addBusStopInfo() {
 		//실제로 데이터 받아오는것 개발 후 그 이후에 수정할 것
-		busStop.setBusStopNum(00000);
+		busStop.setBusStopNum(999999);
 		busStop.setBusStopName("정류장 정보 없음");
 		busStop.setBusStopInfo("방면 정보 없음");
 	}
