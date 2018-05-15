@@ -10,8 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import panel.view.PanelOverviewController;
+import panel.view.SettingDialogController;
 import panel.model.ArrivingBus;
 import panel.model.BusStop;
 
@@ -24,7 +26,6 @@ public class MainApp extends Application {
 	
 	//panel에 대한 observable 리스트
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
-	private ObservableList<BusStop> busStopData = FXCollections.observableArrayList();
 	
 	//생성자
 	public MainApp() {
@@ -34,32 +35,32 @@ public class MainApp extends Application {
 	
 	//도착하는 버스 정보 삽입
 	public void addArrivingBusInfo() {
-		arrivingBusData.add(new ArrivingBus("202", "1min", "A"));
-		arrivingBusData.add(new ArrivingBus("18", "1min", "B"));
-		arrivingBusData.add(new ArrivingBus("32", "2min", "C"));
-		arrivingBusData.add(new ArrivingBus("80", "3min", "D"));
-		arrivingBusData.add(new ArrivingBus("99-2", "4min", "E"));
-		arrivingBusData.add(new ArrivingBus("730", "4min", "F"));
-		arrivingBusData.add(new ArrivingBus("10", "4min", "G"));
-		arrivingBusData.add(new ArrivingBus("7001", "4min", "H"));
+		arrivingBusData.add(new ArrivingBus("202", "1분 10초", "A"));
+		arrivingBusData.add(new ArrivingBus("18", "3분 40초", "B"));
+		arrivingBusData.add(new ArrivingBus("32", "2분 14초", "C"));
+		arrivingBusData.add(new ArrivingBus("80", "1분 57초", "D"));
+		arrivingBusData.add(new ArrivingBus("99-2", "3분 29초", "E"));
+		arrivingBusData.add(new ArrivingBus("730", "4분 53초", "F"));
+		arrivingBusData.add(new ArrivingBus("10", "4분 31초", "G"));
+		arrivingBusData.add(new ArrivingBus("7001", "5분 56초", "H"));
 	}
 	
 	//버스 정류장 정보 삽입
 	public void addBusStopInfo() {
-		//busStopData.add(new BusStop(12345, "아주대, 아주대병원 입구", "창현고교, 유신고교 방면"));
-		busStop.setBusStopNum(12345);
-		busStop.setBusStopName("아주대");
-		busStop.setBusStopInfo("창현고교, 유신고교 방면");
+		//실제로 데이터 받아오는것 개발 후 그 이후에 수정할 것
+		busStop.setBusStopNum(00000);
+		busStop.setBusStopName("정류장 정보 없음");
+		busStop.setBusStopInfo("방면 정보 없음");
 	}
+	
+	public BusStop getBusStop() {
+		return busStop;
+	}
+	
 	
 	//도착하는 버스 정보를 리스트로부터 가져오기
 	public ObservableList<ArrivingBus> getArrivingBusData(){
 		return arrivingBusData;
-	}
-	
-	//버스 정류장 정보를 리스트로부터 가져오기
-	public ObservableList<BusStop> getBusStopData(){
-		return busStopData;
 	}
 	
 	@Override
@@ -102,6 +103,31 @@ public class MainApp extends Application {
 			
 		}catch(IOException e){
 			e.printStackTrace();
+		}
+	}
+	
+	public boolean showSettingDialog(BusStop busStop) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SettingDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Bus Stop");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			
+			SettingDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setBusStop(busStop);
+			
+			dialogStage.showAndWait();
+			return controller.isOkClicked();
+		}catch(IOException e){
+			e.printStackTrace();
+			return false;
 		}
 	}
 	

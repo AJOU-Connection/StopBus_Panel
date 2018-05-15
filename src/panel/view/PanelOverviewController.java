@@ -1,6 +1,7 @@
 package panel.view;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -34,10 +35,21 @@ public class PanelOverviewController {
 		
 	}
 	
-	private void showBusStopDetails(BusStop busStop) {
-		busStopNumLabel.setText(Integer.toString(busStop.getBusStopNum()));
-		busStopNameLabel.setText(busStop.getBusStopName());
-		busStopInfoLabel.setText(busStop.getBusStopInfo());
+	@FXML
+	private void handleSettingBusStop() {
+		BusStop tempBusStop = new BusStop();
+		boolean okClicked = mainApp.showSettingDialog(tempBusStop);
+		if(okClicked) {
+			mainApp.getBusStop().setBusStopNum(tempBusStop.getBusStopNum());
+			mainApp.getBusStop().setBusStopName(tempBusStop.getBusStopName());
+			mainApp.getBusStop().setBusStopInfo(tempBusStop.getBusStopInfo());
+		}
+		busStopNumLabel.setText(Integer.toString(mainApp.getBusStop().getBusStopNum()));
+		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
+		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
+		
+		
+		
 	}
 	
 	@FXML
@@ -82,7 +94,8 @@ public class PanelOverviewController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		arrivingBusTable.setItems(mainApp.getArrivingBusData());
-		
+		//busStopNameLabel.setText(mainApp.setBusStopName());
+		//busStopNameLabel.setWrapText(true);
 	}
 
 }

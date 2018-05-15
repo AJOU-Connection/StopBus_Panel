@@ -1,40 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1200.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panel.view.PanelOverviewController">
    <children>
-      <Pane layoutX="-22.0" prefHeight="120.0" prefWidth="800.0" style="-fx-background-color: #00ACC1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="150.0" prefWidth="800.0" style="-fx-background-color: #00ACC1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="busStopNameLabel" layoutX="290.0" layoutY="42.0" text="Bus Stop Name" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#handleSettingBusStop" style="-fx-background-color: #00ACC1;" text="Setting" textFill="WHITE">
                <font>
-                  <Font size="30.0" />
-               </font></Label>
-            <Label fx:id="busStopNumLabel" layoutX="315.0" layoutY="17.0" text="Bus Stop Number" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-            <Label fx:id="busStopInfoLabel" layoutX="298.0" layoutY="78.0" text="Bus Stop Information" textFill="#e2e2e2">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-         </children>
-      </Pane>
-      <Pane layoutX="300.0" layoutY="144.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #00838F;" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="150.0">
-         <children>
-            <Label layoutX="241.0" layoutY="13.0" text="Arriving Bus" textFill="WHITE">
+                  <Font size="10.0" />
+               </font></Button>
+            <Label fx:id="busStopNumLabel" text="Bus Stop Number" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
+            <Label fx:id="busStopNameLabel" text="Bus Stop Name" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label fx:id="busStopInfoLabel" text="Bus Stop Information" textFill="#e2e2e2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets bottom="15.0" />
+               </padding>
+            </Label>
+         </children>
+      </VBox>
+      <Pane layoutX="300.0" layoutY="144.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #00838F;" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="180.0">
+         <children>
+            <Label layoutX="227.0" layoutY="10.0" text="Arriving Bus" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <TableView fx:id="arrivingBusTable" layoutX="300.0" layoutY="214.0" prefHeight="250.0" prefWidth="600.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="210.0">
+      <TableView fx:id="arrivingBusTable" layoutX="300.0" layoutY="214.0" prefHeight="250.0" prefWidth="600.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="250.0">
         <columns>
           <TableColumn fx:id="busNumberColumn" prefWidth="75.0" text="Bus Number" />
           <TableColumn fx:id="timeRemainingColumn" prefWidth="75.0" text="Time Remaining" />
@@ -44,5 +61,36 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <Pane layoutX="100.0" layoutY="493.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #00838F;" AnchorPane.topAnchor="550.0">
+         <children>
+            <Label layoutX="204.0" layoutY="10.0" text="Bus Information" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <SplitPane dividerPositions="0.5" layoutX="213.0" layoutY="1020.0" prefHeight="60.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00ACC1;">
+               <children>
+                  <Label layoutX="60.0" layoutY="14.0" text="Check Bus Information" textFill="WHITE">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="58.0" prefWidth="362.0" style="-fx-background-color: #00ACC1;">
+               <children>
+                  <Label layoutX="58.0" layoutY="14.0" text="Search Bus Information" textFill="WHITE">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>
