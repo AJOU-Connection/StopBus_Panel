@@ -20,6 +20,8 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	
+	private BusStop busStop = new BusStop();
+	
 	//panel에 대한 observable 리스트
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	private ObservableList<BusStop> busStopData = FXCollections.observableArrayList();
@@ -44,7 +46,10 @@ public class MainApp extends Application {
 	
 	//버스 정류장 정보 삽입
 	public void addBusStopInfo() {
-		busStopData.add(new BusStop(12345, "아주대, 아주대병원 입구", "창현고교, 유신고교 방면"));
+		//busStopData.add(new BusStop(12345, "아주대, 아주대병원 입구", "창현고교, 유신고교 방면"));
+		busStop.setBusStopNum(12345);
+		busStop.setBusStopName("아주대");
+		busStop.setBusStopInfo("창현고교, 유신고교 방면");
 	}
 	
 	//도착하는 버스 정보를 리스트로부터 가져오기
