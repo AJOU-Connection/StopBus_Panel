@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panel.view.PanelOverviewController">
+<AnchorPane prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panel.view.PanelOverviewController">
    <children>
-      <VBox alignment="CENTER" prefHeight="150.0" prefWidth="800.0" style="-fx-background-color: #00ACC1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="120.0" prefWidth="800.0" style="-fx-background-color: #00ACC1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleSettingBusStop" style="-fx-background-color: #00ACC1;" text="Setting" textFill="WHITE">
-               <font>
-                  <Font size="10.0" />
-               </font></Button>
             <Label fx:id="busStopNumLabel" text="Bus Stop Number" textFill="WHITE">
                <font>
                   <Font size="20.0" />
@@ -26,32 +21,26 @@
             </Label>
             <Label fx:id="busStopNameLabel" text="Bus Stop Name" textFill="WHITE">
                <font>
-                  <Font size="35.0" />
+                  <Font size="32.0" />
                </font>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
             </Label>
             <Label fx:id="busStopInfoLabel" text="Bus Stop Information" textFill="#e2e2e2">
                <font>
                   <Font size="20.0" />
                </font>
-               <padding>
-                  <Insets bottom="15.0" />
-               </padding>
             </Label>
          </children>
       </VBox>
-      <Pane layoutX="300.0" layoutY="144.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #00838F;" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="180.0">
-         <children>
-            <Label layoutX="227.0" layoutY="10.0" text="Arriving Bus" textFill="WHITE">
+      <BorderPane layoutX="14.0" layoutY="180.0" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #00838F;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="140.0">
+         <center>
+            <Label text="Arriving Bus" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="25.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
-         </children>
-      </Pane>
-      <TableView fx:id="arrivingBusTable" layoutX="300.0" layoutY="214.0" prefHeight="250.0" prefWidth="600.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="250.0">
+         </center>
+      </BorderPane>
+      <TableView fx:id="arrivingBusTable" layoutX="300.0" layoutY="214.0" prefHeight="200.0" prefWidth="600.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="190.0">
         <columns>
           <TableColumn fx:id="busNumberColumn" prefWidth="75.0" text="Bus Number" />
           <TableColumn fx:id="timeRemainingColumn" prefWidth="75.0" text="Time Remaining" />
@@ -61,36 +50,41 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Pane layoutX="100.0" layoutY="493.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #00838F;" AnchorPane.topAnchor="550.0">
-         <children>
-            <Label layoutX="204.0" layoutY="10.0" text="Bus Information" textFill="WHITE">
+      <SplitPane dividerPositions="0.5" layoutX="213.0" layoutY="1020.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <items>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ACC1;">
+               <center>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #00ACC1;" text="Checking" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ACC1;">
+               <center>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #00ACC1;" text="Searching" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </center>
+            </BorderPane>
+         </items>
+      </SplitPane>
+      <Button layoutX="552.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleSettingBusStop" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #00ACC1;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <BorderPane layoutX="80.0" layoutY="423.0" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #00838F;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="410.0">
+         <center>
+            <Label text="Bus Information" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="25.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
-         </children>
-      </Pane>
-      <SplitPane dividerPositions="0.5" layoutX="213.0" layoutY="1020.0" prefHeight="60.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00ACC1;">
-               <children>
-                  <Label layoutX="60.0" layoutY="14.0" text="Check Bus Information" textFill="WHITE">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="58.0" prefWidth="362.0" style="-fx-background-color: #00ACC1;">
-               <children>
-                  <Label layoutX="58.0" layoutY="14.0" text="Search Bus Information" textFill="WHITE">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

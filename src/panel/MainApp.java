@@ -8,10 +8,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.Node;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import panel.view.PanelOverviewController;
 import panel.view.SettingDialogController;
 import panel.model.ArrivingBus;
@@ -23,6 +29,23 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	
 	private BusStop busStop = new BusStop();
+	
+	private Pagination pagination;
+    String[] fonts = new String[]{};
+ 
+    public int itemsPerPage() {
+        return 15;
+    }
+ 
+    public VBox createPage(int pageIndex) {        
+        VBox box = new VBox(5);
+        int page = pageIndex * itemsPerPage();
+        for (int i = page; i < page + itemsPerPage(); i++) {
+            Label font = new Label(fonts[i]);
+            box.getChildren().add(font);
+        }
+        return box;
+    }
 	
 	//panel에 대한 observable 리스트
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
@@ -41,8 +64,6 @@ public class MainApp extends Application {
 		arrivingBusData.add(new ArrivingBus("80", "1분 57초", "D"));
 		arrivingBusData.add(new ArrivingBus("99-2", "3분 29초", "E"));
 		arrivingBusData.add(new ArrivingBus("730", "4분 53초", "F"));
-		arrivingBusData.add(new ArrivingBus("10", "4분 31초", "G"));
-		arrivingBusData.add(new ArrivingBus("7001", "5분 56초", "H"));
 	}
 	
 	//버스 정류장 정보 삽입
@@ -100,6 +121,25 @@ public class MainApp extends Application {
 			
 			PanelOverviewController controller = loader.getController();
 			controller.setMainApp(this);
+			
+			fonts = Font.getFamilies().toArray(fonts);
+	        
+	        pagination = new Pagination(fonts.length/itemsPerPage(), 0);
+	        pagination.setStyle("-fx-background-color:white;");
+	        pagination.setPageFactory(new Callback<Integer, Node>() {
+	 
+	            @Override
+	            public Node call(Integer pageIndex) {          
+	                return createPage(pageIndex);               
+	            }
+	        });
+	        
+	        panelOverview.setTopAnchor(pagination, 460.0);
+	        panelOverview.setRightAnchor(pagination, 80.0);
+	        panelOverview.setLeftAnchor(pagination, 80.0);
+	        panelOverview.setBottomAnchor(pagination, 80.0);
+	        panelOverview.getChildren().addAll(pagination);
+	        
 			
 		}catch(IOException e){
 			e.printStackTrace();

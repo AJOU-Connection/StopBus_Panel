@@ -77,11 +77,13 @@ public class PanelOverviewController {
 						}
 					});
 
+					/*
 					if(!isEmpty()) {
 						if(rowData.getAvailability() != 0) {
 							currentRow.setStyle("-fx-background-color:lightcoral");
 						}
 					}
+					*/
 					arrivingBusTable.refresh();
 				}
 			};
