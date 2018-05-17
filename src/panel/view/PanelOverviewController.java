@@ -47,9 +47,6 @@ public class PanelOverviewController {
 		busStopNumLabel.setText(Integer.toString(mainApp.getBusStop().getBusStopNum()));
 		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
 		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
-		
-		
-		
 	}
 	
 	@FXML
@@ -96,8 +93,6 @@ public class PanelOverviewController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		arrivingBusTable.setItems(mainApp.getArrivingBusData());
-		//busStopNameLabel.setText(mainApp.setBusStopName());
-		//busStopNameLabel.setWrapText(true);
 	}
 
 }

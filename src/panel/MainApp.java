@@ -2,6 +2,7 @@ package panel;
 
 import java.awt.Panel;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -22,6 +23,15 @@ import panel.view.PanelOverviewController;
 import panel.view.SettingDialogController;
 import panel.model.ArrivingBus;
 import panel.model.BusStop;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.io.*;
+import java.util.*;
+import java.net.*;
 
 public class MainApp extends Application {
 
@@ -31,18 +41,19 @@ public class MainApp extends Application {
 	private BusStop busStop = new BusStop();
 	
 	private Pagination pagination;
-    String[] fonts = new String[]{};
+    //String[] fonts = new String[]{};
  
     public int itemsPerPage() {
-        return 15;
+        return 10;
     }
  
     public VBox createPage(int pageIndex) {        
         VBox box = new VBox(5);
         int page = pageIndex * itemsPerPage();
         for (int i = page; i < page + itemsPerPage(); i++) {
-            Label font = new Label(fonts[i]);
-            box.getChildren().add(font);
+            Label busList = new Label("Hi");
+            busList.setFont(new Font("Arial", 20));
+            box.getChildren().add(busList);
         }
         return box;
     }
@@ -120,11 +131,11 @@ public class MainApp extends Application {
 			rootLayout.setCenter(panelOverview);
 			
 			PanelOverviewController controller = loader.getController();
-			controller.setMainApp(this);
 			
-			fonts = Font.getFamilies().toArray(fonts);
+			
+			//fonts = Font.getFamilies().toArray(fonts);
 	        
-	        pagination = new Pagination(fonts.length/itemsPerPage(), 0);
+	        pagination = new Pagination(43/itemsPerPage()+1, 0);
 	        pagination.setStyle("-fx-background-color:white;");
 	        pagination.setPageFactory(new Callback<Integer, Node>() {
 	 
@@ -140,6 +151,7 @@ public class MainApp extends Application {
 	        panelOverview.setBottomAnchor(pagination, 80.0);
 	        panelOverview.getChildren().addAll(pagination);
 	        
+	        controller.setMainApp(this);
 			
 		}catch(IOException e){
 			e.printStackTrace();
@@ -175,8 +187,77 @@ public class MainApp extends Application {
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
+	
+	public static String excutePost(String targetURL, String urlParameters) {
+		URL url;
+	    HttpURLConnection connection = null;  
+	    try {
+	      //Create connection
+	      url = new URL(targetURL);
+	      connection = (HttpURLConnection)url.openConnection();
+	      connection.setRequestMethod("POST");
+	      connection.setRequestProperty("Content-Type", 
+	           "application/x-www-form-urlencoded");
+				
+	      connection.setRequestProperty("Content-Length", "" + 
+	               Integer.toString(urlParameters.getBytes().length));
+	      connection.setRequestProperty("Content-Language", "en-US");  
+				
+	      connection.setUseCaches (false);
+	      connection.setDoInput(true);
+	      connection.setDoOutput(true);
 
-	public static void main(String[] args) {
+	      //Send request
+	      DataOutputStream wr = new DataOutputStream (
+	                  connection.getOutputStream ());
+	      wr.writeBytes (urlParameters);
+	      wr.flush ();
+	      wr.close ();
+
+	      //Get Response	
+	      InputStream is = connection.getInputStream();
+	      BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+	      String line;
+	      StringBuffer response = new StringBuffer(); 
+	      while((line = rd.readLine()) != null) {
+	        response.append(line);
+	        response.append('\r');
+	      }
+	      rd.close();
+	      return response.toString();
+
+	    } catch (Exception e) {
+
+	      e.printStackTrace();
+	      return null;
+
+	    } finally {
+
+	      if(connection != null) {
+	        connection.disconnect(); 
+	      }
+	    }
+	}
+
+	public static void main(String[] args) throws Exception {
+		
+		//excutePost("http://stop-bus.tk/user/busArrival", urlParameters);
+		
+		URL url = new URL("http://stop-bus.tk/user/busArrival");
+	    URLConnection conn = url.openConnection();
+	    conn.setDoOutput(true);
+	    OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+
+	    writer.write("districtCd=2&stationNumber=04237");
+	    writer.flush();
+	    String line;
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	    while ((line = reader.readLine()) != null) {
+	      System.out.println(line);
+	    }
+	    writer.close();
+	    reader.close();
+	    
 		launch(args);
 	}
 }
