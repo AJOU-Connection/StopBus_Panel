@@ -86,15 +86,5 @@
             </Label>
          </center>
       </BorderPane>
-      <TableView fx:id="busInfoTable" layoutX="80.0" layoutY="458.0" prefHeight="250.0" prefWidth="440.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="460.0">
-        <columns>
-          <TableColumn fx:id="busInfoNumColumn" prefWidth="75.0" text="Bus Number" />
-          <TableColumn fx:id="busInfoTimeColumn" prefWidth="75.0" text="Time Remaining" />
-            <TableColumn fx:id="busInfoStopColumn" prefWidth="75.0" text="Current Stop" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
    </children>
 </AnchorPane>

@@ -13,10 +13,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.Node;
@@ -51,54 +50,57 @@ public class MainApp extends Application {
 		getBusInfoList();
 	}
  
-	//------------------------------------------------------
-    
-    /*
-    
     public int itemsPerPage() {
-        return 1;
-    }
-    
-    public int rowsPerPage() {
-    	return 5;
+        return 10;
     }
  
-    
-    public VBox createPage(int pageIndex) {
-    	
+    public VBox createPage(int pageIndex) {        
         VBox box = new VBox(5);
+        box.setStyle("-fx-border-color: #C8C8C8;");
         int page = pageIndex * itemsPerPage();
-
+        
         for (int i = page; i < page + itemsPerPage(); i++) {
-            //Label의 text 수정
-        	BusInfo tempBusStop = busInfoList.get(i);
-        	Label busList = new Label(tempBusStop.getBusNum()+" ("+tempBusStop.getCurrentStop()+"정거장 전, "+tempBusStop.getTimeRemaining()+"분)");
-            busList.setFont(new Font("Arial", 20));
-            box.getChildren().add(busList);
+ 
+        	HBox hbox = new HBox();
+        	hbox.setStyle("-fx-border-color: #F2F2F2");
+        	
+        	if(i < busInfoList.size()) {
+        		BusInfo tempBusStop = busInfoList.get(i);
+            	//Label busList = new Label(tempBusStop.getBusNum()+" ("+tempBusStop.getCurrentStop()+"정거장 전, "+tempBusStop.getTimeRemaining()+"분)");
+                //busList.setFont(new Font("Arial", 20));
+                //busList.setStyle("-fx-padding: 10;");
+                
+        		Label busNum = new Label(tempBusStop.getBusNum()+"번");
+        		Label busTime = new Label(tempBusStop.getTimeRemaining()+"분 전");
+        		Label busStop = new Label(tempBusStop.getCurrentStop()+" 정거장 전");
+        		
+        		busNum.setFont(new Font("Arial", 18));
+        		busNum.setStyle("-fx-padding: 10;");
+        		busNum.setMinWidth(160.0);
+        		busTime.setFont(new Font("Arial", 18));
+        		busTime.setStyle("-fx-padding: 10;");
+        		busTime.setMinWidth(160.0);
+        		busStop.setFont(new Font("Arial", 18));
+        		busStop.setStyle("-fx-padding: 10;");
+        		busStop.setMinWidth(160.0);
+        		
+        		hbox.getChildren().add(busNum);
+        		hbox.getChildren().add(busTime);
+        		hbox.getChildren().add(busStop);
+                
+                box.getChildren().add(hbox);
+        	}
+        	else {
+            	Label nullLabel = new Label("");
+            	nullLabel.setFont(new Font("Arial", 18));
+            	nullLabel.setStyle("-fx-padding: 10;");
+                hbox.getChildren().add(nullLabel);
+                box.getChildren().add(hbox);
+        	}
+
         }
         return box;
-        
-        ---------------------------------------------------
-        int lastIndex = 0;
-    	int displace = busInfoList.size() % rowsPerPage();
-    	if(displace > 0) {
-    		lastIndex = busInfoList.size() / rowsPerPage();
-    	}else {
-    		lastIndex = busInfoList.size() / rowsPerPage() - 1;
-    	}
-    	
-    	VBox box = new VBox(5);
-    	int page = pageIndex * itemsPerPage();
-    	
-    	for (int i = page; i < page + itemsPerPage(); i++) {
-    		TableView<BusInfo> table = new TableView<BusInfo>();
-    		TableColumn busNumberColumn = new TableColumn("")
-    	}
     }
-    
-    */
-    
-    //----------------------------------------------------------
     
 	//도착하는 버스 정보 삽입
 	public void addArrivingBusInfo() {
@@ -136,10 +138,6 @@ public class MainApp extends Application {
 	    	System.out.println(tempBusStop.getBusNum());
 		}
 		*/
-	}
-	
-	public ObservableList<BusInfo> getBusInfoData(){
-		return busInfoList;
 	}
 	
 	//도착하는 버스 정보를 리스트로부터 가져오기
@@ -184,8 +182,7 @@ public class MainApp extends Application {
 			
 			PanelOverviewController controller = loader.getController();
 	        
-			/*
-	        pagination = new Pagination(busInfoList.size()/itemsPerPage()+1, 0);
+	        pagination = new Pagination(busInfoList.size()/itemsPerPage() + 1, 0);
 	        pagination.setStyle("-fx-background-color:white;");
 	        pagination.setPageFactory(new Callback<Integer, Node>() {
 	 
@@ -200,15 +197,9 @@ public class MainApp extends Application {
 	        panelOverview.setLeftAnchor(pagination, 80.0);
 	        panelOverview.setBottomAnchor(pagination, 80.0);
 	        panelOverview.getChildren().addAll(pagination);
-	        */
+	        
 	        controller.setMainApp(this);
-	        panelOverview.setTopAnchor(controller.getPagination(), 460.0);
-	        panelOverview.setRightAnchor(controller.getPagination(), 80.0);
-	        panelOverview.setLeftAnchor(controller.getPagination(), 80.0);
-	        panelOverview.setBottomAnchor(controller.getPagination(), 80.0);
-	        panelOverview.getChildren().addAll(controller.getPagination());
-	        
-	        
+			
 		}catch(IOException e){
 			e.printStackTrace();
 		}
