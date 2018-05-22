@@ -31,7 +31,7 @@ public class SettingDialogController {
 	
 	public void setBusStop(BusStop busStop) {
 		this.busStop = busStop;
-		busStopNumField.setText(Integer.toString(busStop.getBusStopNum()));
+		busStopNumField.setText(busStop.getBusStopNum());
 		busStopNameField.setText(busStop.getBusStopName());
 		busStopInfoField.setText(busStop.getBusStopInfo());
 	}
@@ -43,7 +43,7 @@ public class SettingDialogController {
 	@FXML
 	private void handleOk() {
 		if(isInputValid()) {
-			busStop.setBusStopNum(Integer.parseInt(busStopNumField.getText()));
+			busStop.setBusStopNum(busStopNumField.getText());
 			busStop.setBusStopName(busStopNameField.getText());
 			busStop.setBusStopInfo(busStopInfoField.getText());
 			okClicked = true;
@@ -59,14 +59,7 @@ public class SettingDialogController {
 	private boolean isInputValid() {
 		String errorMessage = "";
 		if(busStopNumField.getText() == null || busStopNumField.getText().length() == 0) {
-			errorMessage += "Np Valid bus stop number!\n";
-		}
-		else {
-			try {
-				Integer.parseInt(busStopNumField.getText());
-			}catch(NumberFormatException e) {
-				errorMessage += "No Valid bus stop number(must be an integer)!\n";
-			}
+			errorMessage += "No Valid bus stop number!\n";
 		}
 		if(busStopNameField.getText() == null || busStopNameField.getText().length() == 0) {
 			errorMessage += "No valid bus stop name!\n";

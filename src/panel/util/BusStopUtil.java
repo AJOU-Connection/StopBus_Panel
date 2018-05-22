@@ -6,14 +6,22 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class BusStopUtil {
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
-	public String getBusStopInfo(String routeID){
+import panel.model.BusStop;
+
+public class BusStopUtil {
+	
+	BusStop busStop = new BusStop();
+
+	public String setBusStop(String keyword){
 		String result = "";
 		
 		
 		try {
-			String targetURL = "http://stop-bus.tk/user/routeInfo";
+			String targetURL = "http://stop-bus.tk/user/search?type=station";
 			URL url = new URL(targetURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -21,7 +29,7 @@ public class BusStopUtil {
 			conn.setRequestMethod("POST"); // 보내는 타입
 
 			// 데이터
-			String param = "{\"routeID\":\""+routeID+"\"}";
+			String param = "{\"keyword\":\""+keyword+"\"}";
 
 			// 전송
 			OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
@@ -35,8 +43,19 @@ public class BusStopUtil {
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
-
-			System.out.println(result);
+			
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObj = (JSONObject) jsonParser.parse(result);
+			JSONArray array = (JSONArray) jsonObj.get("body");
+			
+			for(int i=0; i<array.size(); i++) {
+				JSONObject tempObj = (JSONObject) array.get(i);
+				busStop.setBusStopNum(String.valueOf(tempObj.get("stationNumber")));
+				busStop.setBusStopName(String.valueOf(tempObj.get("stationName")));
+				busStop.setBusStopInfo(String.valueOf(tempObj.get("stationDirect")));
+			}
+		
+			//System.out.println(result);
 			// 닫기
 			osw.close();
 			br.close();
@@ -45,5 +64,8 @@ public class BusStopUtil {
 		}
 		
 		return result;
+	}
+	public BusStop getBusStop() {
+		return busStop;
 	}
 }

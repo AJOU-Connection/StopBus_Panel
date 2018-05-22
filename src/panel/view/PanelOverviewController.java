@@ -40,11 +40,11 @@ public class PanelOverviewController {
 		BusStop tempBusStop = new BusStop();
 		boolean okClicked = mainApp.showSettingDialog(tempBusStop);
 		if(okClicked) {
-			mainApp.getBusStop().setBusStopNum(tempBusStop.getBusStopNum());
-			mainApp.getBusStop().setBusStopName(tempBusStop.getBusStopName());
-			mainApp.getBusStop().setBusStopInfo(tempBusStop.getBusStopInfo());
+			//mainApp.getBusStop().setBusStopNum(tempBusStop.getBusStopNum());
+			//mainApp.getBusStop().setBusStopName(tempBusStop.getBusStopName());
+			//mainApp.getBusStop().setBusStopInfo(tempBusStop.getBusStopInfo());
 		}
-		busStopNumLabel.setText(Integer.toString(mainApp.getBusStop().getBusStopNum()));
+		busStopNumLabel.setText(mainApp.getBusStop().getBusStopNum());
 		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
 		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
 	}

@@ -37,9 +37,17 @@ public class MainApp extends Application {
 	
 	private BusStop busStop = new BusStop();
 	private List<BusInfo> busInfoList = new ArrayList<BusInfo>();
-	
+	//panel에 대한 observable 리스트
+	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	
 	private Pagination pagination;
+	
+	//생성자
+	public MainApp() {
+		addArrivingBusInfo();
+		getBusStopInfo();
+		getBusInfoList();
+	}
  
     public int itemsPerPage() {
         return 10;
@@ -58,17 +66,7 @@ public class MainApp extends Application {
         }
         return box;
     }
-	
-	//panel에 대한 observable 리스트
-	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
-	
-	//생성자
-	public MainApp() {
-		addArrivingBusInfo();
-		addBusStopInfo();
-		getBusInfoList();
-	}
-	
+    
 	//도착하는 버스 정보 삽입
 	public void addArrivingBusInfo() {
 		arrivingBusData.add(new ArrivingBus("202", "1분 10초", "A"));
@@ -80,11 +78,15 @@ public class MainApp extends Application {
 	}
 	
 	//버스 정류장 정보 삽입
-	public void addBusStopInfo() {
+	public void getBusStopInfo() {
 		//실제로 데이터 받아오는것 개발 후 그 이후에 수정할 것
-		busStop.setBusStopNum(999999);
-		busStop.setBusStopName("정류장 정보 없음");
-		busStop.setBusStopInfo("방면 정보 없음");
+		//busStop.setBusStopNum("정류장 정보 없음");
+		//busStop.setBusStopName("정류장 정보 없음");
+		//busStop.setBusStopInfo("방면 정보 없음");
+		BusStopUtil busStopUtil = new BusStopUtil();
+		busStopUtil.setBusStop("04237");
+		busStop = busStopUtil.getBusStop();
+		
 	}
 	
 	public BusStop getBusStop() {
@@ -93,7 +95,7 @@ public class MainApp extends Application {
 
 	public void getBusInfoList() {
 		BusInfoUtil busInfoUtil = new BusInfoUtil();
-		busInfoUtil.getArrivalTimes("04237");
+		busInfoUtil.setBusInfo("04237");
 		busInfoList = busInfoUtil.getBusInfoList();
 		/*
 		for(int i = 0; i<busInfoList.size(); i++) {

@@ -16,9 +16,9 @@ import panel.model.BusInfo;
 
 public class BusInfoUtil {
 
-	private List<BusInfo> busStopList = new ArrayList<BusInfo>();
+	private List<BusInfo> busInfoList = new ArrayList<BusInfo>();
 	
-	public String getArrivalTimes(String stationNumber){
+	public String setBusInfo(String stationNumber){
 		String result = "";
 		
 		try {
@@ -43,7 +43,6 @@ public class BusInfoUtil {
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				result += line;
-				//System.out.println("routeNumber");
 			}
 			
 			JSONParser jsonParser = new JSONParser();
@@ -52,14 +51,13 @@ public class BusInfoUtil {
 			
 			for(int i=0; i<array.size(); i++) {
 				JSONObject tempObj = (JSONObject) array.get(i);
-				
 				BusInfo tempBusInfo = new BusInfo();
 				tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
 				tempBusInfo.setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
 				tempBusInfo.setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
-				busStopList.add(tempBusInfo);
+				busInfoList.add(tempBusInfo);
 			}
-			//System.out.println(result);
+
 			// ´Ý±â
 			osw.close();
 			br.close();
@@ -71,6 +69,6 @@ public class BusInfoUtil {
 	}
 	
 	public List<BusInfo> getBusInfoList(){
-		return busStopList;
+		return busInfoList;
 	}
 }

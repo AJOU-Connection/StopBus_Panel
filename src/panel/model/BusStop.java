@@ -1,37 +1,37 @@
 package panel.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class BusStop {
 
-	private final IntegerProperty busStopNum;
+	private final StringProperty busStopNum;
 	private final StringProperty busStopName;
 	private final StringProperty busStopInfo;
 	
 	public BusStop() {
-		this(0, null, null);
+		this(null, null, null);
 	}
 	
-	public BusStop(int busStopNum, String busStopName, String busStopInfo){
+	public BusStop(String busStopNum, String busStopName, String busStopInfo){
 		
 		this.busStopName = new SimpleStringProperty(busStopName);
 		
-		this.busStopNum = new SimpleIntegerProperty(busStopNum);
+		this.busStopNum = new SimpleStringProperty(busStopNum);
 		this.busStopInfo = new SimpleStringProperty(busStopInfo);
 	}
 	
-	public int getBusStopNum() {
+	public String getBusStopNum() {
 		return busStopNum.get();
 	}
 	
-	public void setBusStopNum(int busStopNum) {
+	public void setBusStopNum(String busStopNum) {
 		this.busStopNum.set(busStopNum);
 	}
 	
-	public IntegerProperty busStopNumProperty() {
+	public StringProperty busStopNumProperty() {
 		return busStopNum;
 	}
 	
