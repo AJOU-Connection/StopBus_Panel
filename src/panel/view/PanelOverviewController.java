@@ -93,6 +93,9 @@ public class PanelOverviewController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		arrivingBusTable.setItems(mainApp.getArrivingBusData());
+		busStopNumLabel.setText(mainApp.getBusStop().getBusStopNum());
+		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
+		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
 	}
 
 }

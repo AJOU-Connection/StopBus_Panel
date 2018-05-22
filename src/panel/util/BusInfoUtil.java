@@ -12,11 +12,15 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import panel.model.BusInfo;
 
 public class BusInfoUtil {
 
-	private List<BusInfo> busInfoList = new ArrayList<BusInfo>();
+	//private List<BusInfo> busInfoList = new ArrayList<BusInfo>();
+	
+	private ObservableList<BusInfo> busInfoList = FXCollections.observableArrayList();
 	
 	public String setBusInfo(String stationNumber){
 		String result = "";
@@ -68,7 +72,7 @@ public class BusInfoUtil {
 		return result;
 	}
 	
-	public List<BusInfo> getBusInfoList(){
+	public ObservableList<BusInfo> getBusInfoList(){
 		return busInfoList;
 	}
 }

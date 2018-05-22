@@ -36,7 +36,7 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	
 	private BusStop busStop = new BusStop();
-	private List<BusInfo> busInfoList = new ArrayList<BusInfo>();
+	private ObservableList<BusInfo> busInfoList = FXCollections.observableArrayList();
 	//panel에 대한 observable 리스트
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	
@@ -146,9 +146,6 @@ public class MainApp extends Application {
 			rootLayout.setCenter(panelOverview);
 			
 			PanelOverviewController controller = loader.getController();
-			
-			
-			//fonts = Font.getFamilies().toArray(fonts);
 	        
 	        pagination = new Pagination(busInfoList.size()/itemsPerPage()+1, 0);
 	        pagination.setStyle("-fx-background-color:white;");

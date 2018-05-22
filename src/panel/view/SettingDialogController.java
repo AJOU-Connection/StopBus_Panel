@@ -59,7 +59,7 @@ public class SettingDialogController {
 	private boolean isInputValid() {
 		String errorMessage = "";
 		if(busStopNumField.getText() == null || busStopNumField.getText().length() == 0) {
-			errorMessage += "No Valid bus stop number!\n";
+			errorMessage += "No valid bus stop number!\n";
 		}
 		if(busStopNameField.getText() == null || busStopNameField.getText().length() == 0) {
 			errorMessage += "No valid bus stop name!\n";
