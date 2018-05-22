@@ -13,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -49,11 +51,21 @@ public class MainApp extends Application {
 		getBusInfoList();
 	}
  
+	//------------------------------------------------------
+    
+    /*
+    
     public int itemsPerPage() {
-        return 10;
+        return 1;
+    }
+    
+    public int rowsPerPage() {
+    	return 5;
     }
  
-    public VBox createPage(int pageIndex) {        
+    
+    public VBox createPage(int pageIndex) {
+    	
         VBox box = new VBox(5);
         int page = pageIndex * itemsPerPage();
 
@@ -65,7 +77,28 @@ public class MainApp extends Application {
             box.getChildren().add(busList);
         }
         return box;
+        
+        ---------------------------------------------------
+        int lastIndex = 0;
+    	int displace = busInfoList.size() % rowsPerPage();
+    	if(displace > 0) {
+    		lastIndex = busInfoList.size() / rowsPerPage();
+    	}else {
+    		lastIndex = busInfoList.size() / rowsPerPage() - 1;
+    	}
+    	
+    	VBox box = new VBox(5);
+    	int page = pageIndex * itemsPerPage();
+    	
+    	for (int i = page; i < page + itemsPerPage(); i++) {
+    		TableView<BusInfo> table = new TableView<BusInfo>();
+    		TableColumn busNumberColumn = new TableColumn("")
+    	}
     }
+    
+    */
+    
+    //----------------------------------------------------------
     
 	//도착하는 버스 정보 삽입
 	public void addArrivingBusInfo() {
@@ -103,6 +136,10 @@ public class MainApp extends Application {
 	    	System.out.println(tempBusStop.getBusNum());
 		}
 		*/
+	}
+	
+	public ObservableList<BusInfo> getBusInfoData(){
+		return busInfoList;
 	}
 	
 	//도착하는 버스 정보를 리스트로부터 가져오기
@@ -147,6 +184,7 @@ public class MainApp extends Application {
 			
 			PanelOverviewController controller = loader.getController();
 	        
+			/*
 	        pagination = new Pagination(busInfoList.size()/itemsPerPage()+1, 0);
 	        pagination.setStyle("-fx-background-color:white;");
 	        pagination.setPageFactory(new Callback<Integer, Node>() {
@@ -162,9 +200,15 @@ public class MainApp extends Application {
 	        panelOverview.setLeftAnchor(pagination, 80.0);
 	        panelOverview.setBottomAnchor(pagination, 80.0);
 	        panelOverview.getChildren().addAll(pagination);
-	        
+	        */
 	        controller.setMainApp(this);
-			
+	        panelOverview.setTopAnchor(controller.getPagination(), 460.0);
+	        panelOverview.setRightAnchor(controller.getPagination(), 80.0);
+	        panelOverview.setLeftAnchor(controller.getPagination(), 80.0);
+	        panelOverview.setBottomAnchor(controller.getPagination(), 80.0);
+	        panelOverview.getChildren().addAll(controller.getPagination());
+	        
+	        
 		}catch(IOException e){
 			e.printStackTrace();
 		}
