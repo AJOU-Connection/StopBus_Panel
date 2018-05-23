@@ -46,9 +46,9 @@ public class MainApp extends Application {
 	
 	//생성자
 	public MainApp() {
-		addArrivingBusInfo();
 		getBusStopInfo();
 		getBusInfoList();
+		getArrivingBusInfo();
 	}
  
     public int itemsPerPage() {
@@ -68,9 +68,6 @@ public class MainApp extends Application {
         	
         	if(i < busInfoList.size()) {
         		BusInfo tempBusStop = busInfoList.get(i);
-            	//Label busList = new Label(tempBusStop.getBusNum()+" ("+tempBusStop.getCurrentStop()+"정거장 전, "+tempBusStop.getTimeRemaining()+"분)");
-                //busList.setFont(new Font("Arial", 20));
-                //busList.setStyle("-fx-padding: 10;");
                 
         		Label busNum = new Label(tempBusStop.getBusNum()+" 번");
         		Label busTime = new Label(tempBusStop.getTimeRemaining()+" 분 전");
@@ -105,21 +102,40 @@ public class MainApp extends Application {
     }
     
 	//도착하는 버스 정보 삽입
-	public void addArrivingBusInfo() {
+	public void getArrivingBusInfo() {
+		
+		ObservableList<BusInfo> tempList = busInfoList;
+		BusInfo tempInfo;
+		
+		tempList.sort((a, b) -> Integer.compare(Integer.parseInt(a.getTimeRemaining()), Integer.parseInt(b.getTimeRemaining())));
+		
+		for(int i = 0; i < 6; i++) {
+			ArrivingBus tempBus = new ArrivingBus();
+			tempInfo = tempList.get(i);
+			tempBus.setBusNumber(tempInfo.getBusNum());
+			tempBus.setCurrentStop(tempInfo.getCurrentStop());
+			tempBus.setTimeRemaining(tempInfo.getTimeRemaining());
+			arrivingBusData.add(tempBus);
+		}
+		
+		arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
+
+		for(int k = 0; k < tempList.size(); k++) {
+			//ArrivingBus tempBus = arrivingBusData.get(k);
+			//System.out.println(tempBus.getBusNumber+"\t"+tempInfo.getTimeRemaining()+"분\t"+tempInfo.getCurrentStop()+"정거장 전");
+		}
+		/*
 		arrivingBusData.add(new ArrivingBus("202", "1분 10초", "A"));
 		arrivingBusData.add(new ArrivingBus("18", "3분 40초", "B"));
 		arrivingBusData.add(new ArrivingBus("32", "2분 14초", "C"));
 		arrivingBusData.add(new ArrivingBus("80", "1분 57초", "D"));
 		arrivingBusData.add(new ArrivingBus("99-2", "3분 29초", "E"));
 		arrivingBusData.add(new ArrivingBus("730", "4분 53초", "F"));
+		*/
 	}
 	
 	//버스 정류장 정보 삽입
 	public void getBusStopInfo() {
-		//실제로 데이터 받아오는것 개발 후 그 이후에 수정할 것
-		//busStop.setBusStopNum("정류장 정보 없음");
-		//busStop.setBusStopName("정류장 정보 없음");
-		//busStop.setBusStopInfo("방면 정보 없음");
 		BusStopUtil busStopUtil = new BusStopUtil();
 		busStopUtil.setBusStop("04237");
 		busStop = busStopUtil.getBusStop();
@@ -134,12 +150,6 @@ public class MainApp extends Application {
 		BusInfoUtil busInfoUtil = new BusInfoUtil();
 		busInfoUtil.setBusInfo("04237");
 		busInfoList = busInfoUtil.getBusInfoList();
-		/*
-		for(int i = 0; i<busInfoList.size(); i++) {
-			BusInfo tempBusStop = busInfoList.get(i);
-	    	System.out.println(tempBusStop.getBusNum());
-		}
-		*/
 	}
 	
 	//도착하는 버스 정보를 리스트로부터 가져오기
