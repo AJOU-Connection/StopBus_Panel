@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
@@ -51,7 +52,7 @@ public class MainApp extends Application {
 	}
  
     public int itemsPerPage() {
-        return 10;
+        return 8;
     }
  
     public VBox createPage(int pageIndex) {        
@@ -62,7 +63,8 @@ public class MainApp extends Application {
         for (int i = page; i < page + itemsPerPage(); i++) {
  
         	HBox hbox = new HBox();
-        	hbox.setStyle("-fx-border-color: #F2F2F2");
+        	hbox.setStyle("-fx-background-color: #F9F9F9");
+        	hbox.setAlignment(Pos.CENTER);
         	
         	if(i < busInfoList.size()) {
         		BusInfo tempBusStop = busInfoList.get(i);
@@ -70,17 +72,17 @@ public class MainApp extends Application {
                 //busList.setFont(new Font("Arial", 20));
                 //busList.setStyle("-fx-padding: 10;");
                 
-        		Label busNum = new Label(tempBusStop.getBusNum()+"번");
-        		Label busTime = new Label(tempBusStop.getTimeRemaining()+"분 전");
+        		Label busNum = new Label(tempBusStop.getBusNum()+" 번");
+        		Label busTime = new Label(tempBusStop.getTimeRemaining()+" 분 전");
         		Label busStop = new Label(tempBusStop.getCurrentStop()+" 정거장 전");
         		
-        		busNum.setFont(new Font("Arial", 18));
+        		busNum.setFont(new Font("Arial", 16));
         		busNum.setStyle("-fx-padding: 10;");
         		busNum.setMinWidth(160.0);
-        		busTime.setFont(new Font("Arial", 18));
+        		busTime.setFont(new Font("Arial", 16));
         		busTime.setStyle("-fx-padding: 10;");
         		busTime.setMinWidth(160.0);
-        		busStop.setFont(new Font("Arial", 18));
+        		busStop.setFont(new Font("Arial", 16));
         		busStop.setStyle("-fx-padding: 10;");
         		busStop.setMinWidth(160.0);
         		
@@ -92,7 +94,7 @@ public class MainApp extends Application {
         	}
         	else {
             	Label nullLabel = new Label("");
-            	nullLabel.setFont(new Font("Arial", 18));
+            	nullLabel.setFont(new Font("Arial", 16));
             	nullLabel.setStyle("-fx-padding: 10;");
                 hbox.getChildren().add(nullLabel);
                 box.getChildren().add(hbox);
@@ -192,10 +194,10 @@ public class MainApp extends Application {
 	            }
 	        });
 	        
-	        panelOverview.setTopAnchor(pagination, 460.0);
+	        panelOverview.setTopAnchor(pagination, 560.0);
 	        panelOverview.setRightAnchor(pagination, 80.0);
 	        panelOverview.setLeftAnchor(pagination, 80.0);
-	        panelOverview.setBottomAnchor(pagination, 80.0);
+	        //panelOverview.setBottomAnchor(pagination, 80.0);
 	        panelOverview.getChildren().addAll(pagination);
 	        
 	        controller.setMainApp(this);
