@@ -114,6 +114,8 @@ public class PanelOverviewController {
         	hbox.setStyle("-fx-border-color: #F9F9F9");
         	hbox.setAlignment(Pos.CENTER);
         	
+        	System.out.println(tempArrivingBus.getAvailability());
+        	
         	if(tempArrivingBus.getAvailability() != 0) {
         		hbox.setStyle("-fx-background-color:lightcoral");
         	}
@@ -160,22 +162,16 @@ public class PanelOverviewController {
 	private void setAvailability(int i) {
 		int index = i / 40;
 		arrivingBusData.get(index).setAvailability(1);
-		
-		for(int j = 0; j < 6; j++) {
-			System.out.println(arrivingBusData.get(j).getBusNumber()+", "+arrivingBusData.get(j).getAvailability());
-			
-		}
-		System.out.println("----------------------------------------");
 	}
 
 	@FXML
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-		arrivingBusData = mainApp.getArrivingBusData();
-		createArrivingBusBox();
 		busStopNumLabel.setText(mainApp.getBusStop().getBusStopNum());
 		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
 		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
+		arrivingBusData = mainApp.getArrivingBusData();
+		createArrivingBusBox();
 		boxifyBoxes();
 	}
 

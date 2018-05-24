@@ -44,6 +44,8 @@ public class MainApp extends Application {
 	
 	private Pagination pagination;
 	
+	
+	
 	//생성자
 	public MainApp() {
 		getBusStopInfo();
@@ -62,13 +64,16 @@ public class MainApp extends Application {
         
         for (int i = page; i < page + itemsPerPage(); i++) {
  
+        	final int click = i;
+        	
         	HBox hbox = new HBox();
         	hbox.setStyle("-fx-background-color: #F9F9F9");
         	hbox.setAlignment(Pos.CENTER);
         	
         	if(i < busInfoList.size()) {
         		BusInfo tempBusStop = busInfoList.get(i);
-                
+                boolean flag = false;
+        		
         		Label busNum = new Label(tempBusStop.getBusNum()+" 번");
         		Label busTime = new Label(tempBusStop.getTimeRemaining()+" 분 전");
         		Label busStop = new Label(tempBusStop.getCurrentStop()+" 정거장 전");
@@ -88,6 +93,17 @@ public class MainApp extends Application {
         		hbox.getChildren().add(busStop);
                 
                 box.getChildren().add(hbox);
+                
+                if(busInfoList.get(i).getAvailability() != 0) {
+                	hbox.setStyle("-fx-background-color:lightcoral");
+                }
+                
+                hbox.setOnMouseClicked((e) -> {
+    				hbox.setStyle("-fx-background-color:lightcoral");
+    				
+    				busInfoList.get(click).setAvailability(1);
+    				//System.out.println(hb.getLayoutX()+", "+hb.getLayoutY());
+    			});
         	}
         	else {
             	Label nullLabel = new Label("");
@@ -101,6 +117,7 @@ public class MainApp extends Application {
         return box;
     }
     
+	
 	//도착하는 버스 정보 삽입
 	public void getArrivingBusInfo() {
 		
@@ -119,20 +136,9 @@ public class MainApp extends Application {
 		}
 		
 		arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
-
-		for(int k = 0; k < tempList.size(); k++) {
-			//ArrivingBus tempBus = arrivingBusData.get(k);
-			//System.out.println(tempBus.getBusNumber+"\t"+tempInfo.getTimeRemaining()+"분\t"+tempInfo.getCurrentStop()+"정거장 전");
-		}
-		/*
-		arrivingBusData.add(new ArrivingBus("202", "1분 10초", "A"));
-		arrivingBusData.add(new ArrivingBus("18", "3분 40초", "B"));
-		arrivingBusData.add(new ArrivingBus("32", "2분 14초", "C"));
-		arrivingBusData.add(new ArrivingBus("80", "1분 57초", "D"));
-		arrivingBusData.add(new ArrivingBus("99-2", "3분 29초", "E"));
-		arrivingBusData.add(new ArrivingBus("730", "4분 53초", "F"));
-		*/
 	}
+	
+	
 	
 	//버스 정류장 정보 삽입
 	public void getBusStopInfo() {
@@ -258,5 +264,6 @@ public class MainApp extends Application {
 		//busInfoUtil.getArrivalTimes("04237");
 		
 		launch(args);
+		
 	}
 }

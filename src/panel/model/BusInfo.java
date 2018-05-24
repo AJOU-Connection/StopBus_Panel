@@ -1,5 +1,7 @@
 package panel.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -9,6 +11,8 @@ public class BusInfo {
 	private final StringProperty timeRemaining;
 	private final StringProperty currentStop;
 	
+	private final IntegerProperty availability;
+	
 	public BusInfo() {
 		this(null, null, null);
 	}
@@ -17,6 +21,7 @@ public class BusInfo {
 		this.busNum = new SimpleStringProperty(busNum);
 		this.timeRemaining = new SimpleStringProperty(timeRemaining);
 		this.currentStop = new SimpleStringProperty(currentStop);
+		this.availability = new SimpleIntegerProperty(0);
 	}
 	
 	public String getBusNum() {
@@ -54,4 +59,15 @@ public class BusInfo {
 		return currentStop;
 	}
 	
+	public int getAvailability() {
+		return availability.get();
+	}
+	
+	public void setAvailability(int availability) {
+		this.availability.set(availability);
+	}
+	
+	public IntegerProperty availabilityProperty() {
+		return availability;
+	}
 }
