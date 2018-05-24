@@ -109,12 +109,13 @@ public class MainApp extends Application {
 		}
 		
 		arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
-		
+
 		for(int i = 0; i < 6; i++) {
         	System.out.println(arrivingBusData.get(i).getBusNumber()+"\t"+arrivingBusData.get(i).getAvailability());
         }
 		
 		System.out.println("-----------------------------------");
+
 	}
 	
 	//-------------------------------------controller에 data 넘기기-------------------------------------
@@ -149,7 +150,7 @@ public class MainApp extends Application {
         	final int click = i;
         	
         	HBox hbox = new HBox();
-        	hbox.setStyle("-fx-background-color: #F9F9F9");
+        	hbox.setStyle("-fx-background-color: #FFFFFF");
         	hbox.setAlignment(Pos.CENTER);
         	
         	if(i < busInfoList.size()) {
@@ -160,13 +161,13 @@ public class MainApp extends Application {
         		Label busTime = new Label(tempBusStop.getTimeRemaining()+" 분 전");
         		Label busStop = new Label(tempBusStop.getCurrentStop()+" 정거장 전");
         		
-        		busNum.setFont(new Font("Arial", 16));
+        		busNum.setFont(new Font("Hancom Gothic", 16));
         		busNum.setStyle("-fx-padding: 10;");
         		busNum.setMinWidth(160.0);
-        		busTime.setFont(new Font("Arial", 16));
+        		busTime.setFont(new Font("Hancom Gothic", 16));
         		busTime.setStyle("-fx-padding: 10;");
         		busTime.setMinWidth(160.0);
-        		busStop.setFont(new Font("Arial", 16));
+        		busStop.setFont(new Font("Hancom Gothic", 16));
         		busStop.setStyle("-fx-padding: 10;");
         		busStop.setMinWidth(160.0);
         		
@@ -188,7 +189,7 @@ public class MainApp extends Application {
         	}
         	else {
             	Label nullLabel = new Label("");
-            	nullLabel.setFont(new Font("Arial", 16));
+            	nullLabel.setFont(new Font("Hancom Gothic", 16));
             	nullLabel.setStyle("-fx-padding: 10;");
                 hbox.getChildren().add(nullLabel);
                 box.getChildren().add(hbox);

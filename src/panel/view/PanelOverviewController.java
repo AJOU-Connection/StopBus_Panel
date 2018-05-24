@@ -15,6 +15,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -37,13 +39,22 @@ public class PanelOverviewController {
 	private Label busStopInfoLabel;
 	
 	@FXML
-	private Pane testPane;
-	
-	@FXML
 	private Button searching;
 	
 	@FXML
 	private Button checking;
+	
+	@FXML
+	private Button textsearching;
+	
+	@FXML
+	private TextField searchText;
+	
+	@FXML
+	private TextArea searchResult;
+	
+	@FXML
+	private VBox searchBox;
 	
 
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
@@ -55,15 +66,24 @@ public class PanelOverviewController {
 	}
 	
 	@FXML
+	private void getSearchingText() {
+		System.out.println(searchText.getText());
+	}
+	
+	@FXML
 	private void setVisible() {
-		testPane.setVisible(true);
+		searchBox.setVisible(true);
 		mainApp.setPaginationUnvisible();
+		searching.setStyle("-fx-background-color: #00838F");
+		checking.setStyle("-fx-background-color: #00ACC1");
 	}
 	
 	@FXML
 	private void setUnvisible() {
-		testPane.setVisible(false);
+		searchBox.setVisible(false);
 		mainApp.setPaginationVisible();
+		searching.setStyle("-fx-background-color: #00ACC1");
+		checking.setStyle("-fx-background-color: #00838F");
 	}
 	
 	@FXML
@@ -83,42 +103,6 @@ public class PanelOverviewController {
 	@FXML
 	private void initialize() {
 		
-		/*
-		busNumberColumn.setCellValueFactory(cellData -> cellData.getValue().busNumberProperty());
-		timeRemainingColumn.setCellValueFactory(cellData -> cellData.getValue().timeRemainingProperty());
-		currentStopColumn.setCellValueFactory(cellData -> cellData.getValue().currentStopProperty());
-
-		busNumberColumn.setCellFactory(column -> {
-			return new TableCell<ArrivingBus, String>(){
-				@Override
-				protected void updateItem(String item, boolean empty) {
-					super.updateItem(item, empty);
-					
-					setText(empty ? "" : getItem().toString());
-					setGraphic(null);
-					
-					TableRow<ArrivingBus> currentRow = getTableRow();
-					ArrivingBus rowData = currentRow.getItem();
-					
-					//add delay
-					currentRow.setOnMouseClicked(event-> {
-						if(event.getClickCount() == 2 && (! currentRow.isEmpty())) {
-							rowData.setAvailability(1);
-						}
-					});
-
-					
-					if(!isEmpty()) {
-						if(rowData.getAvailability() != 0) {
-							currentRow.setStyle("-fx-background-color:lightcoral");
-						}
-					}
-					
-					arrivingBusTable.refresh();
-				}
-			};
-		});
-		*/
       
 	}
 	
@@ -136,13 +120,13 @@ public class PanelOverviewController {
     		Label busTime = new Label(tempArrivingBus.getTimeRemaining()+" 분 전");
     		Label busStop = new Label(tempArrivingBus.getCurrentStop()+" 정거장 전");
     		
-    		busNum.setFont(new Font("Arial", 16));
+    		busNum.setFont(new Font("Hancom Gothic", 16));
     		busNum.setStyle("-fx-padding: 10;");
     		busNum.setMinWidth(160.0);
-    		busTime.setFont(new Font("Arial", 16));
+    		busTime.setFont(new Font("Hancom Gothic", 16));
     		busTime.setStyle("-fx-padding: 10;");
     		busTime.setMinWidth(160.0);
-    		busStop.setFont(new Font("Arial", 16));
+    		busStop.setFont(new Font("Hancom Gothic", 16));
     		busStop.setStyle("-fx-padding: 10;");
     		busStop.setMinWidth(160.0);
     		
