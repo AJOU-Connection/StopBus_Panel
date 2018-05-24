@@ -14,12 +14,14 @@
 여러 문제점들 중에서 가장 많은 부분을 차지하는 것은 **무정차 통과**이다. 이 문제를 해결하기 위해서 StopBus는 승하차벨 개념을 도입하여 승객과 버스기사의 편의를 향상시키고자 한다.
 
 
-## **StopBus for Driver 기능**
+## **StopBus for Panel 기능**
 
-- Driver Panel UI
+- 버스 승차 예약
+- 버스 정보 조회
+- 버스 정보 검색
 
 ## **사용 기술**
 1. GitHub: 프로젝트 소스코드 버전 관리
 2. Trello: 팀 프로젝트 관리
 3. Slack: 팀 프로젝트 간 채팅 프로그램 - Trello & GitHub와 연동
-4. ANDROID
+4. Javafx: java 기반의 UI 제작
