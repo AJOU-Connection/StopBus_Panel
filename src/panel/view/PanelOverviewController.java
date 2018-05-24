@@ -60,6 +60,7 @@ public class PanelOverviewController {
 	
 	
 	public PanelOverviewController() {
+		
 	}
 	
 	@FXML
@@ -98,20 +99,6 @@ public class PanelOverviewController {
 	}
 	
 	@FXML
-	private void handleSettingBusStop() {
-		BusStop tempBusStop = new BusStop();
-		boolean okClicked = mainApp.showSettingDialog(tempBusStop);
-		if(okClicked) {
-			//mainApp.getBusStop().setBusStopNum(tempBusStop.getBusStopNum());
-			//mainApp.getBusStop().setBusStopName(tempBusStop.getBusStopName());
-			//mainApp.getBusStop().setBusStopInfo(tempBusStop.getBusStopInfo());
-		}
-		busStopNumLabel.setText(mainApp.getBusStop().getBusStopNum());
-		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
-		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
-	}
-	
-	@FXML
 	private void initialize() {
 		
       
@@ -119,11 +106,12 @@ public class PanelOverviewController {
 	
 	public void createArrivingBusBox() {
 		
+		arrivingBusBox.setSpacing(5);
+		
 		for (int i = 0; i < arrivingBusData.size(); i++) {
 			ArrivingBus tempArrivingBus = arrivingBusData.get(i);
 					
         	HBox hbox = new HBox();
-        	//hbox.setStyle("-fx-border-color: #F9F9F9");
         	hbox.setStyle("-fx-background-color:white");
         	hbox.setAlignment(Pos.CENTER);
         	
@@ -146,7 +134,6 @@ public class PanelOverviewController {
     		hbox.getChildren().add(busStop);
             
     		arrivingBusBox.getChildren().add(hbox);
-			
         }
 	}
 	
@@ -162,7 +149,7 @@ public class PanelOverviewController {
 		}
 	}
 	
-	private void updateBoxes() {
+	public void updateBoxes() {
 		
 		int index;
 		for(Node child : arrivingBusBox.getChildren()) {

@@ -1,14 +1,7 @@
 package panel;
 
-import java.awt.Panel;
+import java.awt.Insets;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,17 +16,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.Node;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import panel.view.PanelOverviewController;
-import panel.view.SettingDialogController;
 import panel.model.ArrivingBus;
 import panel.model.BusInfo;
 import panel.model.BusStop;
 import panel.util.BusInfoUtil;
 import panel.util.SearchingStationUtil;
-import panel.util.GetDataExample;
 
 public class MainApp extends Application {
 
@@ -45,6 +35,7 @@ public class MainApp extends Application {
 	//panel에 대한 observable 리스트
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	
+	private PanelOverviewController controller;
 	private Pagination pagination;
 	
 	//UI 초기 화면에 필요한 data를 API로부터 받아온 후 observable list에 저장한다.
@@ -100,7 +91,6 @@ public class MainApp extends Application {
 		busInfoList.sort((a, b) -> Integer.compare(Integer.parseInt(a.getTimeRemaining()), Integer.parseInt(b.getTimeRemaining())));
 		
 		for(int i = 0; i < 6; i++) {
-			
 			tempInfo = busInfoList.get(i);
 			arrivingBusData.get(i).setBusNumber(tempInfo.getBusNum());
 			arrivingBusData.get(i).setCurrentStop(tempInfo.getCurrentStop());
@@ -109,13 +99,6 @@ public class MainApp extends Application {
 		}
 		
 		arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
-
-		for(int i = 0; i < 6; i++) {
-        	System.out.println(arrivingBusData.get(i).getBusNumber()+"\t"+arrivingBusData.get(i).getAvailability());
-        }
-		
-		System.out.println("-----------------------------------");
-
 	}
 	
 	//-------------------------------------controller에 data 넘기기-------------------------------------
@@ -142,7 +125,8 @@ public class MainApp extends Application {
     //pagination의 페이지마다 들어갈 VBox를 생성한다.
     public VBox createPage(int pageIndex) {        
         VBox box = new VBox(5);
-        box.setStyle("-fx-border-color: #C8C8C8;");
+        box.setStyle("-fx-background-color: #F4F4F4;");
+        
         int page = pageIndex * itemsPerPage();
         
         for (int i = page; i < page + itemsPerPage(); i++) {
@@ -150,13 +134,12 @@ public class MainApp extends Application {
         	final int click = i;
         	
         	HBox hbox = new HBox();
-        	hbox.setStyle("-fx-background-color: #FFFFFF");
+        	hbox.setStyle("-fx-background-color: white");
         	hbox.setAlignment(Pos.CENTER);
         	
         	if(i < busInfoList.size()) {
         		BusInfo tempBusStop = busInfoList.get(i);
                 boolean flag = false;
-                
         		Label busNum = new Label(tempBusStop.getBusNum()+" 번");
         		Label busTime = new Label(tempBusStop.getTimeRemaining()+" 분 전");
         		Label busStop = new Label(tempBusStop.getCurrentStop()+" 정거장 전");
@@ -174,7 +157,7 @@ public class MainApp extends Application {
         		hbox.getChildren().add(busNum);
         		hbox.getChildren().add(busTime);
         		hbox.getChildren().add(busStop);
-                
+        		
                 box.getChildren().add(hbox);
                 
                 if(busInfoList.get(i).getAvailability() != 0) {
@@ -185,6 +168,7 @@ public class MainApp extends Application {
     				hbox.setStyle("-fx-background-color:lightcoral");
     				busInfoList.get(click).setAvailability(1);
     				updateArrivingBusData();
+    				controller.updateBoxes();
     			});
         	}
         	else {
@@ -197,6 +181,10 @@ public class MainApp extends Application {
 
         }
         return box;
+    }
+    
+    public void updatePagination() {
+    	
     }
 	
     //-------------------------------------기타 기능을 위한 잡다한 method-------------------------------------
@@ -266,10 +254,10 @@ public class MainApp extends Application {
 			AnchorPane panelOverview = (AnchorPane) loader.load();
 			rootLayout.setCenter(panelOverview);
 			
-			PanelOverviewController controller = loader.getController();
+			controller = loader.getController();
 			
 	        pagination = new Pagination(busInfoList.size()/itemsPerPage() + 1, 0);
-	        pagination.setStyle("-fx-background-color:white;");
+	        pagination.setStyle("-fx-border-color: #C8C8C8;");
 	        pagination.setPageFactory(new Callback<Integer, Node>() {
 	 
 	            @Override
@@ -278,7 +266,7 @@ public class MainApp extends Application {
 	            }
 	        });
 	        
-	        panelOverview.setTopAnchor(pagination, 510.0);
+	        panelOverview.setTopAnchor(pagination, 520.0);
 	        panelOverview.setRightAnchor(pagination, 80.0);
 	        panelOverview.setLeftAnchor(pagination, 80.0);
 	        panelOverview.getChildren().addAll(pagination);
@@ -287,32 +275,6 @@ public class MainApp extends Application {
 	        
 		}catch(IOException e){
 			e.printStackTrace();
-		}
-	}
-	
-	//다이얼로그 창을 띄운다.(조만간 없어질 예정)
-	public boolean showSettingDialog(BusStop busStop) {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/SettingDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-			
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Edit Bus Stop");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			
-			SettingDialogController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setBusStop(busStop);
-			
-			dialogStage.showAndWait();
-			return controller.isOkClicked();
-		}catch(IOException e){
-			e.printStackTrace();
-			return false;
 		}
 	}
 	

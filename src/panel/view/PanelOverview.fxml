@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panel.view.PanelOverviewController">
+<AnchorPane prefHeight="1000.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panel.view.PanelOverviewController">
    <children>
       <VBox alignment="CENTER" prefHeight="120.0" prefWidth="800.0" style="-fx-background-color: #00ACC1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -33,7 +33,7 @@
             </Label>
          </children>
       </VBox>
-      <BorderPane layoutX="14.0" layoutY="180.0" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #00838F;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="140.0">
+      <BorderPane layoutX="14.0" layoutY="180.0" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #00838F;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="130.0">
          <center>
             <Label text="도착하는 버스" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
@@ -43,7 +43,7 @@
          </center>
       </BorderPane>
       <SplitPane layoutX="213.0" layoutY="1020.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <BorderPane layoutX="80.0" layoutY="423.0" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #00838F;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="460.0">
+      <BorderPane layoutX="80.0" layoutY="423.0" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #00838F;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="470.0">
          <center>
             <Label text="버스 정보" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
@@ -52,8 +52,8 @@
             </Label>
          </center>
       </BorderPane>
-      <VBox fx:id="arrivingBusBox" layoutX="80.0" layoutY="212.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffff; -fx-border-color: #C8C8C8;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="190.0" />
-      <VBox fx:id="searchBox" layoutX="80.0" layoutY="518.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #C8C8C8;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="510.0">
+      <VBox fx:id="arrivingBusBox" layoutX="80.0" layoutY="212.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #C8C8C8;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="180.0" />
+      <VBox fx:id="searchBox" layoutX="80.0" layoutY="518.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #C8C8C8;" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="520.0">
          <children>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="440.0" style="-fx-background-color: #F9F9F9;">
                <children>
