@@ -43,10 +43,10 @@ public class PanelOverviewController {
 
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	
+	
 	private MainApp mainApp;
 	
 	public PanelOverviewController() {
-		
 	}
 	
 	@FXML
@@ -162,6 +162,11 @@ public class PanelOverviewController {
 	private void setAvailability(int i) {
 		int index = i / 40;
 		arrivingBusData.get(index).setAvailability(1);
+		for(int j = 0; j < mainApp.getBusInfoListData().size(); j++) {
+			if(arrivingBusData.get(index).getBusNumber() == mainApp.getBusInfoListData().get(j).getBusNum()) {
+				mainApp.getBusInfoListData().get(j).setAvailability(1);
+			}
+		}
 	}
 
 	@FXML

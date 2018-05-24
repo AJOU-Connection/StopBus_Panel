@@ -163,6 +163,10 @@ public class MainApp extends Application {
 		return arrivingBusData;
 	}
 	
+	public ObservableList<BusInfo> getBusInfoListData(){
+		return busInfoList;
+	}
+	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
