@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -105,6 +106,7 @@ public class PanelOverviewController {
 	}
 	
 	public void createArrivingBusBox() {
+		
 		for (int i = 0; i < arrivingBusData.size(); i++) {
 			ArrivingBus tempArrivingBus = arrivingBusData.get(i);
 					
@@ -142,6 +144,30 @@ public class PanelOverviewController {
         }
 	}
 	
+	private void boxifyBoxes() {
+		
+		for(Node child : arrivingBusBox.getChildren()) {
+			HBox hb = (HBox) child;
+			hb.setOnMouseClicked((e) -> {
+				hb.setStyle("-fx-background-color:lightcoral");
+				//System.out.println(hb.getLayoutX()+", "+hb.getLayoutY());
+				setAvailability((int) hb.getLayoutY());
+			});
+			
+		}
+	}
+	
+	private void setAvailability(int i) {
+		int index = i / 40;
+		arrivingBusData.get(index).setAvailability(1);
+		
+		for(int j = 0; j < 6; j++) {
+			System.out.println(arrivingBusData.get(j).getBusNumber()+", "+arrivingBusData.get(j).getAvailability());
+			
+		}
+		System.out.println("----------------------------------------");
+	}
+
 	@FXML
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
@@ -150,6 +176,7 @@ public class PanelOverviewController {
 		busStopNumLabel.setText(mainApp.getBusStop().getBusStopNum());
 		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
 		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
+		boxifyBoxes();
 	}
 
 }
