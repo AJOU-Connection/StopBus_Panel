@@ -1,16 +1,22 @@
 package panel.view;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import panel.MainApp;
@@ -20,17 +26,6 @@ import panel.model.BusStop;
 
 public class PanelOverviewController {
 
-	/*
-	@FXML
-	private TableView<ArrivingBus> arrivingBusTable;
-	@FXML
-	private TableColumn<ArrivingBus, String> busNumberColumn;
-	@FXML
-	private TableColumn<ArrivingBus, String> timeRemainingColumn;
-	@FXML
-	private TableColumn<ArrivingBus, String> currentStopColumn;
-	*/
-	
 	@FXML
 	private VBox arrivingBusBox = new VBox(5);
 
@@ -40,6 +35,16 @@ public class PanelOverviewController {
 	private Label busStopNameLabel;
 	@FXML
 	private Label busStopInfoLabel;
+	
+	@FXML
+	private Pane testPane;
+	
+	@FXML
+	private Button searching;
+	
+	@FXML
+	private Button checking;
+	
 
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	
@@ -47,6 +52,18 @@ public class PanelOverviewController {
 	private MainApp mainApp;
 	
 	public PanelOverviewController() {
+	}
+	
+	@FXML
+	private void setVisible() {
+		testPane.setVisible(true);
+		mainApp.setPaginationUnvisible();
+	}
+	
+	@FXML
+	private void setUnvisible() {
+		testPane.setVisible(false);
+		mainApp.setPaginationVisible();
 	}
 	
 	@FXML
@@ -111,17 +128,9 @@ public class PanelOverviewController {
 			ArrivingBus tempArrivingBus = arrivingBusData.get(i);
 					
         	HBox hbox = new HBox();
-        	hbox.setStyle("-fx-border-color: #F9F9F9");
+        	//hbox.setStyle("-fx-border-color: #F9F9F9");
+        	hbox.setStyle("-fx-background-color:white");
         	hbox.setAlignment(Pos.CENTER);
-        	
-        	System.out.println(tempArrivingBus.getAvailability());
-        	
-        	if(tempArrivingBus.getAvailability() != 0) {
-        		hbox.setStyle("-fx-background-color:lightcoral");
-        	}
-        	else {
-        		hbox.setStyle("-fx-background-color:white");
-        	}
         	
         	Label busNum = new Label(tempArrivingBus.getBusNumber()+" Йј");
     		Label busTime = new Label(tempArrivingBus.getTimeRemaining()+" Ка Рќ");
@@ -152,12 +161,24 @@ public class PanelOverviewController {
 			HBox hb = (HBox) child;
 			hb.setOnMouseClicked((e) -> {
 				hb.setStyle("-fx-background-color:lightcoral");
-				//System.out.println(hb.getLayoutX()+", "+hb.getLayoutY());
 				setAvailability((int) hb.getLayoutY());
 			});
-			
+
 		}
 	}
+	
+	private void updateBoxes() {
+		
+		int index;
+		for(Node child : arrivingBusBox.getChildren()) {
+			HBox hb = (HBox) child;
+			index = (int) hb.getLayoutY() / 40;
+			if(arrivingBusData.get(index).getAvailability() != 0) {
+				hb.setStyle("-fx-background-color:lightcoral");
+			}
+		}
+	}
+
 	
 	private void setAvailability(int i) {
 		int index = i / 40;
@@ -176,6 +197,7 @@ public class PanelOverviewController {
 		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
 		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
 		arrivingBusData = mainApp.getArrivingBusData();
+		
 		createArrivingBusBox();
 		boxifyBoxes();
 	}
