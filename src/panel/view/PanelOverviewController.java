@@ -1,5 +1,7 @@
 package panel.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +27,7 @@ import panel.MainApp;
 import panel.model.ArrivingBus;
 import panel.model.BusInfo;
 import panel.model.BusStop;
+import panel.util.SearchingStationUtil;
 
 public class PanelOverviewController {
 
@@ -39,35 +42,43 @@ public class PanelOverviewController {
 	private Label busStopInfoLabel;
 	
 	@FXML
-	private Button searching;
-	
+	private Button searching;	
 	@FXML
 	private Button checking;
-	
 	@FXML
 	private Button textsearching;
-	
 	@FXML
 	private TextField searchText;
-	
 	@FXML
 	private TextArea searchResult;
-	
 	@FXML
 	private VBox searchBox;
 	
-
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
-	
-	
+	private List<BusStop> searchingList = new ArrayList<BusStop>();
 	private MainApp mainApp;
+	
 	
 	public PanelOverviewController() {
 	}
 	
 	@FXML
 	private void getSearchingText() {
-		System.out.println(searchText.getText());
+		
+		String keyword = searchText.getText();
+		String result = "";
+		SearchingStationUtil searchingUtil = new SearchingStationUtil();
+
+		searchingUtil.searchingStation(keyword);
+		searchingList = searchingUtil.getSearchingList();
+		
+		result += "총 "+searchingList.size()+"개의 검색결과가 있습니다.\n\n";
+		for(int i = 0; i < searchingList.size(); i++) {
+			result += "정류장 번호 : " + searchingList.get(i).getBusStopNum() + "\n";
+			result += "정류장 이름 : " + searchingList.get(i).getBusStopName() + "\n";
+			result += "정류장 방면 : " + searchingList.get(i).getBusStopInfo() + "\n\n";
+		}
+		searchResult.setText(result);
 	}
 	
 	@FXML
@@ -181,7 +192,6 @@ public class PanelOverviewController {
 		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
 		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
 		arrivingBusData = mainApp.getArrivingBusData();
-		
 		createArrivingBusBox();
 		boxifyBoxes();
 	}

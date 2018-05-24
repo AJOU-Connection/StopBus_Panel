@@ -32,7 +32,7 @@ import panel.model.ArrivingBus;
 import panel.model.BusInfo;
 import panel.model.BusStop;
 import panel.util.BusInfoUtil;
-import panel.util.BusStopUtil;
+import panel.util.SearchingStationUtil;
 import panel.util.GetDataExample;
 
 public class MainApp extends Application {
@@ -58,8 +58,8 @@ public class MainApp extends Application {
 	
 	//버스 정류장의 정보를 API로부터 받아와 busStop에 저장한다.
 	public void getBusStopInfo() {
-		BusStopUtil busStopUtil = new BusStopUtil();
-		busStopUtil.setBusStop("04237");
+		SearchingStationUtil busStopUtil = new SearchingStationUtil();
+		busStopUtil.searchingStation("04237");
 		busStop = busStopUtil.getBusStop();
 		
 	}	
