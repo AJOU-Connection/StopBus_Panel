@@ -54,6 +54,7 @@ public class MainApp extends Application {
 		busStop = busStopUtil.getBusStop();
 		
 	}	
+	//04237
 	
 	//정류장을 지나는 모든 버스의 정보를 API로부터 받아와 busInfoList에 저장한다.
 	public void getBusInfoList() {
@@ -66,10 +67,15 @@ public class MainApp extends Application {
 	public void getArrivingBusInfo() {
 		
 		BusInfo tempInfo;
+		int printSize = 6;
 		
 		busInfoList.sort((a, b) -> Integer.compare(Integer.parseInt(a.getTimeRemaining()), Integer.parseInt(b.getTimeRemaining())));
 		
-		for(int i = 0; i < 6; i++) {
+		if(busInfoList.size() < 6) {
+			printSize = busInfoList.size();
+		}
+		
+		for(int i = 0; i < printSize; i++) {
 			ArrivingBus tempBus = new ArrivingBus();
 			tempInfo = busInfoList.get(i);
 			tempBus.setBusNumber(tempInfo.getBusNum());
@@ -87,10 +93,15 @@ public class MainApp extends Application {
 	public void updateArrivingBusData() {
 		
 		BusInfo tempInfo;
+		int printSize = 6;
 		
 		busInfoList.sort((a, b) -> Integer.compare(Integer.parseInt(a.getTimeRemaining()), Integer.parseInt(b.getTimeRemaining())));
 		
-		for(int i = 0; i < 6; i++) {
+		if(busInfoList.size() < 6) {
+			printSize = busInfoList.size();
+		}
+		
+		for(int i = 0; i < printSize; i++) {
 			tempInfo = busInfoList.get(i);
 			arrivingBusData.get(i).setBusNumber(tempInfo.getBusNum());
 			arrivingBusData.get(i).setCurrentStop(tempInfo.getCurrentStop());
@@ -134,7 +145,6 @@ public class MainApp extends Application {
         	final int click = i;
         	
         	HBox hbox = new HBox();
-        	hbox.setStyle("-fx-background-color: white");
         	hbox.setAlignment(Pos.CENTER);
         	
         	if(i < busInfoList.size()) {
@@ -157,6 +167,7 @@ public class MainApp extends Application {
         		hbox.getChildren().add(busNum);
         		hbox.getChildren().add(busTime);
         		hbox.getChildren().add(busStop);
+        		hbox.setStyle("-fx-background-color: white");
         		
                 box.getChildren().add(hbox);
                 
