@@ -4,10 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,22 +13,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import panel.MainApp;
 import panel.model.ArrivingBus;
-import panel.model.BusInfo;
 import panel.model.BusStop;
 import panel.util.SearchingStationUtil;
+import panel.util.LanguageUtil;
 
 public class PanelOverviewController {
 
@@ -78,6 +69,8 @@ public class PanelOverviewController {
 	private boolean searchFlag = false;
 	private boolean languageFlag = true;
 	private String keyboardInput = "";
+	
+	
 	
 	public PanelOverviewController() {
 		
@@ -230,7 +223,63 @@ public class PanelOverviewController {
 	
 	@FXML
 	private void getKeyboardValue(ActionEvent event) {
-		searchText.setText(searchText.getText() + ((Button) event.getSource()).getText());
+		char input;
+		String fullText = "";
+		char lastWord;
+		input = ((Button) event.getSource()).getText().charAt(0);
+		
+		LanguageUtil lan = new LanguageUtil();
+		int cho = 0;
+		int jung = 0;
+		int jong = 0;
+		String combinedWord = "";
+		
+		System.out.println("input : "+input);
+		
+		//이전에 입력된 text 값
+		fullText += searchText.getText() + input;
+		
+		if(fullText.length()-1 > 0) {
+			lastWord = fullText.charAt(fullText.length()-2);
+			if((int)input >= 'ㅏ' && (int)input <= 'ㅣ') {
+				if((int)lastWord >= 'ㄱ' && (int)lastWord <= 'ㅎ') {
+					cho = lan.findChosung(lastWord);
+					jung = lan.findJungsung(input);
+					fullText = fullText.substring(0, fullText.length()-2);
+					fullText += lan.combineWord(cho, jung, jong);
+				}
+				else if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3) {
+					
+					cho = lan.getChosung(lastWord);
+					jung = lan.getJungsung(lastWord);
+					jong = lan.getJongsung(lastWord);
+					
+					System.out.println(cho+", "+jung+", "+jong);
+					
+				if(lan.getJongsung(lastWord) != 0) {
+						fullText = fullText.substring(0, fullText.length()-2);
+						fullText += lan.combineWord(cho, jung, 0);
+						cho = lan.jong2cho(jong);
+						jung = lan.findJungsung(input);
+						
+						System.out.println(cho+", "+jung+", "+jong);
+						fullText += lan.combineWord(cho, jung, 0);
+					}
+				}
+			}
+			else if((int)input >= 'ㄱ' && (int)input <= 'ㅎ'){
+					if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3 && lan.getJongsung(lastWord) == 0) {
+						cho = lan.getChosung(lastWord);
+						jung = lan.getJungsung(lastWord);
+						jong = lan.findJongsung(input);
+						System.out.println(cho +", "+jung+", "+jong);
+						fullText = fullText.substring(0, fullText.length()-2);
+						fullText += lan.combineWord(cho, jung, jong);
+					}
+				}
+				
+			}
+		searchText.setText(fullText);
 	}
 	
 	@FXML
@@ -239,7 +288,7 @@ public class PanelOverviewController {
 	}
 	
 	@FXML
-	private void deleteKeyboardValue(ActionEvent event) {
+	private void deleteKeyboardValue() {
 		if(searchText.getText().length() > 0) {
 			searchText.setText(searchText.getText().substring(0, searchText.getText().length()-1));
 		}
@@ -273,7 +322,7 @@ public class PanelOverviewController {
 		boxifyBoxes();
 		
 		
-		
+		/*
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -294,7 +343,7 @@ public class PanelOverviewController {
 		
 		thread.setDaemon(true);
 		thread.start();
-		
+		*/
 	}
 
 }
