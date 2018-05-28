@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,14 +54,13 @@ public class SearchingStationUtil {
 			JSONObject jsonObj = (JSONObject) jsonParser.parse(result);
 			JSONArray array = (JSONArray) jsonObj.get("body");
 			
-			if(array != null) {
-				for(int i = 0; i < array.size(); i++) {
-					JSONObject tempObj = (JSONObject) array.get(i);
-					tempBusStop.setBusStopNum(String.valueOf(tempObj.get("stationNumber")));
-					tempBusStop.setBusStopName(String.valueOf(tempObj.get("stationName")));
-					tempBusStop.setBusStopInfo(String.valueOf(tempObj.get("stationDirect")));
-				}
+			for(int i = 0; i < array.size(); i++) {
+				JSONObject tempObj = (JSONObject) array.get(i);
+				tempBusStop.setBusStopNum(String.valueOf(tempObj.get("stationNumber")));
+				tempBusStop.setBusStopName(String.valueOf(tempObj.get("stationName")));
+				tempBusStop.setBusStopInfo(String.valueOf(tempObj.get("stationDirect")));
 			}
+
 			osw.close();
 			br.close();
 		} catch (Exception e) {
@@ -73,6 +73,7 @@ public class SearchingStationUtil {
 	public List<BusStop> searchingText(String keyword){
 		
 		String result = "";
+		
 		List<BusStop> searchingResult = new ArrayList<BusStop>();
 		
 		try {
@@ -82,12 +83,13 @@ public class SearchingStationUtil {
 
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST"); // 보내는 타입
-
+			
 			// 데이터
 			String param = "{\"keyword\":\""+keyword+"\"}";
-
+			
+			
 			// 전송
-			OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+			OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
 			osw.write(param);
 			osw.flush();
 
@@ -113,6 +115,7 @@ public class SearchingStationUtil {
 					searchingResult.add(tempBusStop);
 				}
 			}
+			
 			osw.close();
 			br.close();
 		} catch (Exception e) {

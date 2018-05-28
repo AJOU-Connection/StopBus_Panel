@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class BusInfoUtil {
 			
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST"); // 보내는 타입
-
+			
 			// 데이터
 			String param = "{\"districtCd\":2, \"stationNumber\":\"" + stationNumber + "\"}";
 
@@ -108,7 +109,6 @@ public class BusInfoUtil {
 			for(int i=0; i<array.size(); i++) {
 				JSONObject tempObj = (JSONObject) array.get(i);
 				BusInfo tempBusInfo = new BusInfo();
-				
 				for(int j = 0; j < updateBusList.size(); j++) {
 					if(updateBusList.get(j).getBusNum().equals(String.valueOf(tempObj.get("routeNumber")))) {
 						if(Integer.parseInt(updateBusList.get(j).getTimeRemaining())+1 < Integer.parseInt(String.valueOf(tempObj.get("predictTime1")))) {
