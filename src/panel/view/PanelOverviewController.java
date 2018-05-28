@@ -63,6 +63,12 @@ public class PanelOverviewController {
 	private VBox searchBox;
 	
 	@FXML
+	private VBox koreanKeyboard;
+	
+	@FXML
+	private VBox englishKeyboard;
+	
+	@FXML
 	private Button refreshBtn;
 	
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
@@ -70,6 +76,7 @@ public class PanelOverviewController {
 	private MainApp mainApp;
 	private boolean stop = false;
 	private boolean searchFlag = false;
+	private boolean languageFlag = true;
 	private String keyboardInput = "";
 	
 	public PanelOverviewController() {
@@ -235,6 +242,22 @@ public class PanelOverviewController {
 	private void deleteKeyboardValue(ActionEvent event) {
 		if(searchText.getText().length() > 0) {
 			searchText.setText(searchText.getText().substring(0, searchText.getText().length()-1));
+		}
+	}
+	
+	@FXML
+	private void changeKeyboardValue(ActionEvent event) {
+		if(languageFlag == true) {
+			languageFlag = false;
+			koreanKeyboard.setVisible(true);
+			englishKeyboard.setVisible(false);
+			
+			
+		}
+		else {
+			languageFlag = true;
+			koreanKeyboard.setVisible(false);
+			englishKeyboard.setVisible(true);
 		}
 	}
 	
