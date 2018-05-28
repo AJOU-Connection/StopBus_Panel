@@ -95,7 +95,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="1">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="1">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -103,7 +103,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="2">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="2">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -111,7 +111,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="3">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="3">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -119,7 +119,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="4">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="4">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -127,7 +127,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="5">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="5">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -135,7 +135,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="6">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="6">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -143,7 +143,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="7">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="7">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -151,7 +151,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="8">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="8">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -159,7 +159,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="9">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="9">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -167,7 +167,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="0">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="0">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -175,7 +175,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="60.0" text="Back">
+                        <Button mnemonicParsing="false" onAction="#deleteKeyboardValue" prefHeight="45.0" prefWidth="60.0" text="Back">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -187,7 +187,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅂ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅂ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -195,7 +195,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅈ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅈ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -203,7 +203,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㄷ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㄷ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -211,7 +211,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㄱ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㄱ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -219,7 +219,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅅ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅅ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -227,7 +227,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅛ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅛ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -235,7 +235,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅕ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅕ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -243,7 +243,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅑ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅑ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -251,7 +251,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅐ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅐ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -259,7 +259,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅔ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅔ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -267,7 +267,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="-">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="-">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -279,7 +279,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅁ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅁ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -287,7 +287,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㄴ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㄴ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -295,7 +295,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅇ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅇ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -303,7 +303,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㄹ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㄹ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -311,7 +311,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅎ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅎ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -319,7 +319,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅗ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅗ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -327,7 +327,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅓ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅓ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -335,7 +335,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅏ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅏ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -343,7 +343,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅣ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅣ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -351,7 +351,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="60.0" text="Enter">
+                        <Button mnemonicParsing="false" onAction="#getSearchingText" prefHeight="46.0" prefWidth="60.0" text="Enter">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -371,7 +371,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅋ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅋ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -379,7 +379,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅌ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅌ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -387,7 +387,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅊ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅊ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -395,7 +395,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅍ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅍ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -403,7 +403,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅠ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅠ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -411,7 +411,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅜ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅜ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -419,7 +419,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅡ">
+                        <Button mnemonicParsing="false" onAction="#getKeyboardValue" prefHeight="45.0" prefWidth="45.0" text="ㅡ">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>
@@ -427,7 +427,7 @@
                               <Font name="Hancom Gothic Regular" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="70.0" text="Space">
+                        <Button mnemonicParsing="false" onAction="#getSpaceValue" prefHeight="46.0" prefWidth="70.0" text="Space">
                            <HBox.margin>
                               <Insets left="2.0" right="2.0" />
                            </HBox.margin>

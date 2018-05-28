@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -69,6 +70,7 @@ public class PanelOverviewController {
 	private MainApp mainApp;
 	private boolean stop = false;
 	private boolean searchFlag = false;
+	private String keyboardInput = "";
 	
 	public PanelOverviewController() {
 		
@@ -218,6 +220,24 @@ public class PanelOverviewController {
 			}
 		}
 	}
+	
+	@FXML
+	private void getKeyboardValue(ActionEvent event) {
+		searchText.setText(searchText.getText() + ((Button) event.getSource()).getText());
+	}
+	
+	@FXML
+	private void getSpaceValue(ActionEvent event) {
+		searchText.setText(searchText.getText() + " ");
+	}
+	
+	@FXML
+	private void deleteKeyboardValue(ActionEvent event) {
+		if(searchText.getText().length() > 0) {
+			searchText.setText(searchText.getText().substring(0, searchText.getText().length()-1));
+		}
+	}
+	
 
 	@FXML
 	public void setMainApp(MainApp mainApp) {
