@@ -215,9 +215,9 @@ public class MainApp extends Application {
     
     //pagination을 panelOverview에 표시한다.
     public void addPagination() {
-		Pagination pagination = new Pagination(busInfoList.size()/itemsPerPage() + 1, 0);
-        pagination.setStyle("-fx-border-color: #C8C8C8;");
-        pagination.setPageFactory(new Callback<Integer, Node>() {
+		Pagination newPagination = new Pagination(busInfoList.size()/itemsPerPage() + 1, 0);
+        newPagination.setStyle("-fx-border-color: #C8C8C8;");
+        newPagination.setPageFactory(new Callback<Integer, Node>() {
  
             @Override
             public Node call(Integer pageIndex) {          
@@ -225,13 +225,18 @@ public class MainApp extends Application {
             }
         });
         
-        this.pagination = pagination;
+        pagination = newPagination;
         
         panelOverview.setTopAnchor(pagination, 520.0);
         panelOverview.setRightAnchor(pagination, 80.0);
         panelOverview.setLeftAnchor(pagination, 80.0);
         panelOverview.getChildren().addAll(pagination);
 	}
+    
+    public void updatePagination() {
+    	panelOverview.getChildren().removeAll(pagination);
+    	addPagination();
+    }
     
     //-------------------------------------기타 기능을 위한 잡다한 method-------------------------------------
 	/*
@@ -304,7 +309,7 @@ public class MainApp extends Application {
 			controller = loader.getController();
 			
 			controller.setMainApp(this);
-			addPagination();
+			updatePagination();
 	        
 
 	        

@@ -64,6 +64,7 @@ public class PanelOverviewController {
 	private List<BusStop> searchingList = new ArrayList<BusStop>();
 	private MainApp mainApp;
 	private boolean stop = false;
+	private boolean searchFlag = false;
 	
 	public PanelOverviewController() {
 		
@@ -71,7 +72,7 @@ public class PanelOverviewController {
 	@FXML
 	private void reloadInfo() {
 		mainApp.updateBusInfoList(mainApp.getBusInfoListData());
-		mainApp.addPagination();
+		mainApp.updatePagination();
 		updateBoxes();
 	}
 	
@@ -98,6 +99,7 @@ public class PanelOverviewController {
 	private void setVisible() {
 		searchBox.setVisible(true);
 		mainApp.setPaginationUnvisible();
+		searchFlag = true;
 		searching.setStyle("-fx-background-color: #00838F");
 		checking.setStyle("-fx-background-color: #00ACC1");
 	}
@@ -106,6 +108,7 @@ public class PanelOverviewController {
 	private void setUnvisible() {
 		searchBox.setVisible(false);
 		mainApp.setPaginationVisible();
+		searchFlag = false;
 		searching.setStyle("-fx-background-color: #00ACC1");
 		checking.setStyle("-fx-background-color: #00838F");
 	}
@@ -157,7 +160,7 @@ public class PanelOverviewController {
 				hb.setStyle("-fx-background-color:lightcoral");
 				setAvailability((int) hb.getLayoutY());
 				mainApp.updateBusInfoList(mainApp.getBusInfoListData());
-				mainApp.addPagination();
+				mainApp.updatePagination();
 			});
 
 		}
@@ -231,8 +234,10 @@ public class PanelOverviewController {
 					String strTime = sdf.format(new Date());
 					Platform.runLater(() -> {
 						mainApp.updateBusInfoList(mainApp.getBusInfoListData());
-						mainApp.addPagination();
 						updateBoxes();
+						if(!searchFlag) {
+							mainApp.updatePagination();
+						}
 					});
 					try { Thread.sleep(10000);} catch(InterruptedException e) {}
 				}
