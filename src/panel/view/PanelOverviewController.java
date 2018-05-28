@@ -54,10 +54,17 @@ public class PanelOverviewController {
 	private VBox searchBox;
 	
 	@FXML
-	private VBox koreanKeyboard;
+	private VBox koreanKeyboard1;
 	
 	@FXML
-	private VBox englishKeyboard;
+	private VBox koreanKeyboard2;
+	
+	@FXML
+	private VBox englishKeyboard1;
+	
+	@FXML
+	private VBox englishKeyboard2;
+	
 	
 	@FXML
 	private Button refreshBtn;
@@ -67,10 +74,8 @@ public class PanelOverviewController {
 	private MainApp mainApp;
 	private boolean stop = false;
 	private boolean searchFlag = false;
-	private boolean languageFlag = true;
-	private String keyboardInput = "";
-	
-	
+	private boolean languageFlag = false;
+	private boolean shiftFlag = false;
 	
 	public PanelOverviewController() {
 		
@@ -224,8 +229,8 @@ public class PanelOverviewController {
 	@FXML
 	private void getKeyboardValue(ActionEvent event) {
 		char input;
-		String fullText = "";
 		char lastWord;
+		String fullText = "";
 		input = ((Button) event.getSource()).getText().charAt(0);
 		
 		LanguageUtil lan = new LanguageUtil();
@@ -233,8 +238,6 @@ public class PanelOverviewController {
 		int jung = 0;
 		int jong = 0;
 		String combinedWord = "";
-		
-		System.out.println("input : "+input);
 		
 		//이전에 입력된 text 값
 		fullText += searchText.getText() + input;
@@ -254,15 +257,11 @@ public class PanelOverviewController {
 					jung = lan.getJungsung(lastWord);
 					jong = lan.getJongsung(lastWord);
 					
-					System.out.println(cho+", "+jung+", "+jong);
-					
 				if(lan.getJongsung(lastWord) != 0) {
 						fullText = fullText.substring(0, fullText.length()-2);
 						fullText += lan.combineWord(cho, jung, 0);
 						cho = lan.jong2cho(jong);
 						jung = lan.findJungsung(input);
-						
-						System.out.println(cho+", "+jung+", "+jong);
 						fullText += lan.combineWord(cho, jung, 0);
 					}
 				}
@@ -272,7 +271,6 @@ public class PanelOverviewController {
 						cho = lan.getChosung(lastWord);
 						jung = lan.getJungsung(lastWord);
 						jong = lan.findJongsung(input);
-						System.out.println(cho +", "+jung+", "+jong);
 						fullText = fullText.substring(0, fullText.length()-2);
 						fullText += lan.combineWord(cho, jung, jong);
 					}
@@ -295,18 +293,60 @@ public class PanelOverviewController {
 	}
 	
 	@FXML
-	private void changeKeyboardValue(ActionEvent event) {
-		if(languageFlag == true) {
-			languageFlag = false;
-			koreanKeyboard.setVisible(true);
-			englishKeyboard.setVisible(false);
-			
+	private void shiftKeyboardValue() {
+		if(languageFlag) {
+			if(shiftFlag) {
+				shiftFlag = false;
+				koreanKeyboard1.setVisible(false);
+				koreanKeyboard2.setVisible(false);
+				englishKeyboard1.setVisible(true);
+				englishKeyboard2.setVisible(false);	
+			}
+			else {
+				shiftFlag = true;
+				koreanKeyboard1.setVisible(false);
+				koreanKeyboard2.setVisible(false);
+				englishKeyboard1.setVisible(false);
+				englishKeyboard2.setVisible(true);	
+			}
 			
 		}
 		else {
+			if(shiftFlag) {
+				shiftFlag = false;
+				koreanKeyboard1.setVisible(true);
+				koreanKeyboard2.setVisible(false);
+				englishKeyboard1.setVisible(false);
+				englishKeyboard2.setVisible(false);
+			}
+			else {
+				shiftFlag = true;
+				koreanKeyboard1.setVisible(false);
+				koreanKeyboard2.setVisible(true);
+				englishKeyboard1.setVisible(false);
+				englishKeyboard2.setVisible(false);
+			}
+			
+		}
+	}
+	
+	@FXML
+	private void changeKeyboardValue(ActionEvent event) {
+		if(languageFlag == true) {
+			languageFlag = false;
+			shiftFlag = false;
+			koreanKeyboard1.setVisible(true);
+			koreanKeyboard2.setVisible(false);
+			englishKeyboard1.setVisible(false);
+			englishKeyboard2.setVisible(false);
+		}
+		else {
 			languageFlag = true;
-			koreanKeyboard.setVisible(false);
-			englishKeyboard.setVisible(true);
+			shiftFlag = false;
+			koreanKeyboard1.setVisible(false);
+			koreanKeyboard2.setVisible(false);
+			englishKeyboard1.setVisible(true);
+			englishKeyboard2.setVisible(false);
 		}
 	}
 	
