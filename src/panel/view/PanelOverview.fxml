@@ -88,10 +88,5 @@
             </Button>
          </children>
       </HBox>
-      <Button fx:id="refreshBtn" layoutX="531.0" layoutY="159.0" mnemonicParsing="false" onAction="#reloadInfo" style="-fx-background-color: #FFFFFF;" text="새로고침" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <font>
-            <Font name="Hancom Gothic Regular" size="12.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

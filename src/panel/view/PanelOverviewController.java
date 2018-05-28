@@ -61,7 +61,7 @@ public class PanelOverviewController {
 	private Button refreshBtn;
 	
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
-	private List<BusStop> searchingList = new ArrayList<BusStop>();
+	//private List<BusStop> searchingList = new ArrayList<BusStop>();
 	private MainApp mainApp;
 	private boolean stop = false;
 	private boolean searchFlag = false;
@@ -69,22 +69,16 @@ public class PanelOverviewController {
 	public PanelOverviewController() {
 		
 	}
-	@FXML
-	private void reloadInfo() {
-		mainApp.updateBusInfoList(mainApp.getBusInfoListData());
-		mainApp.updatePagination();
-		updateBoxes();
-	}
 	
 	@FXML
 	private void getSearchingText() {
-		
+		List<BusStop> searchingList = new ArrayList<BusStop>();
 		String keyword = searchText.getText();
 		String result = "";
 		SearchingStationUtil searchingUtil = new SearchingStationUtil();
 
-		searchingUtil.searchingStation(keyword);
-		searchingList = searchingUtil.getSearchingList();
+		searchingList= searchingUtil.searchingText(keyword);
+		//searchingList = searchingUtil.getSearchingList();
 		
 		result += "총 "+searchingList.size()+"개의 검색결과가 있습니다.\n\n";
 		for(int i = 0; i < searchingList.size(); i++) {
@@ -92,7 +86,9 @@ public class PanelOverviewController {
 			result += "정류장 이름 : " + searchingList.get(i).getBusStopName() + "\n";
 			result += "정류장 방면 : " + searchingList.get(i).getBusStopInfo() + "\n\n";
 		}
+		
 		searchResult.setText(result);
+		
 	}
 	
 	@FXML
@@ -109,6 +105,7 @@ public class PanelOverviewController {
 		searchBox.setVisible(false);
 		mainApp.setPaginationVisible();
 		searchFlag = false;
+		mainApp.updatePagination();
 		searching.setStyle("-fx-background-color: #00ACC1");
 		checking.setStyle("-fx-background-color: #00838F");
 	}
@@ -160,7 +157,9 @@ public class PanelOverviewController {
 				hb.setStyle("-fx-background-color:lightcoral");
 				setAvailability((int) hb.getLayoutY());
 				mainApp.updateBusInfoList(mainApp.getBusInfoListData());
-				mainApp.updatePagination();
+				if(!searchFlag) {
+					mainApp.updatePagination();
+				}
 			});
 
 		}

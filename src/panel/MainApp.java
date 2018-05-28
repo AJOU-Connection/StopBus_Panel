@@ -1,6 +1,5 @@
 package panel;
 
-import java.awt.Insets;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -54,8 +53,8 @@ public class MainApp extends Application {
 	//버스 정류장의 정보를 API로부터 받아와 busStop에 저장한다.
 	public void getBusStopInfo() {
 		SearchingStationUtil busStopUtil = new SearchingStationUtil();
-		busStopUtil.searchingStation("04235");
-		busStop = busStopUtil.getBusStop();
+		busStop = busStopUtil.searchingBusStop("04235");
+		//busStop = busStopUtil.getBusStop();
 		
 	}	
 	//04237
