@@ -213,10 +213,26 @@ public class MainApp extends Application {
         return box;
     }
     
-    public void updatePagination() {
-    	
-    }
-	
+    //pagination을 panelOverview에 표시한다.
+    public void addPagination() {
+		Pagination pagination = new Pagination(busInfoList.size()/itemsPerPage() + 1, 0);
+        pagination.setStyle("-fx-border-color: #C8C8C8;");
+        pagination.setPageFactory(new Callback<Integer, Node>() {
+ 
+            @Override
+            public Node call(Integer pageIndex) {          
+                return createPage(pageIndex);               
+            }
+        });
+        
+        this.pagination = pagination;
+        
+        panelOverview.setTopAnchor(pagination, 520.0);
+        panelOverview.setRightAnchor(pagination, 80.0);
+        panelOverview.setLeftAnchor(pagination, 80.0);
+        panelOverview.getChildren().addAll(pagination);
+	}
+    
     //-------------------------------------기타 기능을 위한 잡다한 method-------------------------------------
 	/*
     getArrivingBusInfo() 때문에 busInfoList가 시간순대로 정렬되어버리는 슬픈 비극때문에 만들었음
@@ -274,23 +290,6 @@ public class MainApp extends Application {
 		catch(IOException e){
 			e.printStackTrace();
 		}
-	}
-	
-	public void addPagination() {
-		pagination = new Pagination(busInfoList.size()/itemsPerPage() + 1, 0);
-        pagination.setStyle("-fx-border-color: #C8C8C8;");
-        pagination.setPageFactory(new Callback<Integer, Node>() {
- 
-            @Override
-            public Node call(Integer pageIndex) {          
-                return createPage(pageIndex);               
-            }
-        });
-        
-        panelOverview.setTopAnchor(pagination, 520.0);
-        panelOverview.setRightAnchor(pagination, 80.0);
-        panelOverview.setLeftAnchor(pagination, 80.0);
-        panelOverview.getChildren().addAll(pagination);
 	}
 	
 	//상위 레이아웃 안에 panel overview를 보여준다.

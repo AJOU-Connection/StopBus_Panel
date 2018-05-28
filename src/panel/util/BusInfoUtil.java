@@ -111,14 +111,14 @@ public class BusInfoUtil {
 				
 				for(int j = 0; j < updateBusList.size(); j++) {
 					if(updateBusList.get(j).getBusNum().equals(String.valueOf(tempObj.get("routeNumber")))) {
-						if(Integer.parseInt(updateBusList.get(j).getTimeRemaining()) < Integer.parseInt(String.valueOf(tempObj.get("predictTime1")))) {
-							updateBusList.get(j).setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
-							updateBusList.get(j).setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
-							updateBusList.get(j).setAvailability(0);
-						}
 						if(Integer.parseInt(String.valueOf(tempObj.get("predictTime1"))) == 0) {
 							updateBusList.get(j).setTimeRemaining(String.valueOf(tempObj.get("predictTime2")));
 							updateBusList.get(j).setCurrentStop(String.valueOf(tempObj.get("locationNo2")));
+							updateBusList.get(j).setAvailability(0);
+						}
+						else if(Integer.parseInt(updateBusList.get(j).getTimeRemaining()) < Integer.parseInt(String.valueOf(tempObj.get("predictTime1")))) {
+							updateBusList.get(j).setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
+							updateBusList.get(j).setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
 							updateBusList.get(j).setAvailability(0);
 						}
 					}

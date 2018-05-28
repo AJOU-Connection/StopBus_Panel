@@ -1,11 +1,14 @@
 package panel.view;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -60,7 +63,7 @@ public class PanelOverviewController {
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	private List<BusStop> searchingList = new ArrayList<BusStop>();
 	private MainApp mainApp;
-	
+	private boolean stop = false;
 	
 	public PanelOverviewController() {
 		
@@ -217,6 +220,28 @@ public class PanelOverviewController {
 		arrivingBusData = mainApp.getArrivingBusData();
 		createArrivingBusBox();
 		boxifyBoxes();
+		
+		
+		
+		Thread thread = new Thread() {
+			@Override
+			public void run() {
+				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+				while(!stop) {
+					String strTime = sdf.format(new Date());
+					Platform.runLater(() -> {
+						mainApp.updateBusInfoList(mainApp.getBusInfoListData());
+						mainApp.addPagination();
+						updateBoxes();
+					});
+					try { Thread.sleep(10000);} catch(InterruptedException e) {}
+				}
+			}
+		};
+		
+		thread.setDaemon(true);
+		thread.start();
+		
 	}
 
 }
