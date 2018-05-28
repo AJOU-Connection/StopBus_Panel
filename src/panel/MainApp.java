@@ -35,14 +35,18 @@ public class MainApp extends Application {
 	//panel에 대한 observable 리스트
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	
+	private AnchorPane panelOverview;
 	private PanelOverviewController controller;
 	private Pagination pagination;
+	
+	BusInfoUtil busInfoUtil = new BusInfoUtil();
 	
 	//UI 초기 화면에 필요한 data를 API로부터 받아온 후 observable list에 저장한다.
 	public MainApp() {
 		getBusStopInfo();
 		getBusInfoList();
 		getArrivingBusInfo();
+		
 	}
 	
 	//-------------------------------------초기 data 받아오기-------------------------------------
@@ -50,7 +54,7 @@ public class MainApp extends Application {
 	//버스 정류장의 정보를 API로부터 받아와 busStop에 저장한다.
 	public void getBusStopInfo() {
 		SearchingStationUtil busStopUtil = new SearchingStationUtil();
-		busStopUtil.searchingStation("04237");
+		busStopUtil.searchingStation("04235");
 		busStop = busStopUtil.getBusStop();
 		
 	}	
@@ -58,9 +62,20 @@ public class MainApp extends Application {
 	
 	//정류장을 지나는 모든 버스의 정보를 API로부터 받아와 busInfoList에 저장한다.
 	public void getBusInfoList() {
-		BusInfoUtil busInfoUtil = new BusInfoUtil();
-		busInfoUtil.setBusInfo("04237");
+		
+		busInfoUtil.setBusInfo("04235");
 		busInfoList = busInfoUtil.getBusInfoList();
+	}
+	
+	public void updateBusInfoList(ObservableList<BusInfo> updateBusList) {
+
+		busInfoUtil.updateBusInfo("04235", updateBusList);
+		updateArrivingBusData();
+		System.out.println("Number\tTime\tStop\tAvailability");
+		for(int k = 0; k < busInfoList.size(); k++) {
+			System.out.println(busInfoList.get(k).getBusNum()+"\t"+busInfoList.get(k).getTimeRemaining()+"\t"+busInfoList.get(k).getCurrentStop()+"\t"+busInfoList.get(k).getAvailability());
+		}
+		System.out.println("------------------------------------");
 	}
 		
 	//busInfoList의 정보를 바탕으로 선착순 버스 정보를 arrivingBusData에 저장한다.
@@ -84,7 +99,7 @@ public class MainApp extends Application {
 			tempBus.setAvailability(tempInfo.getAvailability());
 			arrivingBusData.add(tempBus);
 		}
-		arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
+		//arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
 	}
 	
 	//-------------------------------------data 업데이트 하기-------------------------------------
@@ -109,7 +124,7 @@ public class MainApp extends Application {
 			arrivingBusData.get(i).setAvailability(tempInfo.getAvailability());
 		}
 		
-		arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
+		//arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
 	}
 	
 	//-------------------------------------controller에 data 넘기기-------------------------------------
@@ -174,11 +189,15 @@ public class MainApp extends Application {
                 if(busInfoList.get(i).getAvailability() != 0) {
                 	hbox.setStyle("-fx-background-color:lightcoral");
                 }
+                else {
+                	hbox.setStyle("-fx-background-color: white");
+                }
                 
+                //pagination click
                 hbox.setOnMouseClicked((e) -> {
     				hbox.setStyle("-fx-background-color:lightcoral");
     				busInfoList.get(click).setAvailability(1);
-    				updateArrivingBusData();
+    				updateBusInfoList(busInfoList);
     				controller.updateBoxes();
     			});
         	}
@@ -211,6 +230,7 @@ public class MainApp extends Application {
 		}
 		
 		busInfoList.sort((a, b) -> Double.compare(Double.parseDouble(a.getBusNum()), Double.parseDouble(b.getBusNum())));
+		
 		
 		for(int i = 0; i < busInfoList.size(); i++) {
 			busInfoList.get(i).setBusNum(busInfoList.get(i).getBusNum().replace(".", "-"));
@@ -256,33 +276,39 @@ public class MainApp extends Application {
 		}
 	}
 	
+	public void addPagination() {
+		pagination = new Pagination(busInfoList.size()/itemsPerPage() + 1, 0);
+        pagination.setStyle("-fx-border-color: #C8C8C8;");
+        pagination.setPageFactory(new Callback<Integer, Node>() {
+ 
+            @Override
+            public Node call(Integer pageIndex) {          
+                return createPage(pageIndex);               
+            }
+        });
+        
+        panelOverview.setTopAnchor(pagination, 520.0);
+        panelOverview.setRightAnchor(pagination, 80.0);
+        panelOverview.setLeftAnchor(pagination, 80.0);
+        panelOverview.getChildren().addAll(pagination);
+	}
+	
 	//상위 레이아웃 안에 panel overview를 보여준다.
 	public void showPanelOverview() {
 		try {
 			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/PanelOverview.fxml"));
-			AnchorPane panelOverview = (AnchorPane) loader.load();
+			panelOverview = (AnchorPane) loader.load();
 			rootLayout.setCenter(panelOverview);
 			
 			controller = loader.getController();
 			
-	        pagination = new Pagination(busInfoList.size()/itemsPerPage() + 1, 0);
-	        pagination.setStyle("-fx-border-color: #C8C8C8;");
-	        pagination.setPageFactory(new Callback<Integer, Node>() {
-	 
-	            @Override
-	            public Node call(Integer pageIndex) {          
-	                return createPage(pageIndex);               
-	            }
-	        });
+			controller.setMainApp(this);
+			addPagination();
 	        
-	        panelOverview.setTopAnchor(pagination, 520.0);
-	        panelOverview.setRightAnchor(pagination, 80.0);
-	        panelOverview.setLeftAnchor(pagination, 80.0);
-	        panelOverview.getChildren().addAll(pagination);
 
-	        controller.setMainApp(this);
+	        
 	        
 		}catch(IOException e){
 			e.printStackTrace();
@@ -293,6 +319,7 @@ public class MainApp extends Application {
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
+	
 	
 	public static void main(String[] args) throws Exception {
 		

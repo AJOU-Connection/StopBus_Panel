@@ -54,6 +54,9 @@ public class PanelOverviewController {
 	@FXML
 	private VBox searchBox;
 	
+	@FXML
+	private Button refreshBtn;
+	
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	private List<BusStop> searchingList = new ArrayList<BusStop>();
 	private MainApp mainApp;
@@ -61,6 +64,12 @@ public class PanelOverviewController {
 	
 	public PanelOverviewController() {
 		
+	}
+	@FXML
+	private void reloadInfo() {
+		mainApp.updateBusInfoList(mainApp.getBusInfoListData());
+		mainApp.addPagination();
+		updateBoxes();
 	}
 	
 	@FXML
@@ -101,7 +110,6 @@ public class PanelOverviewController {
 	@FXML
 	private void initialize() {
 		
-      
 	}
 	
 	public void createArrivingBusBox() {
@@ -144,19 +152,25 @@ public class PanelOverviewController {
 			hb.setOnMouseClicked((e) -> {
 				hb.setStyle("-fx-background-color:lightcoral");
 				setAvailability((int) hb.getLayoutY());
+				mainApp.updateBusInfoList(mainApp.getBusInfoListData());
+				mainApp.addPagination();
 			});
 
 		}
 	}
-	
+	//문제가 심각함
 	public void updateBoxes() {
 		
 		int index;
 		for(Node child : arrivingBusBox.getChildren()) {
 			HBox hb = (HBox) child;
+			
 			index = (int) hb.getLayoutY() / 40;
 			if(arrivingBusData.get(index).getAvailability() != 0) {
 				hb.setStyle("-fx-background-color:lightcoral");
+			}
+			else {
+				hb.setStyle("-fx-background-color:white");
 			}
 		}
 	}
