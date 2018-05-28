@@ -53,27 +53,6 @@
          </center>
       </BorderPane>
       <VBox fx:id="arrivingBusBox" layoutX="80.0" layoutY="212.0" prefHeight="270.0" prefWidth="440.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #C8C8C8;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="180.0" />
-      <VBox fx:id="searchBox" layoutX="80.0" layoutY="518.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #C8C8C8;" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="520.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="440.0" style="-fx-background-color: #F9F9F9;">
-               <children>
-                  <TextField fx:id="searchText" prefHeight="25.0" prefWidth="320.0" />
-                  <Button fx:id="textsearching" mnemonicParsing="false" onAction="#getSearchingText" prefHeight="25.0" prefWidth="80.0" text="검색">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Hancom Gothic Regular" size="12.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-            <TextArea fx:id="searchResult" editable="false" prefHeight="360.0" prefWidth="418.0">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </TextArea>
-         </children></VBox>
       <HBox alignment="CENTER" layoutX="-137.0" layoutY="784.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Button fx:id="checking" minWidth="300.0" mnemonicParsing="false" onAction="#setUnvisible" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #00838F;" text="버스 정보 조회" textFill="WHITE">
@@ -88,5 +67,387 @@
             </Button>
          </children>
       </HBox>
+      <AnchorPane fx:id="searchPane" layoutY="710.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="520.0">
+         <children>
+            <VBox fx:id="searchBox" prefHeight="230.0" prefWidth="440.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #C8C8C8;" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="440.0" style="-fx-background-color: #F9F9F9;">
+                     <children>
+                        <TextField fx:id="searchText" prefHeight="25.0" prefWidth="320.0" />
+                        <Button fx:id="textsearching" mnemonicParsing="false" onAction="#getSearchingText" prefHeight="25.0" prefWidth="80.0" text="검색">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="searchResult" editable="false" prefHeight="177.0" prefWidth="418.0">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+            <VBox layoutX="120.0" layoutY="240.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F9F9F9; -fx-border-color: #C8C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="240.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="1">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="2">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="3">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="4">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="5">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="6">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="7">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="8">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="9">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="0">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="60.0" text="Back">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅂ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅈ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㄷ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㄱ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅅ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅛ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅕ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅑ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅐ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅔ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="-">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅁ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㄴ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅇ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㄹ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅎ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅗ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅓ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅏ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅣ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="60.0" text="Enter">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="60.0" text="Shift">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅋ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅌ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅊ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅍ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅠ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅜ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="ㅡ">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="70.0" text="Space">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="60.0" text="한/영">
+                           <HBox.margin>
+                              <Insets left="2.0" right="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Hancom Gothic Regular" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

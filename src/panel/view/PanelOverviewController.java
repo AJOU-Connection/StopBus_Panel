@@ -22,6 +22,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -36,6 +37,9 @@ public class PanelOverviewController {
 
 	@FXML
 	private VBox arrivingBusBox = new VBox(5);
+	
+	@FXML
+	private AnchorPane searchPane;
 
 	@FXML
 	private Label busStopNumLabel;
@@ -93,7 +97,7 @@ public class PanelOverviewController {
 	
 	@FXML
 	private void setVisible() {
-		searchBox.setVisible(true);
+		searchPane.setVisible(true);
 		mainApp.setPaginationUnvisible();
 		searchFlag = true;
 		searching.setStyle("-fx-background-color: #00838F");
@@ -102,7 +106,7 @@ public class PanelOverviewController {
 	
 	@FXML
 	private void setUnvisible() {
-		searchBox.setVisible(false);
+		searchPane.setVisible(false);
 		mainApp.setPaginationVisible();
 		searchFlag = false;
 		mainApp.updatePagination();
