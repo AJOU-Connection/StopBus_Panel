@@ -148,6 +148,7 @@ public class PanelOverviewController {
 	private void boxifyBoxes() {
 		
 		for(Node child : arrivingBusBox.getChildren()) {
+			
 			HBox hb = (HBox) child;
 			hb.setOnMouseClicked((e) -> {
 				hb.setStyle("-fx-background-color:lightcoral");
@@ -162,10 +163,31 @@ public class PanelOverviewController {
 	public void updateBoxes() {
 		
 		int index;
-		for(Node child : arrivingBusBox.getChildren()) {
+		for(Node child : arrivingBusBox.getChildren()) {	
 			HBox hb = (HBox) child;
-			
+			hb.getChildren().clear();	
 			index = (int) hb.getLayoutY() / 40;
+			
+			ArrivingBus tempArrivingBus = arrivingBusData.get(index);
+			
+			Label busNum = new Label(tempArrivingBus.getBusNumber()+" 번");
+    		Label busTime = new Label(tempArrivingBus.getTimeRemaining()+" 분 전");
+    		Label busStop = new Label(tempArrivingBus.getCurrentStop()+" 정거장 전");
+    		
+    		busNum.setFont(new Font("Hancom Gothic", 16));
+    		busNum.setStyle("-fx-padding: 10;");
+    		busNum.setMinWidth(160.0);
+    		busTime.setFont(new Font("Hancom Gothic", 16));
+    		busTime.setStyle("-fx-padding: 10;");
+    		busTime.setMinWidth(160.0);
+    		busStop.setFont(new Font("Hancom Gothic", 16));
+    		busStop.setStyle("-fx-padding: 10;");
+    		busStop.setMinWidth(160.0);
+    		
+    		hb.getChildren().add(busNum);
+    		hb.getChildren().add(busTime);
+    		hb.getChildren().add(busStop);
+			
 			if(arrivingBusData.get(index).getAvailability() != 0) {
 				hb.setStyle("-fx-background-color:lightcoral");
 			}
