@@ -100,6 +100,7 @@ public class PanelOverviewController {
 		searchPane.setVisible(true);
 		mainApp.setPaginationUnvisible();
 		searchFlag = true;
+		searchPane.setVisible(true);
 		searching.setStyle("-fx-background-color: #00838F");
 		checking.setStyle("-fx-background-color: #00ACC1");
 	}
@@ -108,6 +109,7 @@ public class PanelOverviewController {
 	private void setUnvisible() {
 		searchPane.setVisible(false);
 		mainApp.setPaginationVisible();
+		searchPane.setVisible(false);
 		searchFlag = false;
 		mainApp.updatePagination();
 		searching.setStyle("-fx-background-color: #00ACC1");
