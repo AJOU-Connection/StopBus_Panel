@@ -67,7 +67,7 @@
             </Button>
          </children>
       </HBox>
-      <AnchorPane fx:id="searchPane" layoutY="710.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="520.0">
+      <AnchorPane fx:id="searchPane" layoutY="710.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="520.0">
          <children>
             <BorderPane layoutX="45.0" layoutY="-43.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #C8C8C8;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="40.0">
                <center>

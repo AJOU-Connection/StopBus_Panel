@@ -15,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import panel.model.BusInfo;
 import panel.model.BusStop;
 
 public class SearchingStationUtil {
@@ -171,6 +172,62 @@ public class SearchingStationUtil {
 						
 						searchingResult.add(tempBusStop);
 					}
+				}
+			}
+			
+			osw.close();
+			br.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return searchingResult;
+	}
+	
+	public List<BusInfo> getIsgo(String sourceStationID, String destiStationID){
+		
+		String result = "";
+		
+		List<BusInfo> searchingResult = new ArrayList<BusInfo>();
+		
+		try {
+			String targetURL = "http://stop-bus.tk/user/isgo";
+			URL url = new URL(targetURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			conn.setDoOutput(true);
+			conn.setRequestMethod("POST"); // 보내는 타입
+			
+			// 데이터
+			String param = "{\"sourceStationID\":\""+sourceStationID+"\", \"destiStationID\":\""+ destiStationID +"\"}";
+			
+			
+			// 전송
+			OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
+			osw.write(param);
+			osw.flush();
+
+			// 응답
+			BufferedReader br = null;
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+			
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObj = (JSONObject) jsonParser.parse(result);
+			JSONArray array = (JSONArray) jsonObj.get("body");
+			
+			if(array != null) {
+				for(int i = 0; i < array.size(); i++) {
+					JSONObject tempObj = (JSONObject) array.get(i);
+					BusInfo tempBusInfo = new BusInfo();
+					
+					tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
+					tempBusInfo.setRouteID(String.valueOf(tempObj.get("routeID")));
+					
+					searchingResult.add(tempBusInfo);
 				}
 			}
 			
