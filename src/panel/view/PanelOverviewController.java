@@ -8,22 +8,27 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 import panel.MainApp;
 import panel.model.ArrivingBus;
+import panel.model.BusInfo;
 import panel.model.BusStop;
 import panel.util.SearchingStationUtil;
 import panel.util.LanguageUtil;
@@ -122,49 +127,49 @@ public class PanelOverviewController {
 			result += "검색 결과가 없습니다.";
 		}
 		else {
-			/*
 			for(int i = 0; i < searchingList.size(); i++) {
-				result += "정류장 번호 : " + searchingList.get(i).getBusStopNum() + "\n";
-				result += "정류장 이름 : " + searchingList.get(i).getBusStopName() + "\n";
-				result += "정류장 방면 : " + searchingList.get(i).getBusStopInfo() + "\n\n";
-			}
-			*/
-			for(int i = 0; i < searchingList.size(); i++) {
-				HBox hbox = new HBox();
-	        	hbox.setStyle("-fx-background-color:white");
-	        	
-	        	Label stationNum = new Label(searchingList.get(i).getBusStopNum());
-	    		Label stationName = new Label(searchingList.get(i).getBusStopName());
-	    		
-	    		stationNum.setFont(new Font("Hancom Gothic", 16));
-	    		stationNum.setStyle("-fx-padding: 10;");
-	    		stationNum.setMinWidth(50.0);
-	    		stationName.setFont(new Font("Hancom Gothic", 16));
-	    		stationName.setStyle("-fx-padding: 10;");
-	    		stationName.setMinWidth(200.0);
-	    		
-	    		hbox.getChildren().add(stationNum);
-	    		hbox.getChildren().add(stationName);
-	    		
-	    		searchVBox.getChildren().add(hbox);
+				final int click = i;
+				
+				searchVBox.setSpacing(5);
+				
+				String stationNum = searchingList.get(i).getBusStopNum();
+				String stationName = searchingList.get(i).getBusStopName();
+				
+				String btnText = "[" + stationNum + " ]\t" + stationName;
+				
+				Button resultBtn = new Button(btnText);
+				resultBtn.setMinWidth(460);
+				resultBtn.setMinHeight(50);
+				resultBtn.setAlignment(Pos.BASELINE_LEFT);
+				resultBtn.setStyle("-fx-background-color : white");
+				
+				resultBtn.setOnAction((event) -> {
+					//여기를 2차 검색으로 넘어가게 잘 해봐야함...
+					System.out.println(click);
+				});
+				
+				resultBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
+						new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent e) {
+								resultBtn.setStyle("-fx-background-color: #F9F9F9");
+							}
+				});
+				
+				resultBtn.addEventHandler(MouseEvent.MOUSE_EXITED,
+						new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent e) {
+								resultBtn.setStyle("-fx-background-color: white");
+							}
+				});
+				
+	    		searchVBox.getChildren().add(resultBtn);
 			}
 			result += "총 "+searchingList.size()+"개의 검색결과가 있습니다.";
 		}
 		searchResult.setText(result);
 	}
-	
-	private void clickStationSearchResult() {
-		
-		for(Node child : searchVBox.getChildren()) {
-			
-			HBox hb = (HBox) child;
-			hb.setOnMouseClicked((e) -> {
-				System.out.println("click");
-			});
-
-		}
-	}
-	
 	
 	@FXML
 	private void setVisible() {
@@ -225,6 +230,22 @@ public class PanelOverviewController {
     		hbox.getChildren().add(busNum);
     		hbox.getChildren().add(busTime);
     		hbox.getChildren().add(busStop);
+    		
+    		hbox.addEventHandler(MouseEvent.MOUSE_ENTERED,
+					new EventHandler<MouseEvent>() {
+						@Override
+						public void handle(MouseEvent e) {
+							hbox.setStyle("-fx-background-color: #F9F9F9");
+						}
+			});
+    		
+    		hbox.addEventHandler(MouseEvent.MOUSE_EXITED,
+					new EventHandler<MouseEvent>() {
+						@Override
+						public void handle(MouseEvent e) {
+							hbox.setStyle("-fx-background-color: white");
+						}
+			});
             
     		arrivingBusBox.getChildren().add(hbox);
         }

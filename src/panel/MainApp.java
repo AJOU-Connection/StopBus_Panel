@@ -4,11 +4,13 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -240,6 +242,23 @@ public class MainApp extends Application {
         				controller.updateBoxes();
     				}
     			});
+                
+                hbox.addEventHandler(MouseEvent.MOUSE_ENTERED,
+    					new EventHandler<MouseEvent>() {
+    						@Override
+    						public void handle(MouseEvent e) {
+    							hbox.setStyle("-fx-background-color: #F9F9F9");
+    						}
+    			});
+        		
+        		hbox.addEventHandler(MouseEvent.MOUSE_EXITED,
+    					new EventHandler<MouseEvent>() {
+    						@Override
+    						public void handle(MouseEvent e) {
+    							hbox.setStyle("-fx-background-color: white");
+    						}
+    			});
+        		
         	}
         	else {
             	Label nullLabel = new Label("");
