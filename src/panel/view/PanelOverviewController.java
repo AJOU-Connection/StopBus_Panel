@@ -75,10 +75,6 @@ public class PanelOverviewController {
 	@FXML
 	private VBox englishKeyboard2;
 	
-	
-	@FXML
-	private Button refreshBtn;
-	
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	//private List<BusStop> searchingList = new ArrayList<BusStop>();
 	private MainApp mainApp;
@@ -119,57 +115,88 @@ public class PanelOverviewController {
 		List<BusStop> searchingList = new ArrayList<BusStop>();
 		String keyword = searchText.getText();
 		String result = "";
-		SearchingStationUtil searchingUtil = new SearchingStationUtil();
-		searchingList= searchingUtil.searchingText(keyword);
-		//searchingList = searchingUtil.getSearchingList();
 		
-		if(searchingList.size() == 0) {
-			result += "검색 결과가 없습니다.";
+		SearchingStationUtil searchingUtil = new SearchingStationUtil();
+		
+		if(keyword.charAt(0) >= 48 && keyword.charAt(0) <= 57) {
+			ObservableList<BusInfo> tempList = mainApp.getBusInfoListData();
+			String routeID = "";
+			String stationSeq = "";
+			for(int i = 0; i < tempList.size(); i++) {
+				if(tempList.get(i).getBusNum().equals(keyword)) {
+					routeID += tempList.get(i).getRouteID();	//같은 번호인 차량의 routeID
+					stationSeq += tempList.get(i).getStationSeq();	//같은 번호인 차량의 stationSeq
+					break;
+				}
+			}
+			
+			searchingList = searchingUtil.getBusStationList(routeID, stationSeq);
+			
+			if(searchingList.size() == 0) {
+				result += "검색 결과가 없습니다.";
+			}else {
+				showFirstSearchingResult(searchingList.size(), searchingList);
+				result += "총 "+searchingList.size()+"개의 검색결과가 있습니다.";
+			}
 		}
 		else {
-			for(int i = 0; i < searchingList.size(); i++) {
-				final int click = i;
-				
-				searchVBox.setSpacing(5);
-				
-				String stationNum = searchingList.get(i).getBusStopNum();
-				String stationName = searchingList.get(i).getBusStopName();
-				
-				String btnText = "[" + stationNum + " ]\t" + stationName;
-				
-				Button resultBtn = new Button(btnText);
-				resultBtn.setMinWidth(460);
-				resultBtn.setMinHeight(50);
-				resultBtn.setAlignment(Pos.BASELINE_LEFT);
-				resultBtn.setStyle("-fx-background-color : white");
-				
-				resultBtn.setOnAction((event) -> {
-					//여기를 2차 검색으로 넘어가게 잘 해봐야함...
-					System.out.println(click);
-				});
-				
-				resultBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
-						new EventHandler<MouseEvent>() {
-							@Override
-							public void handle(MouseEvent e) {
-								resultBtn.setStyle("-fx-background-color: #F9F9F9");
-							}
-				});
-				
-				resultBtn.addEventHandler(MouseEvent.MOUSE_EXITED,
-						new EventHandler<MouseEvent>() {
-							@Override
-							public void handle(MouseEvent e) {
-								resultBtn.setStyle("-fx-background-color: white");
-							}
-				});
-				
-	    		searchVBox.getChildren().add(resultBtn);
+			searchingList= searchingUtil.searchingStation(keyword);
+			
+			//검색 결과가 없을 때
+			if(searchingList.size() == 0) {
+				result += "검색 결과가 없습니다.";
 			}
-			result += "총 "+searchingList.size()+"개의 검색결과가 있습니다.";
+			else {
+				showFirstSearchingResult(searchingList.size(), searchingList);
+				result += "총 "+searchingList.size()+"개의 검색결과가 있습니다.";
+			}
 		}
 		searchResult.setText(result);
 	}
+	
+	
+	private void showFirstSearchingResult(int size, List<BusStop> searchingList) {
+		for(int i = 0; i < size; i++) {
+			final int click = i;
+			
+			searchVBox.setSpacing(5);
+			
+			String stationNum = searchingList.get(i).getBusStopNum();
+			String stationName = searchingList.get(i).getBusStopName();
+			
+			String btnText = "[" + stationNum + " ]\t" + stationName;
+			
+			Button resultBtn = new Button(btnText);
+			resultBtn.setMinWidth(460);
+			resultBtn.setMinHeight(50);
+			resultBtn.setAlignment(Pos.BASELINE_LEFT);
+			resultBtn.setStyle("-fx-background-color : white");
+			
+			resultBtn.setOnAction((event) -> {
+				//여기를 2차 검색으로 넘어가게 잘 해봐야함...
+				System.out.println(click);
+			});
+			
+			resultBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
+					new EventHandler<MouseEvent>() {
+						@Override
+						public void handle(MouseEvent e) {
+							resultBtn.setStyle("-fx-background-color: #F9F9F9");
+						}
+			});
+			
+			resultBtn.addEventHandler(MouseEvent.MOUSE_EXITED,
+					new EventHandler<MouseEvent>() {
+						@Override
+						public void handle(MouseEvent e) {
+							resultBtn.setStyle("-fx-background-color: white");
+						}
+			});
+			
+    		searchVBox.getChildren().add(resultBtn);
+		}
+	}
+	
 	
 	@FXML
 	private void setVisible() {
@@ -191,7 +218,7 @@ public class PanelOverviewController {
 		mainApp.updatePagination();
 		searching.setStyle("-fx-background-color: #00ACC1");
 		checking.setStyle("-fx-background-color: #00838F");
-		searchResult.setText("검색어를 입력해주세요");
+		searchResult.setText("검색어를 입력해주세요.");
 		searchVBox.getChildren().clear();
 		searchText.setText("");
 		
@@ -475,7 +502,7 @@ public class PanelOverviewController {
 		createArrivingBusBox();
 		boxifyBoxes();
 		
-		/*
+		
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -496,7 +523,7 @@ public class PanelOverviewController {
 		
 		thread.setDaemon(true);
 		thread.start();
-		*/
+		
 	}
 
 }

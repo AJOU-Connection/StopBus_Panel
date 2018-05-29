@@ -12,8 +12,9 @@ public class BusInfo {
 	private final StringProperty currentStop;
 	private final StringProperty plateNum;
 	private final StringProperty stationSeq;
+	private final StringProperty routeID;
 	private final IntegerProperty availability;
-	
+
 	public BusInfo() {
 		this(null, null, null);
 	}
@@ -24,6 +25,7 @@ public class BusInfo {
 		this.currentStop = new SimpleStringProperty(currentStop);
 		this.plateNum = new SimpleStringProperty(null);
 		this.stationSeq = new SimpleStringProperty(null);
+		this.routeID = new SimpleStringProperty(null);
 		this.availability = new SimpleIntegerProperty(0);
 	}
 	
@@ -84,6 +86,18 @@ public class BusInfo {
 	
 	public StringProperty stationSeqProperty() {
 		return stationSeq;
+	}
+	
+	public String getRouteID() {
+		return routeID.get();
+	}
+	
+	public void setRouteID(String routeID) {
+		this.routeID.set(routeID);
+	}
+	
+	public StringProperty routeIDProperty() {
+		return routeID;
 	}
 	
 	public int getAvailability() {

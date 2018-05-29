@@ -13,6 +13,7 @@ public class BusStop {
 	private final StringProperty busStopName;
 	private final StringProperty busStopInfo;
 	private final StringProperty stationID;
+	private final StringProperty stationSeq;
 	
 	public BusStop() {
 		this(null, null, null);
@@ -22,7 +23,9 @@ public class BusStop {
 		this.busStopName = new SimpleStringProperty(busStopName);
 		this.busStopNum = new SimpleStringProperty(busStopNum);
 		this.busStopInfo = new SimpleStringProperty(busStopInfo);
+		
 		this.stationID = new SimpleStringProperty(null);
+		this.stationSeq = new SimpleStringProperty(null);
 	}
 	
 	
@@ -72,5 +75,17 @@ public class BusStop {
 	
 	public StringProperty statoinIDProperty() {
 		return stationID;
+	}
+	
+	public String getStationSeq() {
+		return stationSeq.get();
+	}
+	
+	public void setStationSeq(String stationSeq) {
+		this.stationSeq.set(stationSeq);
+	}
+	
+	public StringProperty stationSeqProperty() {
+		return stationSeq;
 	}
 }

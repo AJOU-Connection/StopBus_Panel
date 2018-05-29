@@ -57,18 +57,15 @@ public class BusInfoUtil {
 			for(int i=0; i<array.size(); i++) {
 				JSONObject tempObj = (JSONObject) array.get(i);
 				BusInfo tempBusInfo = new BusInfo();
-				if(Integer.parseInt(String.valueOf(tempObj.get("predictTime1"))) >= 0) {
-					tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
-					tempBusInfo.setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
-					tempBusInfo.setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
-					tempBusInfo.setPlateNum(String.valueOf(tempObj.get("plateNo1")));
-					tempBusInfo.setStationSeq(String.valueOf(tempObj.get("stationSeq")));
-				}else {
-					tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
+				tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
+				tempBusInfo.setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
+				tempBusInfo.setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
+				tempBusInfo.setPlateNum(String.valueOf(tempObj.get("plateNo1")));
+				tempBusInfo.setStationSeq(String.valueOf(tempObj.get("stationSeq")));
+				tempBusInfo.setRouteID(String.valueOf(tempObj.get("routeId")));
+				if(Integer.parseInt(String.valueOf(tempObj.get("predictTime1"))) < 0) {
 					tempBusInfo.setTimeRemaining("9999");
 					tempBusInfo.setCurrentStop("9999");
-					tempBusInfo.setPlateNum(null);
-					tempBusInfo.setStationSeq(String.valueOf(tempObj.get("stationSeq")));
 				}
 				busInfoList.add(tempBusInfo);
 			}

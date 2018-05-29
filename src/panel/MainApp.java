@@ -75,13 +75,13 @@ public class MainApp extends Application {
 		busInfoUtil.updateBusInfo(stationSetting, updateBusList);
 		updateArrivingBusData();
 		
-		
+		/*
 		System.out.println("Number\tTime\tStop\tAvail\tPlante No.");
 		for(int k = 0; k < busInfoList.size(); k++) {
 			System.out.println(busInfoList.get(k).getBusNum()+"\t"+busInfoList.get(k).getTimeRemaining()+"\t"+busInfoList.get(k).getCurrentStop()+"\t"+busInfoList.get(k).getAvailability()+"\t"+busInfoList.get(k).getPlateNum());
 		}
 		System.out.println("------------------------------------");
-		
+		*/
 	}
 		
 	//busInfoList의 정보를 바탕으로 선착순 버스 정보를 arrivingBusData에 저장한다.
