@@ -62,11 +62,13 @@ public class BusInfoUtil {
 					tempBusInfo.setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
 					tempBusInfo.setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
 					tempBusInfo.setPlateNum(String.valueOf(tempObj.get("plateNo1")));
+					tempBusInfo.setStationSeq(String.valueOf(tempObj.get("stationSeq")));
 				}else {
 					tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
 					tempBusInfo.setTimeRemaining("9999");
 					tempBusInfo.setCurrentStop("9999");
 					tempBusInfo.setPlateNum(null);
+					tempBusInfo.setStationSeq(String.valueOf(tempObj.get("stationSeq")));
 				}
 				busInfoList.add(tempBusInfo);
 			}

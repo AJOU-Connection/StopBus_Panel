@@ -358,6 +358,7 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			//updatePagination();
 			addPagination();
+			updatePagination();
 		}catch(IOException e){
 			e.printStackTrace();
 		}

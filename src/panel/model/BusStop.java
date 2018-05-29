@@ -12,18 +12,17 @@ public class BusStop {
 	private final StringProperty busStopNum;
 	private final StringProperty busStopName;
 	private final StringProperty busStopInfo;
-	private final IntegerProperty availability;
+	private final StringProperty stationID;
 	
 	public BusStop() {
 		this(null, null, null);
 	}
 	
 	public BusStop(String busStopNum, String busStopName, String busStopInfo){
-		
 		this.busStopName = new SimpleStringProperty(busStopName);
 		this.busStopNum = new SimpleStringProperty(busStopNum);
 		this.busStopInfo = new SimpleStringProperty(busStopInfo);
-		this.availability = new SimpleIntegerProperty(0);
+		this.stationID = new SimpleStringProperty(null);
 	}
 	
 	
@@ -63,15 +62,15 @@ public class BusStop {
 		return busStopInfo;
 	}
 	
-	public int getAvailability() {
-		return availability.get();
+	public String getStationID() {
+		return stationID.get();
 	}
 	
-	public void setAvailability(int availability) {
-		this.availability.set(availability);
+	public void setStationID(String stationID) {
+		this.stationID.set(stationID);
 	}
 	
-	public IntegerProperty availabilityProperty() {
-		return availability;
+	public StringProperty statoinIDProperty() {
+		return stationID;
 	}
 }

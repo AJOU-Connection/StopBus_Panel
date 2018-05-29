@@ -11,6 +11,7 @@ public class BusInfo {
 	private final StringProperty timeRemaining;
 	private final StringProperty currentStop;
 	private final StringProperty plateNum;
+	private final StringProperty stationSeq;
 	private final IntegerProperty availability;
 	
 	public BusInfo() {
@@ -22,6 +23,7 @@ public class BusInfo {
 		this.timeRemaining = new SimpleStringProperty(timeRemaining);
 		this.currentStop = new SimpleStringProperty(currentStop);
 		this.plateNum = new SimpleStringProperty(null);
+		this.stationSeq = new SimpleStringProperty(null);
 		this.availability = new SimpleIntegerProperty(0);
 	}
 	
@@ -72,6 +74,18 @@ public class BusInfo {
 		return plateNum;
 	}
 	
+	public String getStationSeq() {
+		return stationSeq.get();
+	}
+	
+	public void setStationSeq(String stationSeq) {
+		this.stationSeq.set(stationSeq);
+	}
+	
+	public StringProperty stationSeqProperty() {
+		return stationSeq;
+	}
+	
 	public int getAvailability() {
 		return availability.get();
 	}
@@ -83,4 +97,5 @@ public class BusInfo {
 	public IntegerProperty availabilityProperty() {
 		return availability;
 	}
+
 }

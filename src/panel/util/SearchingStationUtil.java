@@ -18,8 +18,6 @@ import javafx.collections.ObservableList;
 import panel.model.BusStop;
 
 public class SearchingStationUtil {
-	
-	//private List<BusStop> searchingList = new ArrayList<BusStop>();
 
 	public BusStop searchingBusStop(String keyword){
 		
@@ -59,6 +57,7 @@ public class SearchingStationUtil {
 				tempBusStop.setBusStopNum(String.valueOf(tempObj.get("stationNumber")));
 				tempBusStop.setBusStopName(String.valueOf(tempObj.get("stationName")));
 				tempBusStop.setBusStopInfo(String.valueOf(tempObj.get("stationDirect")));
+				tempBusStop.setStationID(String.valueOf(tempObj.get("stationID")));
 			}
 
 			osw.close();
@@ -112,6 +111,7 @@ public class SearchingStationUtil {
 					tempBusStop.setBusStopNum(String.valueOf(tempObj.get("stationNumber")));
 					tempBusStop.setBusStopName(String.valueOf(tempObj.get("stationName")));
 					tempBusStop.setBusStopInfo(String.valueOf(tempObj.get("stationDirect")));
+					tempBusStop.setStationID(String.valueOf(tempObj.get("stationID")));
 					searchingResult.add(tempBusStop);
 				}
 			}
@@ -124,12 +124,4 @@ public class SearchingStationUtil {
 		
 		return searchingResult;
 	}
-	/*
-	public BusStop getBusStop() {
-		busStop.setBusStopNum(searchingList.get(0).getBusStopNum());
-		busStop.setBusStopName(searchingList.get(0).getBusStopName());
-		busStop.setBusStopInfo(searchingList.get(0).getBusStopInfo());
-		return busStop;
-	}
-	*/
 }

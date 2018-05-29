@@ -13,12 +13,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import panel.MainApp;
 import panel.model.ArrivingBus;
 import panel.model.BusStop;
@@ -49,9 +52,11 @@ public class PanelOverviewController {
 	@FXML
 	private TextField searchText;
 	@FXML
-	private TextArea searchResult;
+	private Label searchResult;
 	@FXML
-	private VBox searchBox;
+	private ScrollPane searchResultScroll;
+	@FXML
+	private VBox searchVBox;
 	
 	@FXML
 	private VBox koreanKeyboard1;
@@ -82,25 +87,84 @@ public class PanelOverviewController {
 	}
 	
 	@FXML
+	private void setKeyboardUnvisible() {
+		koreanKeyboard1.setVisible(false);
+		koreanKeyboard2.setVisible(false);
+		englishKeyboard1.setVisible(false);
+		englishKeyboard2.setVisible(false);
+		languageFlag = false;
+		shiftFlag = false;
+	}
+	@FXML
+	private void setKeyboardVisible() {
+		koreanKeyboard1.setVisible(true);
+		koreanKeyboard2.setVisible(false);
+		englishKeyboard1.setVisible(false);
+		englishKeyboard2.setVisible(false);
+		languageFlag = false;
+		shiftFlag = false;
+	}
+	
+	@FXML
 	private void getSearchingText() {
+		
+		setKeyboardUnvisible();
+		searchVBox.getChildren().clear();
+		
 		List<BusStop> searchingList = new ArrayList<BusStop>();
 		String keyword = searchText.getText();
 		String result = "";
 		SearchingStationUtil searchingUtil = new SearchingStationUtil();
-
 		searchingList= searchingUtil.searchingText(keyword);
 		//searchingList = searchingUtil.getSearchingList();
 		
-		result += "총 "+searchingList.size()+"개의 검색결과가 있습니다.\n\n";
-		for(int i = 0; i < searchingList.size(); i++) {
-			result += "정류장 번호 : " + searchingList.get(i).getBusStopNum() + "\n";
-			result += "정류장 이름 : " + searchingList.get(i).getBusStopName() + "\n";
-			result += "정류장 방면 : " + searchingList.get(i).getBusStopInfo() + "\n\n";
+		if(searchingList.size() == 0) {
+			result += "검색 결과가 없습니다.";
 		}
-		
+		else {
+			/*
+			for(int i = 0; i < searchingList.size(); i++) {
+				result += "정류장 번호 : " + searchingList.get(i).getBusStopNum() + "\n";
+				result += "정류장 이름 : " + searchingList.get(i).getBusStopName() + "\n";
+				result += "정류장 방면 : " + searchingList.get(i).getBusStopInfo() + "\n\n";
+			}
+			*/
+			for(int i = 0; i < searchingList.size(); i++) {
+				HBox hbox = new HBox();
+	        	hbox.setStyle("-fx-background-color:white");
+	        	
+	        	Label stationNum = new Label(searchingList.get(i).getBusStopNum());
+	    		Label stationName = new Label(searchingList.get(i).getBusStopName());
+	    		
+	    		stationNum.setFont(new Font("Hancom Gothic", 16));
+	    		stationNum.setStyle("-fx-padding: 10;");
+	    		stationNum.setMinWidth(50.0);
+	    		stationName.setFont(new Font("Hancom Gothic", 16));
+	    		stationName.setStyle("-fx-padding: 10;");
+	    		stationName.setMinWidth(200.0);
+	    		
+	    		hbox.getChildren().add(stationNum);
+	    		hbox.getChildren().add(stationName);
+	    		
+	    		searchVBox.getChildren().add(hbox);
+			}
+			result += "총 "+searchingList.size()+"개의 검색결과가 있습니다.";
+		}
 		searchResult.setText(result);
-		
 	}
+	
+	private void clickStationSearchResult() {
+		
+		for(Node child : searchVBox.getChildren()) {
+			
+			HBox hb = (HBox) child;
+			hb.setOnMouseClicked((e) -> {
+				System.out.println("click");
+			});
+
+		}
+	}
+	
 	
 	@FXML
 	private void setVisible() {
@@ -110,6 +174,7 @@ public class PanelOverviewController {
 		searchPane.setVisible(true);
 		searching.setStyle("-fx-background-color: #00838F");
 		checking.setStyle("-fx-background-color: #00ACC1");
+		setKeyboardVisible();
 	}
 	
 	@FXML
@@ -121,6 +186,10 @@ public class PanelOverviewController {
 		mainApp.updatePagination();
 		searching.setStyle("-fx-background-color: #00ACC1");
 		checking.setStyle("-fx-background-color: #00838F");
+		searchResult.setText("검색어를 입력해주세요");
+		searchVBox.getChildren().clear();
+		searchText.setText("");
+		
 	}
 	
 	@FXML
@@ -385,8 +454,7 @@ public class PanelOverviewController {
 		createArrivingBusBox();
 		boxifyBoxes();
 		
-		
-		
+		/*
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -407,7 +475,7 @@ public class PanelOverviewController {
 		
 		thread.setDaemon(true);
 		thread.start();
-		
+		*/
 	}
 
 }
