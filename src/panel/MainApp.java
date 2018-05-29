@@ -38,6 +38,8 @@ public class MainApp extends Application {
 	private PanelOverviewController controller;
 	private Pagination pagination;
 	
+	private String stationSetting = "04235";
+	
 	BusInfoUtil busInfoUtil = new BusInfoUtil();
 	
 	//UI 초기 화면에 필요한 data를 API로부터 받아온 후 observable list에 저장한다.
@@ -53,7 +55,7 @@ public class MainApp extends Application {
 	//버스 정류장의 정보를 API로부터 받아와 busStop에 저장한다.
 	public void getBusStopInfo() {
 		SearchingStationUtil busStopUtil = new SearchingStationUtil();
-		busStop = busStopUtil.searchingBusStop("04235");
+		busStop = busStopUtil.searchingBusStop(stationSetting);
 		//busStop = busStopUtil.getBusStop();
 		
 	}	
@@ -62,19 +64,22 @@ public class MainApp extends Application {
 	//정류장을 지나는 모든 버스의 정보를 API로부터 받아와 busInfoList에 저장한다.
 	public void getBusInfoList() {
 		
-		busInfoUtil.setBusInfo("04235");
+		busInfoUtil.setBusInfo(stationSetting);
 		busInfoList = busInfoUtil.getBusInfoList();
 	}
 	
 	public void updateBusInfoList(ObservableList<BusInfo> updateBusList) {
 
-		busInfoUtil.updateBusInfo("04235", updateBusList);
+		busInfoUtil.updateBusInfo(stationSetting, updateBusList);
 		updateArrivingBusData();
+		
+		/*
 		System.out.println("Number\tTime\tStop\tAvailability");
 		for(int k = 0; k < busInfoList.size(); k++) {
 			System.out.println(busInfoList.get(k).getBusNum()+"\t"+busInfoList.get(k).getTimeRemaining()+"\t"+busInfoList.get(k).getCurrentStop()+"\t"+busInfoList.get(k).getAvailability());
 		}
 		System.out.println("------------------------------------");
+		*/
 	}
 		
 	//busInfoList의 정보를 바탕으로 선착순 버스 정보를 arrivingBusData에 저장한다.
@@ -83,15 +88,24 @@ public class MainApp extends Application {
 		BusInfo tempInfo;
 		int printSize = 6;
 		
-		busInfoList.sort((a, b) -> Integer.compare(Integer.parseInt(a.getTimeRemaining()), Integer.parseInt(b.getTimeRemaining())));
+		ObservableList<BusInfo> sortedBusInfoList = FXCollections.observableArrayList();
 		
-		if(busInfoList.size() < 6) {
-			printSize = busInfoList.size();
+		for(BusInfo bi : busInfoList) {
+			BusInfo tempBI = new BusInfo(bi.getBusNum(), bi.getTimeRemaining(), bi.getCurrentStop());
+			
+			sortedBusInfoList.add(tempBI);
+		}
+		
+		busInfoList.sort((a, b) -> a.getBusNum().compareTo(b.getBusNum()));
+		sortedBusInfoList.sort((a, b) -> Integer.compare(Integer.parseInt(a.getTimeRemaining()), Integer.parseInt(b.getTimeRemaining())));
+		
+		if(sortedBusInfoList.size() < 6) {
+			printSize = sortedBusInfoList.size();
 		}
 		
 		for(int i = 0; i < printSize; i++) {
 			ArrivingBus tempBus = new ArrivingBus();
-			tempInfo = busInfoList.get(i);
+			tempInfo = sortedBusInfoList.get(i);
 			tempBus.setBusNumber(tempInfo.getBusNum());
 			tempBus.setCurrentStop(tempInfo.getCurrentStop());
 			tempBus.setTimeRemaining(tempInfo.getTimeRemaining());
@@ -109,18 +123,30 @@ public class MainApp extends Application {
 		BusInfo tempInfo;
 		int printSize = 6;
 		
-		busInfoList.sort((a, b) -> Integer.compare(Integer.parseInt(a.getTimeRemaining()), Integer.parseInt(b.getTimeRemaining())));
+		ObservableList<BusInfo> sortedBusInfoList = FXCollections.observableArrayList();
 		
-		if(busInfoList.size() < 6) {
-			printSize = busInfoList.size();
+		for(BusInfo bi : busInfoList) {
+			BusInfo tempBI = new BusInfo(bi.getBusNum(), bi.getTimeRemaining(), bi.getCurrentStop());
+			tempBI.setAvailability(bi.getAvailability());
+			sortedBusInfoList.add(tempBI);
+		}
+		
+		busInfoList.sort((a, b) -> a.getBusNum().compareTo(b.getBusNum()));
+		sortedBusInfoList.sort((a, b) -> Integer.compare(Integer.parseInt(a.getTimeRemaining()), Integer.parseInt(b.getTimeRemaining())));
+		
+		if(sortedBusInfoList.size() < 6) {
+			printSize = sortedBusInfoList.size();
 		}
 		
 		for(int i = 0; i < printSize; i++) {
-			tempInfo = busInfoList.get(i);
-			arrivingBusData.get(i).setBusNumber(tempInfo.getBusNum());
-			arrivingBusData.get(i).setCurrentStop(tempInfo.getCurrentStop());
-			arrivingBusData.get(i).setTimeRemaining(tempInfo.getTimeRemaining());
-			arrivingBusData.get(i).setAvailability(tempInfo.getAvailability());
+			tempInfo = sortedBusInfoList.get(i);
+			if(Integer.parseInt(tempInfo.getCurrentStop()) < 1000 || Integer.parseInt(tempInfo.getTimeRemaining()) < 1000) {
+				arrivingBusData.get(i).setBusNumber(tempInfo.getBusNum());
+				arrivingBusData.get(i).setCurrentStop(tempInfo.getCurrentStop());
+				arrivingBusData.get(i).setTimeRemaining(tempInfo.getTimeRemaining());
+				arrivingBusData.get(i).setAvailability(tempInfo.getAvailability());
+			}
+			
 		}
 		
 		//arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
@@ -165,8 +191,17 @@ public class MainApp extends Application {
         		BusInfo tempBusStop = busInfoList.get(i);
                 boolean flag = false;
         		Label busNum = new Label(tempBusStop.getBusNum()+" 번");
-        		Label busTime = new Label(tempBusStop.getTimeRemaining()+" 분 전");
-        		Label busStop = new Label(tempBusStop.getCurrentStop()+" 정거장 전");
+        		Label busTime;
+        		Label busStop;
+        		
+        		if(Integer.parseInt(tempBusStop.getTimeRemaining()) > 1000 || Integer.parseInt(tempBusStop.getCurrentStop()) > 1000) {
+        			busTime = new Label("버스 정보 없음");
+        			busStop = new Label("버스 정보 없음");
+        		}
+        		else {
+        			busTime = new Label(tempBusStop.getTimeRemaining()+" 분 전");
+            		busStop = new Label(tempBusStop.getCurrentStop()+" 정거장 전");
+        		}
         		
         		busNum.setFont(new Font("Hancom Gothic", 16));
         		busNum.setStyle("-fx-padding: 10;");
@@ -309,10 +344,7 @@ public class MainApp extends Application {
 			
 			controller.setMainApp(this);
 			updatePagination();
-	        
-
-	        
-	        
+	       
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -325,7 +357,6 @@ public class MainApp extends Application {
 	
 	
 	public static void main(String[] args) throws Exception {
-		
 		launch(args);
 	}
 }

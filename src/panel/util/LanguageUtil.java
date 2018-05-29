@@ -72,6 +72,43 @@ public class LanguageUtil {
 		return ((int)c - 0xAC00) % 28;
 	}
 	
+	public boolean checkVowels(int jung_index) {
+		if(jung_index == 8 || jung_index == 13 || jung_index == 18) {
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public int mergeVowels(int jung_index, char input) {
+		if(jung_index == 8) {
+			switch(findJungsung(input)) {
+			case 0: return 9;
+			case 1: return 10;
+			case 20: return 11;
+			default: break;
+			}
+		}
+		else if(jung_index == 13) {
+			switch(findJungsung(input)) {
+			case 4: return 14;
+			case 5: return 15;
+			case 20: return 16;
+			default: break;
+			}
+		}
+		else if(jung_index == 18) {
+			if(findJungsung(input) == 20) {
+				return 19;
+			}
+		}
+		return 0;
+	}
+	
+	public char findVowelsChar(int jung_index) {
+		return jung[jung_index];
+	}
+	
 	public char combineWord(int cho, int jung, int jong) {
 		int sum = (cho * 21 * 28) + (jung * 28) + jong;
 		return (char) (sum + 0xAC00);

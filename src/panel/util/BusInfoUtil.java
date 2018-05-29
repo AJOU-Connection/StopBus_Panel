@@ -57,12 +57,16 @@ public class BusInfoUtil {
 			for(int i=0; i<array.size(); i++) {
 				JSONObject tempObj = (JSONObject) array.get(i);
 				BusInfo tempBusInfo = new BusInfo();
-				if(Integer.parseInt(String.valueOf(tempObj.get("predictTime1"))) != 0) {
+				if(Integer.parseInt(String.valueOf(tempObj.get("predictTime1"))) >= 0) {
 					tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
 					tempBusInfo.setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
 					tempBusInfo.setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
-					busInfoList.add(tempBusInfo);
+				}else {
+					tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
+					tempBusInfo.setTimeRemaining("9999");
+					tempBusInfo.setCurrentStop("9999");
 				}
+				busInfoList.add(tempBusInfo);
 			}
 
 			// ´Ý±â
@@ -112,10 +116,17 @@ public class BusInfoUtil {
 				for(int j = 0; j < updateBusList.size(); j++) {
 					if(updateBusList.get(j).getBusNum().equals(String.valueOf(tempObj.get("routeNumber")))) {
 						if(Integer.parseInt(updateBusList.get(j).getTimeRemaining())+1 < Integer.parseInt(String.valueOf(tempObj.get("predictTime1")))) {
-							updateBusList.get(j).setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
-							updateBusList.get(j).setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
 							updateBusList.get(j).setAvailability(0);
 						}
+						if(Integer.parseInt(String.valueOf(tempObj.get("predictTime1"))) < 0) {
+							updateBusList.get(j).setTimeRemaining("9999");
+							updateBusList.get(j).setCurrentStop("9999");
+						}
+						else {
+							updateBusList.get(j).setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
+							updateBusList.get(j).setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
+						}
+						
 					}
 				}
 				

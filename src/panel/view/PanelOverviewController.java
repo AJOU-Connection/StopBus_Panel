@@ -188,6 +188,12 @@ public class PanelOverviewController {
 			
 			ArrivingBus tempArrivingBus = arrivingBusData.get(index);
 			
+			System.out.println("--------------Arriving Bus--------------");
+			System.out.println(tempArrivingBus.getBusNumber() + " 번");
+			System.out.println(tempArrivingBus.getTimeRemaining() + " 분 전");
+			System.out.println(tempArrivingBus.getCurrentStop() + " 정거정 전");
+			System.out.println(tempArrivingBus.getAvailability());
+			
 			Label busNum = new Label(tempArrivingBus.getBusNumber()+" 번");
     		Label busTime = new Label(tempArrivingBus.getTimeRemaining()+" 분 전");
     		Label busStop = new Label(tempArrivingBus.getCurrentStop()+" 정거장 전");
@@ -244,39 +250,62 @@ public class PanelOverviewController {
 		
 		if(fullText.length()-1 > 0) {
 			lastWord = fullText.charAt(fullText.length()-2);
+			
+			//모음이 입력되었을 때
 			if((int)input >= 'ㅏ' && (int)input <= 'ㅣ') {
+				//이전 문장이 자음 하나라면 자음+모음의 형태로 합친다
 				if((int)lastWord >= 'ㄱ' && (int)lastWord <= 'ㅎ') {
 					cho = lan.findChosung(lastWord);
 					jung = lan.findJungsung(input);
 					fullText = fullText.substring(0, fullText.length()-2);
 					fullText += lan.combineWord(cho, jung, jong);
 				}
+				//직전 문자가 하나의 단어라면
 				else if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3) {
 					
 					cho = lan.getChosung(lastWord);
 					jung = lan.getJungsung(lastWord);
 					jong = lan.getJongsung(lastWord);
 					
-				if(lan.getJongsung(lastWord) != 0) {
+					//받침이 존재할 때 단어의 받침과 새로 입력된 모음을 합친다
+					if(lan.getJongsung(lastWord) != 0) {
 						fullText = fullText.substring(0, fullText.length()-2);
 						fullText += lan.combineWord(cho, jung, 0);
 						cho = lan.jong2cho(jong);
 						jung = lan.findJungsung(input);
 						fullText += lan.combineWord(cho, jung, 0);
 					}
-				}
-			}
-			else if((int)input >= 'ㄱ' && (int)input <= 'ㅎ'){
-					if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3 && lan.getJongsung(lastWord) == 0) {
-						cho = lan.getChosung(lastWord);
-						jung = lan.getJungsung(lastWord);
-						jong = lan.findJongsung(input);
-						fullText = fullText.substring(0, fullText.length()-2);
-						fullText += lan.combineWord(cho, jung, jong);
+					//받침이 존재하지 않을 때 모음이 이중모음이 될 수 있는지 확인 후 변경한다.
+					else{
+						jung = lan.mergeVowels(jung, input);
+						if(jung != 0) {
+							fullText = fullText.substring(0, fullText.length()-2);
+							fullText += lan.combineWord(cho, jung, 0);
+						}
 					}
 				}
-				
+				else if((int)lastWord >= 'ㅏ' && (int)lastWord <= 'ㅣ') {
+					jung = lan.mergeVowels(lan.findJungsung(lastWord), input);
+					if(jung != 0) {
+						fullText = fullText.substring(0, fullText.length()-2);
+						fullText += lan.findVowelsChar(jung);
+					}
+				}
 			}
+			//자음이 입력되었다면
+			else if((int)input >= 'ㄱ' && (int)input <= 'ㅎ'){
+				
+				//직전 문자가 하나의 단어이고 받침이 없을 대 단어의 받침이 된다.
+				if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3 && lan.getJongsung(lastWord) == 0) {
+					cho = lan.getChosung(lastWord);
+					jung = lan.getJungsung(lastWord);
+					jong = lan.findJongsung(input);
+					fullText = fullText.substring(0, fullText.length()-2);
+					fullText += lan.combineWord(cho, jung, jong);
+				}
+			}
+				
+		}
 		searchText.setText(fullText);
 	}
 	
@@ -362,7 +391,7 @@ public class PanelOverviewController {
 		boxifyBoxes();
 		
 		
-		/*
+		
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -376,14 +405,14 @@ public class PanelOverviewController {
 							mainApp.updatePagination();
 						}
 					});
-					try { Thread.sleep(10000);} catch(InterruptedException e) {}
+					try { Thread.sleep(20000);} catch(InterruptedException e) {}
 				}
 			}
 		};
 		
 		thread.setDaemon(true);
 		thread.start();
-		*/
+		
 	}
 
 }
