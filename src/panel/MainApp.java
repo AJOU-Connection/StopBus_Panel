@@ -38,7 +38,7 @@ public class MainApp extends Application {
 	private PanelOverviewController controller;
 	private Pagination pagination;
 	
-	private String stationSetting = "04235";
+	private String stationSetting = "04237";
 	
 	BusInfoUtil busInfoUtil = new BusInfoUtil();
 	
@@ -73,13 +73,13 @@ public class MainApp extends Application {
 		busInfoUtil.updateBusInfo(stationSetting, updateBusList);
 		updateArrivingBusData();
 		
-		/*
-		System.out.println("Number\tTime\tStop\tAvailability");
+		
+		System.out.println("Number\tTime\tStop\tAvail\tPlante No.");
 		for(int k = 0; k < busInfoList.size(); k++) {
-			System.out.println(busInfoList.get(k).getBusNum()+"\t"+busInfoList.get(k).getTimeRemaining()+"\t"+busInfoList.get(k).getCurrentStop()+"\t"+busInfoList.get(k).getAvailability());
+			System.out.println(busInfoList.get(k).getBusNum()+"\t"+busInfoList.get(k).getTimeRemaining()+"\t"+busInfoList.get(k).getCurrentStop()+"\t"+busInfoList.get(k).getAvailability()+"\t"+busInfoList.get(k).getPlateNum());
 		}
 		System.out.println("------------------------------------");
-		*/
+		
 	}
 		
 	//busInfoList의 정보를 바탕으로 선착순 버스 정보를 arrivingBusData에 저장한다.
@@ -106,11 +106,15 @@ public class MainApp extends Application {
 		for(int i = 0; i < printSize; i++) {
 			ArrivingBus tempBus = new ArrivingBus();
 			tempInfo = sortedBusInfoList.get(i);
-			tempBus.setBusNumber(tempInfo.getBusNum());
-			tempBus.setCurrentStop(tempInfo.getCurrentStop());
-			tempBus.setTimeRemaining(tempInfo.getTimeRemaining());
-			tempBus.setAvailability(tempInfo.getAvailability());
-			arrivingBusData.add(tempBus);
+			
+			if(Integer.parseInt(tempInfo.getTimeRemaining()) < 1000 || Integer.parseInt(tempInfo.getCurrentStop()) < 1000) {
+				tempBus.setBusNumber(tempInfo.getBusNum());
+				tempBus.setCurrentStop(tempInfo.getCurrentStop());
+				tempBus.setTimeRemaining(tempInfo.getTimeRemaining());
+				tempBus.setAvailability(tempInfo.getAvailability());
+				arrivingBusData.add(tempBus);
+			}
+			
 		}
 		//arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
 	}
@@ -229,10 +233,12 @@ public class MainApp extends Application {
                 
                 //pagination click
                 hbox.setOnMouseClicked((e) -> {
-    				hbox.setStyle("-fx-background-color:lightcoral");
-    				busInfoList.get(click).setAvailability(1);
-    				updateBusInfoList(busInfoList);
-    				controller.updateBoxes();
+    				if(Integer.parseInt(busInfoList.get(click).getCurrentStop()) < 1000 || Integer.parseInt(busInfoList.get(click).getTimeRemaining()) < 1000) {
+    					hbox.setStyle("-fx-background-color:lightcoral");
+    					busInfoList.get(click).setAvailability(1);
+        				updateBusInfoList(busInfoList);
+        				controller.updateBoxes();
+    				}
     			});
         	}
         	else {
@@ -268,8 +274,15 @@ public class MainApp extends Application {
 	}
     
     public void updatePagination() {
-    	panelOverview.getChildren().removeAll(pagination);
-    	addPagination();
+    	//panelOverview.getChildren().removeAll(pagination);
+    	//addPagination();
+    	pagination.setPageFactory(new Callback<Integer, Node>() {
+    		 
+            @Override
+            public Node call(Integer pageIndex) {          
+                return createPage(pageIndex);               
+            }
+        });
     }
     
     //-------------------------------------기타 기능을 위한 잡다한 method-------------------------------------
@@ -343,8 +356,8 @@ public class MainApp extends Application {
 			controller = loader.getController();
 			
 			controller.setMainApp(this);
-			updatePagination();
-	       
+			//updatePagination();
+			addPagination();
 		}catch(IOException e){
 			e.printStackTrace();
 		}

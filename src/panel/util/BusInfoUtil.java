@@ -61,10 +61,12 @@ public class BusInfoUtil {
 					tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
 					tempBusInfo.setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
 					tempBusInfo.setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
+					tempBusInfo.setPlateNum(String.valueOf(tempObj.get("plateNo1")));
 				}else {
 					tempBusInfo.setBusNum(String.valueOf(tempObj.get("routeNumber")));
 					tempBusInfo.setTimeRemaining("9999");
 					tempBusInfo.setCurrentStop("9999");
+					tempBusInfo.setPlateNum(null);
 				}
 				busInfoList.add(tempBusInfo);
 			}
@@ -115,16 +117,19 @@ public class BusInfoUtil {
 				BusInfo tempBusInfo = new BusInfo();
 				for(int j = 0; j < updateBusList.size(); j++) {
 					if(updateBusList.get(j).getBusNum().equals(String.valueOf(tempObj.get("routeNumber")))) {
-						if(Integer.parseInt(updateBusList.get(j).getTimeRemaining())+1 < Integer.parseInt(String.valueOf(tempObj.get("predictTime1")))) {
+						
+						if(updateBusList.get(j).getPlateNum() == null || !updateBusList.get(j).getPlateNum().equals(String.valueOf(tempObj.get("plateNo1")))) {
 							updateBusList.get(j).setAvailability(0);
 						}
 						if(Integer.parseInt(String.valueOf(tempObj.get("predictTime1"))) < 0) {
 							updateBusList.get(j).setTimeRemaining("9999");
 							updateBusList.get(j).setCurrentStop("9999");
+							updateBusList.get(j).setPlateNum(null);
 						}
 						else {
 							updateBusList.get(j).setTimeRemaining(String.valueOf(tempObj.get("predictTime1")));
 							updateBusList.get(j).setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
+							updateBusList.get(j).setPlateNum(String.valueOf(tempObj.get("plateNo1")));
 						}
 						
 					}

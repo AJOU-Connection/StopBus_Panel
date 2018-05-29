@@ -10,7 +10,7 @@ public class BusInfo {
 	private final StringProperty busNum;
 	private final StringProperty timeRemaining;
 	private final StringProperty currentStop;
-	
+	private final StringProperty plateNum;
 	private final IntegerProperty availability;
 	
 	public BusInfo() {
@@ -21,6 +21,7 @@ public class BusInfo {
 		this.busNum = new SimpleStringProperty(busNum);
 		this.timeRemaining = new SimpleStringProperty(timeRemaining);
 		this.currentStop = new SimpleStringProperty(currentStop);
+		this.plateNum = new SimpleStringProperty(null);
 		this.availability = new SimpleIntegerProperty(0);
 	}
 	
@@ -57,6 +58,18 @@ public class BusInfo {
 	
 	public StringProperty currentStopProperty() {
 		return currentStop;
+	}
+	
+	public String getPlateNum() {
+		return plateNum.get();
+	}
+	
+	public void setPlateNum (String plateNum) {
+		this.plateNum.set(plateNum);
+	}
+	
+	public StringProperty plateNumProperty() {
+		return plateNum;
 	}
 	
 	public int getAvailability() {

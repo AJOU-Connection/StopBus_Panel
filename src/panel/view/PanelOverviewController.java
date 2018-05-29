@@ -188,12 +188,6 @@ public class PanelOverviewController {
 			
 			ArrivingBus tempArrivingBus = arrivingBusData.get(index);
 			
-			System.out.println("--------------Arriving Bus--------------");
-			System.out.println(tempArrivingBus.getBusNumber() + " 번");
-			System.out.println(tempArrivingBus.getTimeRemaining() + " 분 전");
-			System.out.println(tempArrivingBus.getCurrentStop() + " 정거정 전");
-			System.out.println(tempArrivingBus.getAvailability());
-			
 			Label busNum = new Label(tempArrivingBus.getBusNumber()+" 번");
     		Label busTime = new Label(tempArrivingBus.getTimeRemaining()+" 분 전");
     		Label busStop = new Label(tempArrivingBus.getCurrentStop()+" 정거장 전");
@@ -213,6 +207,7 @@ public class PanelOverviewController {
     		hb.getChildren().add(busStop);
 			
 			if(arrivingBusData.get(index).getAvailability() != 0) {
+			
 				hb.setStyle("-fx-background-color:lightcoral");
 			}
 			else {
