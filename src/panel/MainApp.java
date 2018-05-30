@@ -230,7 +230,25 @@ public class MainApp extends Application {
                 	hbox.setStyle("-fx-background-color:lightcoral");
                 }
                 else {
+    
                 	hbox.setStyle("-fx-background-color: white");
+                	/*
+                	hbox.addEventHandler(MouseEvent.MOUSE_ENTERED,
+         					new EventHandler<MouseEvent>() {
+         						@Override
+         						public void handle(MouseEvent e) {
+         							hbox.setStyle("-fx-background-color: #F9F9F9");
+         						}
+         			});
+             		
+             		hbox.addEventHandler(MouseEvent.MOUSE_EXITED,
+         					new EventHandler<MouseEvent>() {
+         						@Override
+         						public void handle(MouseEvent e) {
+         							hbox.setStyle("-fx-background-color: white");
+         						}
+         			});
+         			*/
                 }
                 
                 //pagination click
@@ -241,22 +259,6 @@ public class MainApp extends Application {
         				updateBusInfoList(busInfoList);
         				controller.updateBoxes();
     				}
-    			});
-                
-                hbox.addEventHandler(MouseEvent.MOUSE_ENTERED,
-    					new EventHandler<MouseEvent>() {
-    						@Override
-    						public void handle(MouseEvent e) {
-    							hbox.setStyle("-fx-background-color: #F9F9F9");
-    						}
-    			});
-        		
-        		hbox.addEventHandler(MouseEvent.MOUSE_EXITED,
-    					new EventHandler<MouseEvent>() {
-    						@Override
-    						public void handle(MouseEvent e) {
-    							hbox.setStyle("-fx-background-color: white");
-    						}
     			});
         		
         	}

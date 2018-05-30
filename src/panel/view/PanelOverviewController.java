@@ -502,22 +502,6 @@ public class PanelOverviewController {
     		hbox.getChildren().add(busNum);
     		hbox.getChildren().add(busTime);
     		hbox.getChildren().add(busStop);
-    		
-    		hbox.addEventHandler(MouseEvent.MOUSE_ENTERED,
-					new EventHandler<MouseEvent>() {
-						@Override
-						public void handle(MouseEvent e) {
-							hbox.setStyle("-fx-background-color: #F9F9F9");
-						}
-			});
-    		
-    		hbox.addEventHandler(MouseEvent.MOUSE_EXITED,
-					new EventHandler<MouseEvent>() {
-						@Override
-						public void handle(MouseEvent e) {
-							hbox.setStyle("-fx-background-color: white");
-						}
-			});
             
     		arrivingBusBox.getChildren().add(hbox);
         }
@@ -570,11 +554,27 @@ public class PanelOverviewController {
     		hb.getChildren().add(busStop);
 			
 			if(arrivingBusData.get(index).getAvailability() != 0) {
-			
 				hb.setStyle("-fx-background-color:lightcoral");
 			}
 			else {
 				hb.setStyle("-fx-background-color:white");
+				/*
+				hb.addEventHandler(MouseEvent.MOUSE_ENTERED,
+						new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent e) {
+								hb.setStyle("-fx-background-color: #F9F9F9");
+							}
+				});
+	    		
+	    		hb.addEventHandler(MouseEvent.MOUSE_EXITED,
+						new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent e) {
+								hb.setStyle("-fx-background-color: white");
+							}
+				});
+				*/
 			}
 		}
 	}
