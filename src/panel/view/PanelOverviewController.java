@@ -20,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -32,6 +33,7 @@ import panel.model.BusInfo;
 import panel.model.BusStop;
 import panel.util.SearchingStationUtil;
 import panel.util.LanguageUtil;
+import panel.util.ReservationUtil;
 
 public class PanelOverviewController {
 
@@ -74,6 +76,8 @@ public class PanelOverviewController {
 	
 	@FXML
 	private VBox englishKeyboard2;
+	@FXML
+	private BorderPane searchBorderPane;
 	
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	//private List<BusStop> searchingList = new ArrayList<BusStop>();
@@ -82,6 +86,8 @@ public class PanelOverviewController {
 	private boolean searchFlag = false;
 	private boolean languageFlag = false;
 	private boolean shiftFlag = false;
+	
+	ReservationUtil reservationUtil = new ReservationUtil();
 	
 	public PanelOverviewController() {
 		
@@ -136,9 +142,7 @@ public class PanelOverviewController {
 		searchText.setText("");
 		
 	}
-	
 	//-----------------------------------------키보드 기능 구현-----------------------------------------
-	
 	//한글 키보드 기능(입력값을 초성, 중성, 종성으로 구분하여 문자로 치환)
 	@FXML
 	private void getKeyboardValue(ActionEvent event) {
@@ -513,17 +517,39 @@ public class PanelOverviewController {
 		for(Node child : arrivingBusBox.getChildren()) {
 			
 			HBox hb = (HBox) child;
+			
 			hb.setOnMouseClicked((e) -> {
-				hb.setStyle("-fx-background-color:lightcoral");
-				setAvailability((int) hb.getLayoutY());
-				mainApp.updateBusInfoList(mainApp.getBusInfoListData());
-				if(!searchFlag) {
-					mainApp.updatePagination();
+				
+				int index = (int) hb.getLayoutY()/40;
+				int busListIndex = getIndexInBusList(index);
+				
+				if(reservationUtil.postReservation(mainApp.getBusInfoListData().get(busListIndex).getRouteID(), mainApp.getBusStop().getStationID())){
+					hb.setStyle("-fx-background-color:lightcoral");
+					setAvailability((int) hb.getLayoutY());
+					mainApp.updateBusInfoList(mainApp.getBusInfoListData());
+					if(!searchFlag) {
+						mainApp.updatePagination();
+					}
 				}
 			});
 
 		}
 	}
+	
+	public int getIndexInBusList(int index) {
+		
+		int busListIndex = -1;
+		String arrivingBusNum = arrivingBusData.get(index).getBusNumber();
+		
+		for(int i = 0; i < mainApp.getBusInfoListData().size(); i++) {
+			if(arrivingBusNum.equals(mainApp.getBusInfoListData().get(i).getBusNum())) {
+				busListIndex = i;
+			}
+		}
+		
+		return busListIndex;
+	}
+	
 	//Arriving Bus Box의 버스 목록을 BusInfoList의 값을 바탕으로 업데이트 한다. 
 	public void updateBoxes() {
 		

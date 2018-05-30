@@ -25,6 +25,7 @@ import panel.model.BusInfo;
 import panel.model.BusStop;
 import panel.util.BusInfoUtil;
 import panel.util.SearchingStationUtil;
+import panel.util.ReservationUtil;
 
 public class MainApp extends Application {
 
@@ -43,6 +44,8 @@ public class MainApp extends Application {
 	private String stationSetting = "04237";
 	
 	BusInfoUtil busInfoUtil = new BusInfoUtil();
+	ReservationUtil reservationUtil = new ReservationUtil();
+	
 	
 	//UI 초기 화면에 필요한 data를 API로부터 받아온 후 observable list에 저장한다.
 	public MainApp() {
@@ -198,15 +201,15 @@ public class MainApp extends Application {
                 boolean flag = false;
         		Label busNum = new Label(tempBusStop.getBusNum()+" 번");
         		Label busTime;
-        		Label busStop;
+        		Label station;
         		
         		if(Integer.parseInt(tempBusStop.getTimeRemaining()) > 1000 || Integer.parseInt(tempBusStop.getCurrentStop()) > 1000) {
         			busTime = new Label("버스 정보 없음");
-        			busStop = new Label("버스 정보 없음");
+        			station = new Label("버스 정보 없음");
         		}
         		else {
         			busTime = new Label(tempBusStop.getTimeRemaining()+" 분 전");
-            		busStop = new Label(tempBusStop.getCurrentStop()+" 정거장 전");
+            		station = new Label(tempBusStop.getCurrentStop()+" 정거장 전");
         		}
         		
         		busNum.setFont(new Font("Hancom Gothic", 16));
@@ -215,13 +218,13 @@ public class MainApp extends Application {
         		busTime.setFont(new Font("Hancom Gothic", 16));
         		busTime.setStyle("-fx-padding: 10;");
         		busTime.setMinWidth(160.0);
-        		busStop.setFont(new Font("Hancom Gothic", 16));
-        		busStop.setStyle("-fx-padding: 10;");
-        		busStop.setMinWidth(160.0);
+        		station.setFont(new Font("Hancom Gothic", 16));
+        		station.setStyle("-fx-padding: 10;");
+        		station.setMinWidth(160.0);
         		
         		hbox.getChildren().add(busNum);
         		hbox.getChildren().add(busTime);
-        		hbox.getChildren().add(busStop);
+        		hbox.getChildren().add(station);
         		hbox.setStyle("-fx-background-color: white");
         		
                 box.getChildren().add(hbox);
@@ -254,10 +257,14 @@ public class MainApp extends Application {
                 //pagination click
                 hbox.setOnMouseClicked((e) -> {
     				if(Integer.parseInt(busInfoList.get(click).getCurrentStop()) < 1000 || Integer.parseInt(busInfoList.get(click).getTimeRemaining()) < 1000) {
-    					hbox.setStyle("-fx-background-color:lightcoral");
-    					busInfoList.get(click).setAvailability(1);
-        				updateBusInfoList(busInfoList);
-        				controller.updateBoxes();
+    					
+    					if(reservationUtil.postReservation(busInfoList.get(click).getRouteID(), busStop.getStationID())) {
+        					hbox.setStyle("-fx-background-color:lightcoral");
+        					busInfoList.get(click).setAvailability(1);
+        					updateBusInfoList(busInfoList);
+            				controller.updateBoxes();
+        				}
+
     				}
     			});
         		
