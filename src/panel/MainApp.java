@@ -4,13 +4,11 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -34,7 +32,6 @@ public class MainApp extends Application {
 	
 	private BusStop busStop = new BusStop();
 	private ObservableList<BusInfo> busInfoList = FXCollections.observableArrayList();
-	//panel에 대한 observable 리스트
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	
 	private AnchorPane panelOverview;
@@ -52,7 +49,6 @@ public class MainApp extends Application {
 		getBusStopInfo();
 		getBusInfoList();
 		getArrivingBusInfo();
-		
 	}
 	
 	//-------------------------------------초기 data 받아오기-------------------------------------

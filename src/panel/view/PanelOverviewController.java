@@ -1,7 +1,5 @@
 package panel.view;
 
-
-import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,10 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
-import javazoom.jl.player.Player;
 import panel.MainApp;
 import panel.model.ArrivingBus;
 import panel.model.BusInfo;
@@ -279,8 +274,15 @@ public class PanelOverviewController {
 					searchText.setText(fullText);
 				}
 				else {
+					
 					fullText = fullText.substring(0, fullText.length()-1);
-					fullText += lan.combineWord(cho, jung, 0);
+					if(lan.deleteBadchim(jong) > 0) {
+						jong = lan.deleteBadchim(jong);
+						fullText += lan.combineWord(cho, jung, jong);
+					}
+					else {
+						fullText += lan.combineWord(cho, jung, 0);
+					}
 					searchText.setText(fullText);
 				}
 			}			
@@ -709,7 +711,7 @@ public class PanelOverviewController {
 						if(!searchFlag) {
 							mainApp.updatePagination();
 						}
-						//playArrivingBus();
+						playArrivingBus();
 					});
 					try { Thread.sleep(20000);} catch(InterruptedException e) {}
 				}

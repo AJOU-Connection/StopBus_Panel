@@ -124,49 +124,75 @@ public class LanguageUtil {
 		
 		switch(jong_index) {
 		case 1:	//ぁ
-			if(cho_index == 0) {
-				return 3;
+			if(cho_index == 9) {
+				return 3;	//ぃ
 			}
 			break;
 		case 4:	//い
 			if(cho_index == 12) {
-				return 5;
+				return 5;	//ぅ
 			}
 			else if(cho_index == 18) {
-				return 6;
+				return 6;	//う
 			}
 			break;
-		case 8:
+		case 8:	//ぉ
 			if(cho_index == 0) {
-				return 9;
+				return 9;	//お
 			}
 			else if(cho_index == 6) {
-				return 10;
+				return 10;	//か
 			}
 			else if(cho_index == 7) {
-				return 11;
+				return 11;	//が
 			}
 			else if(cho_index == 9) {
-				return 12;
+				return 12;	//き
 			}
 			else if(cho_index == 16) {
-				return 13;
+				return 13;	//ぎ
 			}
 			else if(cho_index == 17) {
-				return 14;
+				return 14;	//く
 			}
 			else if(cho_index == 18) {
-				return 15;
+				return 15;	//ぐ
 			}
 			break;
 		case 17:
 			if(cho_index == 9) {
-				return 18;
+				return 18;	//ご
 			}
 			break;
 		}
-
-		
+		return -1;
+	}
+	
+	public int deleteBadchim(int jong_index) {
+		switch(jong_index){
+		case 3:	//ぃ
+			return 1;
+		case 5:	//ぅ
+			return 4;
+		case 6:	//う
+			return 4;
+		case 9:	//お
+			return 8;
+		case 10:	//か
+			return 8;
+		case 11:	//が
+			return 8;
+		case 12:	//き
+			return 8;
+		case 13:	//ぎ
+			return 8;
+		case 14:	//く
+			return 8;
+		case 15:	//ぐ
+			return 8;
+		case 18:	//ご
+			return 17;
+		}
 		return -1;
 	}
 }

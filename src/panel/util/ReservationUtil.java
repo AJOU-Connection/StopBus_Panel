@@ -10,8 +10,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import panel.model.BusInfo;
-
 public class ReservationUtil {
 
 	public boolean postReservation(String BusRouteID, String stationID){
