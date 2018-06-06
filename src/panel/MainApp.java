@@ -69,13 +69,13 @@ public class MainApp extends Application {
 	//정류장을 지나는 모든 버스의 정보를 API로부터 받아와 busInfoList에 저장한다.
 	public void getBusInfoList() {
 		
-		busInfoUtil.setBusInfo(stationSetting);
+		busInfoUtil.setBusInfo(busStop.getStationID());
 		busInfoList = busInfoUtil.getBusInfoList();
 	}
 	
 	public void updateBusInfoList(ObservableList<BusInfo> updateBusList) {
 
-		busInfoUtil.updateBusInfo(stationSetting, updateBusList);
+		busInfoUtil.updateBusInfo(busStop.getStationID(), updateBusList);
 		updateArrivingBusData();
 		
 		/*

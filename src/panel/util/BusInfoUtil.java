@@ -23,7 +23,7 @@ public class BusInfoUtil {
 	
 	private ObservableList<BusInfo> busInfoList = FXCollections.observableArrayList();
 	
-	public String setBusInfo(String stationNumber){
+	public String setBusInfo(String stationID){
 		String result = "";
 		
 		try {
@@ -35,7 +35,7 @@ public class BusInfoUtil {
 			conn.setRequestMethod("POST"); // 보내는 타입
 
 			// 데이터
-			String param = "{\"districtCd\":2, \"stationNumber\":\"" + stationNumber + "\"}";
+			String param = "{\"stationID\":\"" + stationID + "\"}";
 
 			// 전송
 			OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
@@ -62,7 +62,7 @@ public class BusInfoUtil {
 				tempBusInfo.setCurrentStop(String.valueOf(tempObj.get("locationNo1")));
 				tempBusInfo.setPlateNum(String.valueOf(tempObj.get("plateNo1")));
 				tempBusInfo.setStationSeq(String.valueOf(tempObj.get("stationSeq")));
-				tempBusInfo.setRouteID(String.valueOf(tempObj.get("routeId")));
+				tempBusInfo.setRouteID(String.valueOf(tempObj.get("routeID")));
 				if(Integer.parseInt(String.valueOf(tempObj.get("predictTime1"))) < 0) {
 					tempBusInfo.setTimeRemaining("9999");
 					tempBusInfo.setCurrentStop("9999");
@@ -80,7 +80,7 @@ public class BusInfoUtil {
 		return result;
 	}
 	
-	public String updateBusInfo(String stationNumber, ObservableList<BusInfo> updateBusList){
+	public String updateBusInfo(String stationID, ObservableList<BusInfo> updateBusList){
 		String result = "";
 		
 		try {
@@ -92,7 +92,7 @@ public class BusInfoUtil {
 			conn.setRequestMethod("POST"); // 보내는 타입
 			
 			// 데이터
-			String param = "{\"districtCd\":2, \"stationNumber\":\"" + stationNumber + "\"}";
+			String param = "{\"stationID\":\"" + stationID + "\"}";
 
 			// 전송
 			OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());

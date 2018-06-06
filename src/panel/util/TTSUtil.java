@@ -13,12 +13,12 @@ import javazoom.jl.player.Player;
 
 public class TTSUtil {
 
-    public void getVoice() {
+    public void getVoice(String msg) {
     	
         String clientId = "cujnnxpark";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "44r7Lx4sVXpBdlUP7O7nXML4Krsa7PFc86xCu0kW";//애플리케이션 클라이언트 시크릿값";
         try {
-            String text = URLEncoder.encode("720-2번 버스가 잠시 후 도착합니다.", "UTF-8"); // 13자
+            String text = URLEncoder.encode(msg, "UTF-8"); // 13자
             String apiURL = "https://naveropenapi.apigw.ntruss.com/voice/v1/tts";
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -63,7 +63,7 @@ public class TTSUtil {
     
     public void plyaAudio() {
     	try {
-			FileInputStream fileInputStream = new FileInputStream("panel/TTS.mp3");
+			FileInputStream fileInputStream = new FileInputStream("TTS.mp3");
 			Player player = new Player(fileInputStream);
 			player.play();
 			System.out.println("Song is playing...");

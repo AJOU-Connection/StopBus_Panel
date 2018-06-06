@@ -630,7 +630,7 @@ public class PanelOverviewController {
 		createArrivingBusBox();
 		boxifyBoxes();
         
-		ttsUtil.getVoice();
+		ttsUtil.getVoice("더워요.살려주세요.");
 		ttsUtil.plyaAudio();
 		
 		/*
