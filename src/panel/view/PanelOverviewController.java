@@ -2,9 +2,12 @@ package panel.view;
 
 
 import java.io.FileInputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,7 +82,7 @@ public class PanelOverviewController {
 	private BorderPane searchBorderPane;
 	
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
-	//private List<BusStop> searchingList = new ArrayList<BusStop>();
+
 	private MainApp mainApp;
 	private boolean stop = false;
 	private boolean searchFlag = false;
@@ -616,6 +619,26 @@ public class PanelOverviewController {
 		}
 	}
 	
+	private void palyArrivingBus() {
+		
+		String busNumList = "";
+		int count = 0;
+		
+		//arrivingBusData.get(i).getCurrentStop() == "1"
+		
+		for(int i = 0; i < arrivingBusData.size(); i++) {
+			if(arrivingBusData.get(i).getCurrentStop().equals("1")) {
+				busNumList += arrivingBusData.get(i).getBusNumber() + "번,";
+				count++;
+			}
+		}
+		
+		if(count > 0) {
+			ttsUtil.getVoice(busNumList);
+			ttsUtil.plyaAudio();
+		}
+	}
+	
 	
 	//-----------------------------------------mainApp에서 사용하는 setMainApp-----------------------------------------
 
@@ -629,11 +652,7 @@ public class PanelOverviewController {
 		arrivingBusData = mainApp.getArrivingBusData();
 		createArrivingBusBox();
 		boxifyBoxes();
-        
-		ttsUtil.getVoice("더워요.살려주세요.");
-		ttsUtil.plyaAudio();
 		
-		/*
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -646,6 +665,7 @@ public class PanelOverviewController {
 						if(!searchFlag) {
 							mainApp.updatePagination();
 						}
+						palyArrivingBus();
 					});
 					try { Thread.sleep(20000);} catch(InterruptedException e) {}
 				}
@@ -654,8 +674,7 @@ public class PanelOverviewController {
 		
 		thread.setDaemon(true);
 		thread.start();
-		*/
-		
+
 	}
 
 }

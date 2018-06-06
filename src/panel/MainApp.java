@@ -61,10 +61,8 @@ public class MainApp extends Application {
 	public void getBusStopInfo() {
 		SearchingStationUtil busStopUtil = new SearchingStationUtil();
 		busStop = busStopUtil.searchingBusStop(stationSetting);
-		//busStop = busStopUtil.getBusStop();
 		
 	}	
-	//04237
 	
 	//정류장을 지나는 모든 버스의 정보를 API로부터 받아와 busInfoList에 저장한다.
 	public void getBusInfoList() {
@@ -78,13 +76,6 @@ public class MainApp extends Application {
 		busInfoUtil.updateBusInfo(busStop.getStationID(), updateBusList);
 		updateArrivingBusData();
 		
-		/*
-		System.out.println("Number\tTime\tStop\tAvail\tPlante No.");
-		for(int k = 0; k < busInfoList.size(); k++) {
-			System.out.println(busInfoList.get(k).getBusNum()+"\t"+busInfoList.get(k).getTimeRemaining()+"\t"+busInfoList.get(k).getCurrentStop()+"\t"+busInfoList.get(k).getAvailability()+"\t"+busInfoList.get(k).getPlateNum());
-		}
-		System.out.println("------------------------------------");
-		*/
 	}
 		
 	//busInfoList의 정보를 바탕으로 선착순 버스 정보를 arrivingBusData에 저장한다.
@@ -121,7 +112,7 @@ public class MainApp extends Application {
 			}
 			
 		}
-		//arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
+		
 	}
 	
 	//-------------------------------------data 업데이트 하기-------------------------------------
@@ -158,7 +149,6 @@ public class MainApp extends Application {
 			
 		}
 		
-		//arrivingBusData.sort((a, b) -> Integer.compare(Integer.parseInt(a.getCurrentStop()), Integer.parseInt(b.getCurrentStop())));
 	}
 	
 	//-------------------------------------controller에 data 넘기기-------------------------------------
@@ -235,36 +225,18 @@ public class MainApp extends Application {
                 else {
     
                 	hbox.setStyle("-fx-background-color: white");
-                	/*
-                	hbox.addEventHandler(MouseEvent.MOUSE_ENTERED,
-         					new EventHandler<MouseEvent>() {
-         						@Override
-         						public void handle(MouseEvent e) {
-         							hbox.setStyle("-fx-background-color: #F9F9F9");
-         						}
-         			});
-             		
-             		hbox.addEventHandler(MouseEvent.MOUSE_EXITED,
-         					new EventHandler<MouseEvent>() {
-         						@Override
-         						public void handle(MouseEvent e) {
-         							hbox.setStyle("-fx-background-color: white");
-         						}
-         			});
-         			*/
+                	
                 }
                 
                 //pagination click
                 hbox.setOnMouseClicked((e) -> {
     				if(Integer.parseInt(busInfoList.get(click).getCurrentStop()) < 1000 || Integer.parseInt(busInfoList.get(click).getTimeRemaining()) < 1000) {
-    					System.out.println("click!");
     					if(reservationUtil.postReservation(busInfoList.get(click).getRouteID(), busStop.getStationID())) {
         					hbox.setStyle("-fx-background-color:lightcoral");
         					busInfoList.get(click).setAvailability(1);
         					updateBusInfoList(busInfoList);
             				controller.updateBoxes();
         				}
-
     				}
     			});
         		
@@ -302,8 +274,7 @@ public class MainApp extends Application {
 	}
     
     public void updatePagination() {
-    	//panelOverview.getChildren().removeAll(pagination);
-    	//addPagination();
+  
     	pagination.setPageFactory(new Callback<Integer, Node>() {
     		 
             @Override
@@ -400,7 +371,6 @@ public class MainApp extends Application {
 	
 	
 	public static void main(String[] args) throws Exception {
-		
 		
 		launch(args);
 	}
