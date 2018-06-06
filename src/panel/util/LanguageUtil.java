@@ -113,4 +113,60 @@ public class LanguageUtil {
 		int sum = (cho * 21 * 28) + (jung * 28) + jong;
 		return (char) (sum + 0xAC00);
 	}
+	
+	public char onlyCho(int cho_index) {
+		return cho[cho_index];
+	}
+	
+	public int isBadchim(int jong_index, char cho) {
+		
+		int cho_index = findChosung(cho);
+		
+		switch(jong_index) {
+		case 1:	//¤¡
+			if(cho_index == 0) {
+				return 3;
+			}
+			break;
+		case 4:	//¤¤
+			if(cho_index == 12) {
+				return 5;
+			}
+			else if(cho_index == 18) {
+				return 6;
+			}
+			break;
+		case 8:
+			if(cho_index == 0) {
+				return 9;
+			}
+			else if(cho_index == 6) {
+				return 10;
+			}
+			else if(cho_index == 7) {
+				return 11;
+			}
+			else if(cho_index == 9) {
+				return 12;
+			}
+			else if(cho_index == 16) {
+				return 13;
+			}
+			else if(cho_index == 17) {
+				return 14;
+			}
+			else if(cho_index == 18) {
+				return 15;
+			}
+			break;
+		case 17:
+			if(cho_index == 9) {
+				return 18;
+			}
+			break;
+		}
+
+		
+		return -1;
+	}
 }

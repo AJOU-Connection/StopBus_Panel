@@ -149,6 +149,7 @@ public class PanelOverviewController {
 	//한글 키보드 기능(입력값을 초성, 중성, 종성으로 구분하여 문자로 치환)
 	@FXML
 	private void getKeyboardValue(ActionEvent event) {
+		
 		char input;
 		char lastWord;
 		String fullText = "";
@@ -210,13 +211,28 @@ public class PanelOverviewController {
 			//자음이 입력되었다면
 			else if((int)input >= 'ㄱ' && (int)input <= 'ㅎ'){
 				
-				//직전 문자가 하나의 단어이고 받침이 없을 대 단어의 받침이 된다.
-				if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3 && lan.getJongsung(lastWord) == 0) {
-					cho = lan.getChosung(lastWord);
-					jung = lan.getJungsung(lastWord);
-					jong = lan.findJongsung(input);
-					fullText = fullText.substring(0, fullText.length()-2);
-					fullText += lan.combineWord(cho, jung, jong);
+				//직전 문자가 하나의 단어일 때
+				if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3) {
+					//받침이 없으면 받침으로 붙여서 표기한다.
+					if(lan.getJongsung(lastWord) == 0) {
+						cho = lan.getChosung(lastWord);
+						jung = lan.getJungsung(lastWord);
+						jong = lan.findJongsung(input);
+						fullText = fullText.substring(0, fullText.length()-2);
+						fullText += lan.combineWord(cho, jung, jong);
+					}
+					//받침이 있으면 겹밭침으로 쓸 수 있는지 확인한다.
+					else {
+						cho = lan.getChosung(lastWord);
+						jung = lan.getJungsung(lastWord);
+						jong = lan.getJongsung(lastWord);
+						
+						if(lan.isBadchim(jong, input) > 0) {
+							jong = lan.isBadchim(jong, input);
+							fullText = fullText.substring(0, fullText.length()-2);
+							fullText += lan.combineWord(cho, jung, jong);
+						}
+					}
 				}
 			}
 				
@@ -233,8 +249,39 @@ public class PanelOverviewController {
 	//키보드 backspace 버튼 기능
 	@FXML
 	private void deleteKeyboardValue() {
+		
+		char lastWord;
+		String fullText = "";
+		
+		LanguageUtil lan = new LanguageUtil();
+		int cho = 0;
+		int jung = 0;
+		int jong = 0;
+		String combinedWord = "";
+		
+		fullText += searchText.getText();
+		
 		if(searchText.getText().length() > 0) {
+			
+			lastWord = fullText.charAt(fullText.length()-1);
 			searchText.setText(searchText.getText().substring(0, searchText.getText().length()-1));
+			
+			if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3) {
+				cho = lan.getChosung(lastWord);
+				jung = lan.getJungsung(lastWord);
+				jong = lan.getJongsung(lastWord);
+				
+				if(jong == 0) {
+					fullText = fullText.substring(0, fullText.length()-1);
+					fullText += lan.onlyCho(cho);
+					searchText.setText(fullText);
+				}
+				else {
+					fullText = fullText.substring(0, fullText.length()-1);
+					fullText += lan.combineWord(cho, jung, 0);
+					searchText.setText(fullText);
+				}
+			}			
 		}
 	}
 	
@@ -473,6 +520,11 @@ public class PanelOverviewController {
 			nullBtn.setMinHeight(50);
 			nullBtn.setAlignment(Pos.BASELINE_CENTER);
 			nullBtn.setStyle("-fx-background-color : white");
+			
+			nullBtn.setOnAction((event) -> {
+				getSearchingText();
+			});
+			
 			searchVBox.getChildren().add(nullBtn);
 		}
 		
@@ -587,23 +639,6 @@ public class PanelOverviewController {
 			}
 			else {
 				hb.setStyle("-fx-background-color:white");
-				/*
-				hb.addEventHandler(MouseEvent.MOUSE_ENTERED,
-						new EventHandler<MouseEvent>() {
-							@Override
-							public void handle(MouseEvent e) {
-								hb.setStyle("-fx-background-color: #F9F9F9");
-							}
-				});
-	    		
-	    		hb.addEventHandler(MouseEvent.MOUSE_EXITED,
-						new EventHandler<MouseEvent>() {
-							@Override
-							public void handle(MouseEvent e) {
-								hb.setStyle("-fx-background-color: white");
-							}
-				});
-				*/
 			}
 		}
 	}
@@ -619,7 +654,7 @@ public class PanelOverviewController {
 		}
 	}
 	
-	private void palyArrivingBus() {
+	private void playArrivingBus() {
 		
 		String busNumList = "";
 		int count = 0;
@@ -665,7 +700,7 @@ public class PanelOverviewController {
 						if(!searchFlag) {
 							mainApp.updatePagination();
 						}
-						palyArrivingBus();
+						//playArrivingBus();
 					});
 					try { Thread.sleep(20000);} catch(InterruptedException e) {}
 				}
