@@ -57,7 +57,9 @@ public class PanelOverviewController {
 	@FXML
 	private Button checking;
 	@FXML
-	private Button textsearching;
+	private Button busSearching;
+	@FXML
+	private Button stationSearching;
 	@FXML
 	private TextField searchText;
 	@FXML
@@ -348,9 +350,9 @@ public class PanelOverviewController {
 	//-----------------------------------------searching 기능-----------------------------------------
 	
 	//키보드의 Enter나 검색창 옆의 검색 버튼을 눌렀을 때 검색 결과를 띄워준다.
+	
 	@FXML
-	private void getSearchingText() {
-		
+	private void getBusSearching() {
 		setKeyboardUnvisible();
 		searchVBox.getChildren().clear();
 		
@@ -360,121 +362,128 @@ public class PanelOverviewController {
 		
 		SearchingStationUtil searchingUtil = new SearchingStationUtil();
 		
-		//1. 사용자가 검색창에 버스 번호를 검색했을 때
-		if(keyword.charAt(0) >= 48 && keyword.charAt(0) <= 57) {
-			ObservableList<BusInfo> tempList = mainApp.getBusInfoListData();
-			String routeID = "";
-			String stationSeq = "";
-			
-			//사용자가 입력한 버스 번호가 현재 정류장을 지나는 버스 목록에 있는지 체크
-			for(int i = 0; i < tempList.size(); i++) {
-				if(tempList.get(i).getBusNum().equals(keyword)) {
-					routeID += tempList.get(i).getRouteID();	//같은 번호인 차량의 routeID
-					stationSeq += tempList.get(i).getStationSeq();	//같은 번호인 차량의 stationSeq
-					break;
-				}
-			}
-			
-			searchingList = searchingUtil.getBusStationList(routeID, stationSeq);
-			
-			//1.1 사용자가 입력한 버스 번호에 대한 정보가 없을 때
-			if(searchingList.size() == 0) {
-				result = "검색 결과가 없습니다.";
-			}
-			//1.2 사용자가 입력한 버스 번호에 대한 정보가 있을 때
-			else {
-				result = "총 "+searchingList.size()+"개의 검색결과가 있습니다.";
-				for(int i = 0; i < searchingList.size(); i++) {
-
-					searchVBox.setSpacing(5);
-					
-					String stationNum = searchingList.get(i).getBusStopNum();
-					String stationName = searchingList.get(i).getBusStopName();
-					
-					String btnText = "[" + stationNum + " ]\t" + stationName;
-					
-					Button resultBtn = new Button(btnText);
-					resultBtn.setMinWidth(460);
-					resultBtn.setMinHeight(50);
-					resultBtn.setAlignment(Pos.BASELINE_LEFT);
-					resultBtn.setStyle("-fx-background-color : white");
-					
-					resultBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
-							new EventHandler<MouseEvent>() {
-								@Override
-								public void handle(MouseEvent e) {
-									resultBtn.setStyle("-fx-background-color: #F9F9F9");
-								}
-					});
-					
-					resultBtn.addEventHandler(MouseEvent.MOUSE_EXITED,
-							new EventHandler<MouseEvent>() {
-								@Override
-								public void handle(MouseEvent e) {
-									resultBtn.setStyle("-fx-background-color: white");
-								}
-					});
-					
-		    		searchVBox.getChildren().add(resultBtn);
-				}
+		ObservableList<BusInfo> tempList = mainApp.getBusInfoListData();
+		String routeID = "";
+		String stationSeq = "";
+		
+		//사용자가 입력한 버스 번호가 현재 정류장을 지나는 버스 목록에 있는지 체크
+		for(int i = 0; i < tempList.size(); i++) {
+			if(tempList.get(i).getBusNum().equals(keyword)) {
+				routeID += tempList.get(i).getRouteID();	//같은 번호인 차량의 routeID
+				stationSeq += tempList.get(i).getStationSeq();	//같은 번호인 차량의 stationSeq
+				break;
 			}
 		}
 		
-		//2. 사용자가 검색창에 정류장 이름을 검색했을 때
+		searchingList = searchingUtil.getBusStationList(routeID, stationSeq);
+		
+		//1.1 사용자가 입력한 버스 번호에 대한 정보가 없을 때
+		if(searchingList.size() == 0) {
+			result = "검색 결과가 없습니다.";
+		}
+		//1.2 사용자가 입력한 버스 번호에 대한 정보가 있을 때
 		else {
-			searchingList= searchingUtil.searchingStation(keyword);
-			
-			//2.1 사용자가 입력한 정류장 이름에 대한 정보가 없을 때
-			if(searchingList.size() == 0) {
-				result = "검색 결과가 없습니다.";
+			result = "총 "+searchingList.size()+"개의 검색결과가 있습니다.";
+			for(int i = 0; i < searchingList.size(); i++) {
+
+				searchVBox.setSpacing(5);
+				
+				String stationNum = searchingList.get(i).getBusStopNum();
+				String stationName = searchingList.get(i).getBusStopName();
+				
+				String btnText = "[" + stationNum + " ]\t" + stationName;
+				
+				Button resultBtn = new Button(btnText);
+				resultBtn.setMinWidth(460);
+				resultBtn.setMinHeight(50);
+				resultBtn.setAlignment(Pos.BASELINE_LEFT);
+				resultBtn.setStyle("-fx-background-color : white");
+				
+				resultBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
+						new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent e) {
+								resultBtn.setStyle("-fx-background-color: #F9F9F9");
+							}
+				});
+				
+				resultBtn.addEventHandler(MouseEvent.MOUSE_EXITED,
+						new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent e) {
+								resultBtn.setStyle("-fx-background-color: white");
+							}
+				});
+				
+	    		searchVBox.getChildren().add(resultBtn);
 			}
-			//2.2 사용자가 입력한 정류장 이름에 대한 정보가 있을 때
-			else {
-				result = "총 "+searchingList.size()+"개의 검색결과가 있습니다.";
-				for(int i = 0; i < searchingList.size(); i++) {
+		}
+		searchResult.setText(result);
+	}
+	
+	@FXML
+	private void getStationSearching() {
+		setKeyboardUnvisible();
+		searchVBox.getChildren().clear();
+		
+		List<BusStop> searchingList = new ArrayList<BusStop>();
+		String keyword = searchText.getText();
+		String result = "";
+		
+		SearchingStationUtil searchingUtil = new SearchingStationUtil();
+		
+		searchingList= searchingUtil.searchingStation(keyword);
+		
+		//2.1 사용자가 입력한 정류장 이름에 대한 정보가 없을 때
+		if(searchingList.size() == 0) {
+			result = "검색 결과가 없습니다.";
+		}
+		//2.2 사용자가 입력한 정류장 이름에 대한 정보가 있을 때
+		else {
+			result = "총 "+searchingList.size()+"개의 검색결과가 있습니다.";
+			for(int i = 0; i < searchingList.size(); i++) {
+				
+				final int secondSearchingSize;
+				
+				searchVBox.setSpacing(5);
+				
+				String stationNum = searchingList.get(i).getBusStopNum();
+				String stationName = searchingList.get(i).getBusStopName();
+				String destiStationID = searchingList.get(i).getStationID();
+				
+				String btnText = "[" + stationNum + " ]\t" + stationName;
+				
+				Button resultBtn = new Button(btnText);
+				resultBtn.setMinWidth(460);
+				resultBtn.setMinHeight(50);
+				resultBtn.setAlignment(Pos.BASELINE_LEFT);
+				resultBtn.setStyle("-fx-background-color : white");
+				
+				//2.2.1 정류장 목록을 클릭했을 때
+				resultBtn.setOnAction((event) -> {
 					
-					final int secondSearchingSize;
-					
-					searchVBox.setSpacing(5);
-					
-					String stationNum = searchingList.get(i).getBusStopNum();
-					String stationName = searchingList.get(i).getBusStopName();
-					String destiStationID = searchingList.get(i).getStationID();
-					
-					String btnText = "[" + stationNum + " ]\t" + stationName;
-					
-					Button resultBtn = new Button(btnText);
-					resultBtn.setMinWidth(460);
-					resultBtn.setMinHeight(50);
-					resultBtn.setAlignment(Pos.BASELINE_LEFT);
-					resultBtn.setStyle("-fx-background-color : white");
-					
-					//2.2.1 정류장 목록을 클릭했을 때
-					resultBtn.setOnAction((event) -> {
-						
-						//사용자가 입력한 정류장을 지나가는 버스가 있는지 검색 후 띄워준다
-						List<BusInfo> secondSearching = searchingUtil.getIsgo(mainApp.getBusStop().getStationID(), destiStationID);
-						showSecondSearchingResult(secondSearching);
-					});
-					
-					resultBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
-							new EventHandler<MouseEvent>() {
-								@Override
-								public void handle(MouseEvent e) {
-									resultBtn.setStyle("-fx-background-color: #F9F9F9");
-								}
-					});
-					
-					resultBtn.addEventHandler(MouseEvent.MOUSE_EXITED,
-							new EventHandler<MouseEvent>() {
-								@Override
-								public void handle(MouseEvent e) {
-									resultBtn.setStyle("-fx-background-color: white");
-								}
-					});
-					
-		    		searchVBox.getChildren().add(resultBtn);
-				}
+					//사용자가 입력한 정류장을 지나가는 버스가 있는지 검색 후 띄워준다
+					List<BusInfo> secondSearching = searchingUtil.getIsgo(mainApp.getBusStop().getStationID(), destiStationID);
+					showSecondSearchingResult(secondSearching);
+				});
+				
+				resultBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
+						new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent e) {
+								resultBtn.setStyle("-fx-background-color: #F9F9F9");
+							}
+				});
+				
+				resultBtn.addEventHandler(MouseEvent.MOUSE_EXITED,
+						new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent e) {
+								resultBtn.setStyle("-fx-background-color: white");
+							}
+				});
+				
+	    		searchVBox.getChildren().add(resultBtn);
 			}
 		}
 		searchResult.setText(result);
@@ -522,7 +531,7 @@ public class PanelOverviewController {
 			nullBtn.setStyle("-fx-background-color : white");
 			
 			nullBtn.setOnAction((event) -> {
-				getSearchingText();
+				getStationSearching();
 			});
 			
 			searchVBox.getChildren().add(nullBtn);
