@@ -4,17 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/json-simple-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/gtranslateapi-1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/jl1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/custom-translate-api.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/cmu_time_awb.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/cmu_us_kal.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/cmudict04.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/cmulex.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/cmutimelex.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/en_us.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/freetts.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/freetts-jsapi10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jiseon/eclipse-workspace/StopBus/lib/mbrola.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

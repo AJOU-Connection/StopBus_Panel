@@ -1,19 +1,10 @@
 package panel.view;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
+
+import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import com.gtranslate.Audio;
-import com.gtranslate.Language;
-import com.gtranslate.Translator;
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
-
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,13 +21,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
-import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 import panel.MainApp;
 import panel.model.ArrivingBus;
 import panel.model.BusInfo;
 import panel.model.BusStop;
 import panel.util.SearchingStationUtil;
+import panel.util.TTSUtil;
 import panel.util.LanguageUtil;
 import panel.util.ReservationUtil;
 
@@ -93,6 +87,7 @@ public class PanelOverviewController {
 	private boolean shiftFlag = false;
 	
 	ReservationUtil reservationUtil = new ReservationUtil();
+	TTSUtil ttsUtil = new TTSUtil();
 	
 	public PanelOverviewController() {
 		
@@ -634,7 +629,11 @@ public class PanelOverviewController {
 		arrivingBusData = mainApp.getArrivingBusData();
 		createArrivingBusBox();
 		boxifyBoxes();
+        
+		ttsUtil.getVoice();
+		ttsUtil.plyaAudio();
 		
+		/*
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -655,6 +654,7 @@ public class PanelOverviewController {
 		
 		thread.setDaemon(true);
 		thread.start();
+		*/
 		
 	}
 
