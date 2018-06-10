@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javafx.concurrent.Task;
+
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -707,6 +710,7 @@ public class PanelOverviewController {
 		createArrivingBusBox();
 		boxifyBoxes();
 		
+		
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -719,7 +723,6 @@ public class PanelOverviewController {
 						if(!searchFlag) {
 							mainApp.updatePagination();
 						}
-						playArrivingBus();
 					});
 					try { Thread.sleep(20000);} catch(InterruptedException e) {}
 				}
@@ -728,7 +731,20 @@ public class PanelOverviewController {
 		
 		thread.setDaemon(true);
 		thread.start();
-
+		
+		Thread thread2 = new Thread() {
+			@Override
+			public void run() {
+				while(!stop) {
+					playArrivingBus();
+					try { Thread.sleep(20000);} catch(InterruptedException e) {}
+				}
+			}
+		};
+		
+		thread2.setDaemon(true);
+		thread2.start();
+		
 	}
 
 }

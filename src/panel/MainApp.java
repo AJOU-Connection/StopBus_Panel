@@ -35,7 +35,7 @@ public class MainApp extends Application {
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 	
 	private AnchorPane panelOverview;
-	private PanelOverviewController controller;
+	private static PanelOverviewController controller;
 	private Pagination pagination;
 	
 	private String stationSetting = "03126";
