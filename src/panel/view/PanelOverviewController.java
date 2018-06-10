@@ -452,8 +452,17 @@ public class PanelOverviewController {
 				String stationNum = searchingList.get(i).getBusStopNum();
 				String stationName = searchingList.get(i).getBusStopName();
 				String destiStationID = searchingList.get(i).getStationID();
+				String stationInfo = searchingList.get(i).getBusStopInfo();
+				String btnText = "";
 				
-				String btnText = "[" + stationNum + " ]\t" + stationName;
+				if(stationInfo.equals("")) {
+					btnText += "[" + stationNum + " ]\t" + stationName;
+				}
+				else {
+					btnText += "[" + stationNum + " ]\t" + stationName + "\n\t\t(" + stationInfo + " 방면)";
+				}
+				
+				
 				
 				Button resultBtn = new Button(btnText);
 				resultBtn.setMinWidth(460);
@@ -463,7 +472,6 @@ public class PanelOverviewController {
 				
 				//2.2.1 정류장 목록을 클릭했을 때
 				resultBtn.setOnAction((event) -> {
-					
 					//사용자가 입력한 정류장을 지나가는 버스가 있는지 검색 후 띄워준다
 					List<BusInfo> secondSearching = searchingUtil.getIsgo(mainApp.getBusStop().getStationID(), destiStationID);
 					showSecondSearchingResult(secondSearching);
