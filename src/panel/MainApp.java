@@ -38,7 +38,7 @@ public class MainApp extends Application {
 	private static PanelOverviewController controller;
 	private Pagination pagination;
 	
-	private String stationSetting = "03126";
+	private String stationSetting = "";
 	
 	BusInfoUtil busInfoUtil = new BusInfoUtil();
 	ReservationUtil reservationUtil = new ReservationUtil();
@@ -46,18 +46,22 @@ public class MainApp extends Application {
 	
 	//UI 초기 화면에 필요한 data를 API로부터 받아온 후 observable list에 저장한다.
 	public MainApp() {
-		getBusStopInfo();
-		getBusInfoList();
-		getArrivingBusInfo();
+//		getBusStopInfo();
+//		getBusInfoList();
+//		getArrivingBusInfo();
 	}
 	
 	//-------------------------------------초기 data 받아오기-------------------------------------
+	
+	public void setStationSetting(String input) {
+		stationSetting += input;
+	}
+	
 	
 	//버스 정류장의 정보를 API로부터 받아와 busStop에 저장한다.
 	public void getBusStopInfo() {
 		SearchingStationUtil busStopUtil = new SearchingStationUtil();
 		busStop = busStopUtil.searchingBusStop(stationSetting);
-		
 	}	
 	
 	//정류장을 지나는 모든 버스의 정보를 API로부터 받아와 busInfoList에 저장한다.
@@ -349,11 +353,12 @@ public class MainApp extends Application {
 			rootLayout.setCenter(panelOverview);
 			
 			controller = loader.getController();
-			
 			controller.setMainApp(this);
+			
+			
+			
 			//updatePagination();
-			addPagination();
-			updatePagination();
+			
 			
 		}catch(IOException e){
 			e.printStackTrace();

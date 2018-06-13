@@ -26,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import panel.MainApp;
 import panel.model.ArrivingBus;
 import panel.model.BusInfo;
@@ -51,6 +52,8 @@ public class PanelOverviewController {
 	private Label busStopInfoLabel;
 	
 	@FXML
+	private Button settingBtn;
+	@FXML
 	private Button searching;	
 	@FXML
 	private Button checking;
@@ -58,6 +61,10 @@ public class PanelOverviewController {
 	private Button busSearching;
 	@FXML
 	private Button stationSearching;
+	@FXML
+	private Text settingResult;
+	@FXML
+	private TextField settingText;
 	@FXML
 	private TextField searchText;
 	@FXML
@@ -79,15 +86,19 @@ public class PanelOverviewController {
 	@FXML
 	private VBox englishKeyboard2;
 	@FXML
+	private AnchorPane settingPane;
+	@FXML
 	private BorderPane searchBorderPane;
 	
 	private ObservableList<ArrivingBus> arrivingBusData = FXCollections.observableArrayList();
 
 	private MainApp mainApp;
+	
 	private boolean stop = false;
 	private boolean searchFlag = false;
 	private boolean languageFlag = false;
 	private boolean shiftFlag = false;
+	private boolean settingFlag = false;
 	
 	ReservationUtil reservationUtil = new ReservationUtil();
 	TTSUtil ttsUtil = new TTSUtil();
@@ -97,6 +108,17 @@ public class PanelOverviewController {
 	}
 	
 	//-----------------------------------------visibility 설정-----------------------------------------
+	
+	@FXML
+	private void handleStationSetting() {
+//		settingPane.setVisible(false);
+//		settingFlag = true;
+//		mainApp.setStationSetting("04237");
+	}
+	
+	public boolean getSettingFlag() {
+		return settingFlag;
+	}
 	
 	//키보드가 보이지 않게 한다 + 키보드 설정을 초기화 한다.
 	@FXML
@@ -703,47 +725,72 @@ public class PanelOverviewController {
 	public void setMainApp(MainApp mainApp){
 		
 		this.mainApp = mainApp;
-		busStopNumLabel.setText(mainApp.getBusStop().getBusStopNum());
-		busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
-		busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
-		arrivingBusData = mainApp.getArrivingBusData();
-		createArrivingBusBox();
-		boxifyBoxes();
+		SearchingStationUtil ssu = new SearchingStationUtil();
 		
-		
-		Thread thread = new Thread() {
+		settingBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void run() {
-				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-				while(!stop) {
-					String strTime = sdf.format(new Date());
-					Platform.runLater(() -> {
-						mainApp.updateBusInfoList(mainApp.getBusInfoListData());
-						updateBoxes();
-						if(!searchFlag) {
-							mainApp.updatePagination();
+			public void handle(ActionEvent event) {
+				
+				if(settingText.getText().length() != 5) {
+					settingResult.setText("5자리의 정류장 번호를 입력해주세요!");
+				}
+				else if(ssu.searchingBusStop(settingText.getText()).getBusStopName().equals("")) {
+					settingResult.setText("존재하지 않은 정류장입니다. 다시 입력해주세요!");
+				}else {
+					settingPane.setVisible(false);
+					mainApp.setStationSetting(settingText.getText());
+					
+					mainApp.getBusStopInfo();
+					mainApp.getBusInfoList();
+					mainApp.getArrivingBusInfo();
+					
+					busStopNumLabel.setText(mainApp.getBusStop().getBusStopNum());
+					busStopNameLabel.setText(mainApp.getBusStop().getBusStopName());
+					busStopInfoLabel.setText(mainApp.getBusStop().getBusStopInfo());
+					arrivingBusData = mainApp.getArrivingBusData();
+					createArrivingBusBox();
+					boxifyBoxes();
+					
+					mainApp.addPagination();
+					mainApp.updatePagination();
+					
+					Thread thread = new Thread() {
+						@Override
+						public void run() {
+							SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+							while(!stop) {
+								String strTime = sdf.format(new Date());
+								Platform.runLater(() -> {
+									mainApp.updateBusInfoList(mainApp.getBusInfoListData());
+									updateBoxes();
+									if(!searchFlag) {
+										mainApp.updatePagination();
+									}
+								});
+								try { Thread.sleep(20000);} catch(InterruptedException e) {}
+							}
 						}
-					});
-					try { Thread.sleep(20000);} catch(InterruptedException e) {}
+					};
+					
+					thread.setDaemon(true);
+					thread.start();
+					
+					Thread thread2 = new Thread() {
+						@Override
+						public void run() {
+							while(!stop) {
+								playArrivingBus();
+								try { Thread.sleep(20000);} catch(InterruptedException e) {}
+							}
+						}
+					};
+					
+					thread2.setDaemon(true);
+					thread2.start();
 				}
 			}
-		};
+		});
 		
-		thread.setDaemon(true);
-		thread.start();
-		
-		Thread thread2 = new Thread() {
-			@Override
-			public void run() {
-				while(!stop) {
-					playArrivingBus();
-					try { Thread.sleep(20000);} catch(InterruptedException e) {}
-				}
-			}
-		};
-		
-		thread2.setDaemon(true);
-		thread2.start();
 		
 	}
 

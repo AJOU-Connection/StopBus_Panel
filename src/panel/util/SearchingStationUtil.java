@@ -50,14 +50,24 @@ public class SearchingStationUtil {
 			JSONObject jsonObj = (JSONObject) jsonParser.parse(result);
 			JSONArray array = (JSONArray) jsonObj.get("body");
 			
-			for(int i = 0; i < array.size(); i++) {
-				JSONObject tempObj = (JSONObject) array.get(i);
-				tempBusStop.setBusStopNum(String.valueOf(tempObj.get("stationNumber")));
-				tempBusStop.setBusStopName(String.valueOf(tempObj.get("stationName")));
-				tempBusStop.setBusStopInfo(String.valueOf(tempObj.get("stationDirect")));
-				tempBusStop.setStationID(String.valueOf(tempObj.get("stationID")));
+			
+			
+			if(array != null) {
+				for(int i = 0; i < array.size(); i++) {
+					JSONObject tempObj = (JSONObject) array.get(i);
+					tempBusStop.setBusStopNum(String.valueOf(tempObj.get("stationNumber")));
+					tempBusStop.setBusStopName(String.valueOf(tempObj.get("stationName")));
+					tempBusStop.setBusStopInfo(String.valueOf(tempObj.get("stationDirect")));
+					tempBusStop.setStationID(String.valueOf(tempObj.get("stationID")));
+				}
 			}
-
+			else {
+				tempBusStop.setBusStopNum("");
+				tempBusStop.setBusStopName("");
+				tempBusStop.setBusStopInfo("");
+				tempBusStop.setStationID("");
+			}
+			
 			osw.close();
 			br.close();
 		} catch (Exception e) {
