@@ -736,7 +736,11 @@ public class PanelOverviewController {
 				}
 				else if(ssu.searchingBusStop(settingText.getText()).getBusStopName().equals("")) {
 					settingResult.setText("존재하지 않은 정류장입니다. 다시 입력해주세요!");
-				}else {
+				}
+				else if(settingText.getText().equals("00000")) {
+					settingResult.setText("유효하지 않는 정류장입니다. 다시 입력해주새요!");
+				}
+				else {
 					settingPane.setVisible(false);
 					mainApp.setStationSetting(settingText.getText());
 					
