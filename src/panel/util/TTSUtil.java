@@ -12,10 +12,10 @@ public class TTSUtil {
 
     public void getVoice(String msg) {
     	
-        String clientId = "cujnnxpark";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ¾ÆÀÌµğ°ª";
-        String clientSecret = "44r7Lx4sVXpBdlUP7O7nXML4Krsa7PFc86xCu0kW";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ½ÃÅ©¸´°ª";
+        String clientId = "hz3sfx1sqv";//ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì•„ì´ë””ê°’";
+        String clientSecret = "9tP0WiOGM0iB0I45cBCO58zbl2lPIfRtWzSVTC52";//ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì‹œí¬ë¦¿ê°’";
         try {
-            String text = URLEncoder.encode(msg + "¹ö½º°¡ Àá½Ã ÈÄ µµÂøÇÕ´Ï´Ù.", "UTF-8"); // 13ÀÚ
+            String text = URLEncoder.encode(msg + "ë²„ìŠ¤ê°€ ì ì‹œ í›„ ë„ì°©í•©ë‹ˆë‹¤.", "UTF-8"); // 13ì
             String apiURL = "https://naveropenapi.apigw.ntruss.com/voice/v1/tts";
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -31,11 +31,11 @@ public class TTSUtil {
             wr.close();
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            if(responseCode==200) { // Á¤»ó È£Ãâ
+            if(responseCode==200) { // ì •ìƒ í˜¸ì¶œ
                 InputStream is = con.getInputStream();
                 int read = 0;
                 byte[] bytes = new byte[1024];
-                // ·£´ıÇÑ ÀÌ¸§À¸·Î mp3 ÆÄÀÏ »ı¼º
+                // ëœë¤í•œ ì´ë¦„ìœ¼ë¡œ mp3 íŒŒì¼ ìƒì„±
                 //String tempname = Long.valueOf(new Date().getTime()).toString();
                 File f = new File("TTS.mp3");
                 f.createNewFile();
@@ -43,7 +43,7 @@ public class TTSUtil {
                 while ((read =is.read(bytes)) != -1) {
                     outputStream.write(bytes, 0, read);
                 }
-            } else {  // ¿¡·¯ ¹ß»ı
+            } else {  // ì—ëŸ¬ ë°œìƒ
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
                 String inputLine;
                 StringBuffer response = new StringBuffer();
