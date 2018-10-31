@@ -44,27 +44,27 @@ public class MainApp extends Application {
 	ReservationUtil reservationUtil = new ReservationUtil();
 	
 	
-	//UI ÃÊ±â È­¸é¿¡ ÇÊ¿äÇÑ data¸¦ API·ÎºÎÅÍ ¹Ş¾Æ¿Â ÈÄ observable list¿¡ ÀúÀåÇÑ´Ù.
+	//UI ì´ˆê¸° í™”ë©´ì— í•„ìš”í•œ dataë¥¼ APIë¡œë¶€í„° ë°›ì•„ì˜¨ í›„ observable listì— ì €ì¥í•œë‹¤.
 	public MainApp() {
 //		getBusStopInfo();
 //		getBusInfoList();
 //		getArrivingBusInfo();
 	}
 	
-	//-------------------------------------ÃÊ±â data ¹Ş¾Æ¿À±â-------------------------------------
+	//-------------------------------------ì´ˆê¸° data ë°›ì•„ì˜¤ê¸°-------------------------------------
 	
 	public void setStationSetting(String input) {
 		stationSetting += input;
 	}
 	
 	
-	//¹ö½º Á¤·ùÀåÀÇ Á¤º¸¸¦ API·ÎºÎÅÍ ¹Ş¾Æ¿Í busStop¿¡ ÀúÀåÇÑ´Ù.
+	//ë²„ìŠ¤ ì •ë¥˜ì¥ì˜ ì •ë³´ë¥¼ APIë¡œë¶€í„° ë°›ì•„ì™€ busStopì— ì €ì¥í•œë‹¤.
 	public void getBusStopInfo() {
 		SearchingStationUtil busStopUtil = new SearchingStationUtil();
 		busStop = busStopUtil.searchingBusStop(stationSetting);
 	}	
 	
-	//Á¤·ùÀåÀ» Áö³ª´Â ¸ğµç ¹ö½ºÀÇ Á¤º¸¸¦ API·ÎºÎÅÍ ¹Ş¾Æ¿Í busInfoList¿¡ ÀúÀåÇÑ´Ù.
+	//ì •ë¥˜ì¥ì„ ì§€ë‚˜ëŠ” ëª¨ë“  ë²„ìŠ¤ì˜ ì •ë³´ë¥¼ APIë¡œë¶€í„° ë°›ì•„ì™€ busInfoListì— ì €ì¥í•œë‹¤.
 	public void getBusInfoList() {
 		
 		busInfoUtil.setBusInfo(busStop.getStationID());
@@ -78,7 +78,7 @@ public class MainApp extends Application {
 		
 	}
 		
-	//busInfoListÀÇ Á¤º¸¸¦ ¹ÙÅÁÀ¸·Î ¼±Âø¼ø ¹ö½º Á¤º¸¸¦ arrivingBusData¿¡ ÀúÀåÇÑ´Ù.
+	//busInfoListì˜ ì •ë³´ë¥¼ ë°”íƒ•ìœ¼ë¡œ ì„ ì°©ìˆœ ë²„ìŠ¤ ì •ë³´ë¥¼ arrivingBusDataì— ì €ì¥í•œë‹¤.
 	public void getArrivingBusInfo() {
 		
 		BusInfo tempInfo;
@@ -115,9 +115,9 @@ public class MainApp extends Application {
 		
 	}
 	
-	//-------------------------------------data ¾÷µ¥ÀÌÆ® ÇÏ±â-------------------------------------
+	//-------------------------------------data ì—…ë°ì´íŠ¸ í•˜ê¸°-------------------------------------
 	
-	//busInfoListÀÇ Á¤º¸¸¦ ¹ÙÅÁÀ¸·Î arrvingBus¸¦ ¾÷µ¥ÀÌÆ® ÇÑ´Ù. createPage()¿¡¼­ »ç¿ëÇÑ´Ù.
+	//busInfoListì˜ ì •ë³´ë¥¼ ë°”íƒ•ìœ¼ë¡œ arrvingBusë¥¼ ì—…ë°ì´íŠ¸ í•œë‹¤. createPage()ì—ì„œ ì‚¬ìš©í•œë‹¤.
 	public void updateArrivingBusData() {
 		
 		BusInfo tempInfo;
@@ -151,7 +151,7 @@ public class MainApp extends Application {
 		
 	}
 	
-	//-------------------------------------controller¿¡ data ³Ñ±â±â-------------------------------------
+	//-------------------------------------controllerì— data ë„˜ê¸°ê¸°-------------------------------------
 	
 	public BusStop getBusStop() {
 		return busStop;
@@ -165,14 +165,14 @@ public class MainApp extends Application {
 		return busInfoList;
 	}		
 	
-	//-------------------------------------pagination »ı¼ºÇÏ±â-------------------------------------
+	//-------------------------------------pagination ìƒì„±í•˜ê¸°-------------------------------------
  
-	//paginationÀ» À§ÇÑ method·Î, ÆäÀÌÁö ´ç Ç¥½ÃÇÒ ¾ÆÀÌÅÛÀÇ ¼ö¸¦ ¸®ÅÏÇÑ´Ù.
+	//paginationì„ ìœ„í•œ methodë¡œ, í˜ì´ì§€ ë‹¹ í‘œì‹œí•  ì•„ì´í…œì˜ ìˆ˜ë¥¼ ë¦¬í„´í•œë‹¤.
     public int itemsPerPage() {
         return 8;
     }
  
-    //paginationÀÇ ÆäÀÌÁö¸¶´Ù µé¾î°¥ VBox¸¦ »ı¼ºÇÑ´Ù.
+    //paginationì˜ í˜ì´ì§€ë§ˆë‹¤ ë“¤ì–´ê°ˆ VBoxë¥¼ ìƒì„±í•œë‹¤.
     public VBox createPage(int pageIndex) {        
         VBox box = new VBox(5);
         box.setStyle("-fx-background-color: #F4F4F4;");
@@ -189,17 +189,17 @@ public class MainApp extends Application {
         	if(i < busInfoList.size()) {
         		BusInfo tempBusStop = busInfoList.get(i);
                 boolean flag = false;
-        		Label busNum = new Label(tempBusStop.getBusNum()+" ¹ø");
+        		Label busNum = new Label(tempBusStop.getBusNum()+" ë²ˆ");
         		Label busTime;
         		Label station;
         		
         		if(Integer.parseInt(tempBusStop.getTimeRemaining()) > 1000 || Integer.parseInt(tempBusStop.getCurrentStop()) > 1000) {
-        			busTime = new Label("¹ö½º Á¤º¸ ¾øÀ½");
-        			station = new Label("¹ö½º Á¤º¸ ¾øÀ½");
+        			busTime = new Label("ë²„ìŠ¤ ì •ë³´ ì—†ìŒ");
+        			station = new Label("ë²„ìŠ¤ ì •ë³´ ì—†ìŒ");
         		}
         		else {
-        			busTime = new Label(tempBusStop.getTimeRemaining()+" ºĞ Àü");
-            		station = new Label(tempBusStop.getCurrentStop()+" Á¤°ÅÀå Àü");
+        			busTime = new Label(tempBusStop.getTimeRemaining()+" ë¶„ ì „");
+            		station = new Label(tempBusStop.getCurrentStop()+" ì •ê±°ì¥ ì „");
         		}
         		
         		busNum.setFont(new Font("Hancom Gothic", 16));
@@ -253,7 +253,7 @@ public class MainApp extends Application {
         return box;
     }
     
-    //paginationÀ» panelOverview¿¡ Ç¥½ÃÇÑ´Ù.
+    //paginationì„ panelOverviewì— í‘œì‹œí•œë‹¤.
     public void addPagination() {
 		Pagination newPagination = new Pagination(busInfoList.size()/itemsPerPage() + 1, 0);
         newPagination.setStyle("-fx-border-color: #C8C8C8;");
@@ -284,10 +284,10 @@ public class MainApp extends Application {
         });
     }
     
-    //-------------------------------------±âÅ¸ ±â´ÉÀ» À§ÇÑ Àâ´ÙÇÑ method-------------------------------------
+    //-------------------------------------ê¸°íƒ€ ê¸°ëŠ¥ì„ ìœ„í•œ ì¡ë‹¤í•œ method-------------------------------------
 	/*
-    getArrivingBusInfo() ¶§¹®¿¡ busInfoList°¡ ½Ã°£¼ø´ë·Î Á¤·ÄµÇ¾î¹ö¸®´Â ½½ÇÂ ºñ±Ø¶§¹®¿¡ ¸¸µé¾úÀ½
-    busInfoList¸¦ ¹ö½º ¹øÈ£¼ø´ë·Î ÀçÁ¤·ÄÇØÁÖ´Â method
+    getArrivingBusInfo() ë•Œë¬¸ì— busInfoListê°€ ì‹œê°„ìˆœëŒ€ë¡œ ì •ë ¬ë˜ì–´ë²„ë¦¬ëŠ” ìŠ¬í”ˆ ë¹„ê·¹ë•Œë¬¸ì— ë§Œë“¤ì—ˆìŒ
+    busInfoListë¥¼ ë²„ìŠ¤ ë²ˆí˜¸ìˆœëŒ€ë¡œ ì¬ì •ë ¬í•´ì£¼ëŠ” method
     */
     
     public void sortingBusInfoList() {
@@ -304,17 +304,17 @@ public class MainApp extends Application {
 		}
 	}
     
-    //¸» ±×´ë·Î paginationÀÌ º¸ÀÌ°Ô ÇØÁÖ´Â method. ¿©±â¼­´Â ¾È¾²°í controller°¡ ¾´´Ù.
+    //ë§ ê·¸ëŒ€ë¡œ paginationì´ ë³´ì´ê²Œ í•´ì£¼ëŠ” method. ì—¬ê¸°ì„œëŠ” ì•ˆì“°ê³  controllerê°€ ì“´ë‹¤.
     public void setPaginationVisible() {
 		pagination.setVisible(true);
 	}
 	
-    //¸» ±×´ë·Î paginationÀÌ ¾Èº¸ÀÌ°Ô ÇØÁÖ´Â method. ¿©±â¼­´Â ¾È¾²°í controller°¡ ¾´´Ù.
+    //ë§ ê·¸ëŒ€ë¡œ paginationì´ ì•ˆë³´ì´ê²Œ í•´ì£¼ëŠ” method. ì—¬ê¸°ì„œëŠ” ì•ˆì“°ê³  controllerê°€ ì“´ë‹¤.
 	public void setPaginationUnvisible() {
 		pagination.setVisible(false);
 	}
 	
-    //-------------------------------------º»°İ stage ½ÇÇàÇÏ±â-------------------------------------
+    //-------------------------------------ë³¸ê²© stage ì‹¤í–‰í•˜ê¸°-------------------------------------
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -325,15 +325,15 @@ public class MainApp extends Application {
 		showPanelOverview();
 	}
 	
-	//»óÀ§ ·¹ÀÌ¾Æ¿ô ÃÊ±âÈ­
+	//ìƒìœ„ ë ˆì´ì•„ì›ƒ ì´ˆê¸°í™”
 	public void initRootLayout() {
 		try {
-			//fxml ÆÄÀÏ¿¡¼­ »óÀ§ ·¹ÀÌ¾Æ¿ôÀ» °¡Á®¿Â´Ù
+			//fxml íŒŒì¼ì—ì„œ ìƒìœ„ ë ˆì´ì•„ì›ƒì„ ê°€ì ¸ì˜¨ë‹¤
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 			
-			//»óÀ§ ·¹ÀÌ¾Æ¿ôÀ» Æ÷ÇÔÇÏ´Â sceneÀ» º¸¿©ÁØ´Ù
+			//ìƒìœ„ ë ˆì´ì•„ì›ƒì„ í¬í•¨í•˜ëŠ” sceneì„ ë³´ì—¬ì¤€ë‹¤
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -343,7 +343,7 @@ public class MainApp extends Application {
 		}
 	}
 	
-	//»óÀ§ ·¹ÀÌ¾Æ¿ô ¾È¿¡ panel overview¸¦ º¸¿©ÁØ´Ù.
+	//ìƒìœ„ ë ˆì´ì•„ì›ƒ ì•ˆì— panel overviewë¥¼ ë³´ì—¬ì¤€ë‹¤.
 	public void showPanelOverview() {
 		try {
 			
@@ -365,7 +365,7 @@ public class MainApp extends Application {
 		}
 	}
 	
-	//¸ŞÀÎ ½ºÅ×ÀÌÁö¸¦ ¹İÈ¯ÇÑ´Ù
+	//ë©”ì¸ ìŠ¤í…Œì´ì§€ë¥¼ ë°˜í™˜í•œë‹¤
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}

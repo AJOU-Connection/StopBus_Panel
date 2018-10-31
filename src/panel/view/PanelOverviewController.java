@@ -107,7 +107,7 @@ public class PanelOverviewController {
 		
 	}
 	
-	//-----------------------------------------visibility ¼³Á¤-----------------------------------------
+	//-----------------------------------------visibility ì„¤ì •-----------------------------------------
 	
 	@FXML
 	private void handleStationSetting() {
@@ -120,7 +120,7 @@ public class PanelOverviewController {
 		return settingFlag;
 	}
 	
-	//Å°º¸µå°¡ º¸ÀÌÁö ¾Ê°Ô ÇÑ´Ù + Å°º¸µå ¼³Á¤À» ÃÊ±âÈ­ ÇÑ´Ù.
+	//í‚¤ë³´ë“œê°€ ë³´ì´ì§€ ì•Šê²Œ í•œë‹¤ + í‚¤ë³´ë“œ ì„¤ì •ì„ ì´ˆê¸°í™” í•œë‹¤.
 	@FXML
 	private void setKeyboardUnvisible() {
 		koreanKeyboard1.setVisible(false);
@@ -131,7 +131,7 @@ public class PanelOverviewController {
 		shiftFlag = false;
 	}
 	
-	//Å°º¸µå°¡ º¸ÀÌ°Ô ÇÑ´Ù + Å°º¸µå ¼³Á¤À» ÃÊ±âÈ­ ÇÑ´Ù.
+	//í‚¤ë³´ë“œê°€ ë³´ì´ê²Œ í•œë‹¤ + í‚¤ë³´ë“œ ì„¤ì •ì„ ì´ˆê¸°í™” í•œë‹¤.
 	@FXML
 	private void setKeyboardVisible() {
 		koreanKeyboard1.setVisible(true);
@@ -162,13 +162,13 @@ public class PanelOverviewController {
 		mainApp.updatePagination();
 		searching.setStyle("-fx-background-color: #00ACC1");
 		checking.setStyle("-fx-background-color: #00838F");
-		searchResult.setText("°Ë»ö¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+		searchResult.setText("ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		searchVBox.getChildren().clear();
 		searchText.setText("");
 		
 	}
-	//-----------------------------------------Å°º¸µå ±â´É ±¸Çö-----------------------------------------
-	//ÇÑ±Û Å°º¸µå ±â´É(ÀÔ·Â°ªÀ» ÃÊ¼º, Áß¼º, Á¾¼ºÀ¸·Î ±¸ºĞÇÏ¿© ¹®ÀÚ·Î Ä¡È¯)
+	//-----------------------------------------í‚¤ë³´ë“œ ê¸°ëŠ¥ êµ¬í˜„-----------------------------------------
+	//í•œê¸€ í‚¤ë³´ë“œ ê¸°ëŠ¥(ì…ë ¥ê°’ì„ ì´ˆì„±, ì¤‘ì„±, ì¢…ì„±ìœ¼ë¡œ êµ¬ë¶„í•˜ì—¬ ë¬¸ìë¡œ ì¹˜í™˜)
 	@FXML
 	private void getKeyboardValue(ActionEvent event) {
 		
@@ -183,29 +183,29 @@ public class PanelOverviewController {
 		int jong = 0;
 		String combinedWord = "";
 		
-		//ÀÌÀü¿¡ ÀÔ·ÂµÈ text °ª
+		//ì´ì „ì— ì…ë ¥ëœ text ê°’
 		fullText += searchText.getText() + input;
 		
 		if(fullText.length()-1 > 0) {
 			lastWord = fullText.charAt(fullText.length()-2);
 			
-			//¸ğÀ½ÀÌ ÀÔ·ÂµÇ¾úÀ» ¶§
-			if((int)input >= '¤¿' && (int)input <= '¤Ó') {
-				//ÀÌÀü ¹®ÀåÀÌ ÀÚÀ½ ÇÏ³ª¶ó¸é ÀÚÀ½+¸ğÀ½ÀÇ ÇüÅÂ·Î ÇÕÄ£´Ù
-				if((int)lastWord >= '¤¡' && (int)lastWord <= '¤¾') {
+			//ëª¨ìŒì´ ì…ë ¥ë˜ì—ˆì„ ë•Œ
+			if((int)input >= 'ã…' && (int)input <= 'ã…£') {
+				//ì´ì „ ë¬¸ì¥ì´ ììŒ í•˜ë‚˜ë¼ë©´ ììŒ+ëª¨ìŒì˜ í˜•íƒœë¡œ í•©ì¹œë‹¤
+				if((int)lastWord >= 'ã„±' && (int)lastWord <= 'ã…') {
 					cho = lan.findChosung(lastWord);
 					jung = lan.findJungsung(input);
 					fullText = fullText.substring(0, fullText.length()-2);
 					fullText += lan.combineWord(cho, jung, jong);
 				}
-				//Á÷Àü ¹®ÀÚ°¡ ÇÏ³ªÀÇ ´Ü¾î¶ó¸é
+				//ì§ì „ ë¬¸ìê°€ í•˜ë‚˜ì˜ ë‹¨ì–´ë¼ë©´
 				else if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3) {
 					
 					cho = lan.getChosung(lastWord);
 					jung = lan.getJungsung(lastWord);
 					jong = lan.getJongsung(lastWord);
 					
-					//¹ŞÄ§ÀÌ Á¸ÀçÇÒ ¶§ ´Ü¾îÀÇ ¹ŞÄ§°ú »õ·Î ÀÔ·ÂµÈ ¸ğÀ½À» ÇÕÄ£´Ù
+					//ë°›ì¹¨ì´ ì¡´ì¬í•  ë•Œ ë‹¨ì–´ì˜ ë°›ì¹¨ê³¼ ìƒˆë¡œ ì…ë ¥ëœ ëª¨ìŒì„ í•©ì¹œë‹¤
 					if(lan.getJongsung(lastWord) != 0) {
 						fullText = fullText.substring(0, fullText.length()-2);
 						fullText += lan.combineWord(cho, jung, 0);
@@ -213,7 +213,7 @@ public class PanelOverviewController {
 						jung = lan.findJungsung(input);
 						fullText += lan.combineWord(cho, jung, 0);
 					}
-					//¹ŞÄ§ÀÌ Á¸ÀçÇÏÁö ¾ÊÀ» ¶§ ¸ğÀ½ÀÌ ÀÌÁß¸ğÀ½ÀÌ µÉ ¼ö ÀÖ´ÂÁö È®ÀÎ ÈÄ º¯°æÇÑ´Ù.
+					//ë°›ì¹¨ì´ ì¡´ì¬í•˜ì§€ ì•Šì„ ë•Œ ëª¨ìŒì´ ì´ì¤‘ëª¨ìŒì´ ë  ìˆ˜ ìˆëŠ”ì§€ í™•ì¸ í›„ ë³€ê²½í•œë‹¤.
 					else{
 						jung = lan.mergeVowels(jung, input);
 						if(jung != 0) {
@@ -222,7 +222,7 @@ public class PanelOverviewController {
 						}
 					}
 				}
-				else if((int)lastWord >= '¤¿' && (int)lastWord <= '¤Ó') {
+				else if((int)lastWord >= 'ã…' && (int)lastWord <= 'ã…£') {
 					jung = lan.mergeVowels(lan.findJungsung(lastWord), input);
 					if(jung != 0) {
 						fullText = fullText.substring(0, fullText.length()-2);
@@ -230,12 +230,12 @@ public class PanelOverviewController {
 					}
 				}
 			}
-			//ÀÚÀ½ÀÌ ÀÔ·ÂµÇ¾ú´Ù¸é
-			else if((int)input >= '¤¡' && (int)input <= '¤¾'){
+			//ììŒì´ ì…ë ¥ë˜ì—ˆë‹¤ë©´
+			else if((int)input >= 'ã„±' && (int)input <= 'ã…'){
 				
-				//Á÷Àü ¹®ÀÚ°¡ ÇÏ³ªÀÇ ´Ü¾îÀÏ ¶§
+				//ì§ì „ ë¬¸ìê°€ í•˜ë‚˜ì˜ ë‹¨ì–´ì¼ ë•Œ
 				if((int)lastWord >= 0xAC00 && (int)lastWord <= 0xD7A3) {
-					//¹ŞÄ§ÀÌ ¾øÀ¸¸é ¹ŞÄ§À¸·Î ºÙ¿©¼­ Ç¥±âÇÑ´Ù.
+					//ë°›ì¹¨ì´ ì—†ìœ¼ë©´ ë°›ì¹¨ìœ¼ë¡œ ë¶™ì—¬ì„œ í‘œê¸°í•œë‹¤.
 					if(lan.getJongsung(lastWord) == 0) {
 						cho = lan.getChosung(lastWord);
 						jung = lan.getJungsung(lastWord);
@@ -243,7 +243,7 @@ public class PanelOverviewController {
 						fullText = fullText.substring(0, fullText.length()-2);
 						fullText += lan.combineWord(cho, jung, jong);
 					}
-					//¹ŞÄ§ÀÌ ÀÖÀ¸¸é °ã¹çÄ§À¸·Î ¾µ ¼ö ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+					//ë°›ì¹¨ì´ ìˆìœ¼ë©´ ê²¹ë°­ì¹¨ìœ¼ë¡œ ì“¸ ìˆ˜ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 					else {
 						cho = lan.getChosung(lastWord);
 						jung = lan.getJungsung(lastWord);
@@ -262,13 +262,13 @@ public class PanelOverviewController {
 		searchText.setText(fullText);
 	}
 	
-	//Å°º¸µå space ±â´É
+	//í‚¤ë³´ë“œ space ê¸°ëŠ¥
 	@FXML
 	private void getSpaceValue(ActionEvent event) {
 		searchText.setText(searchText.getText() + " ");
 	}
 	
-	//Å°º¸µå backspace ¹öÆ° ±â´É
+	//í‚¤ë³´ë“œ backspace ë²„íŠ¼ ê¸°ëŠ¥
 	@FXML
 	private void deleteKeyboardValue() {
 		
@@ -314,7 +314,7 @@ public class PanelOverviewController {
 		}
 	}
 	
-	//Å°º¸µå shift ¹öÆ° ±â´É
+	//í‚¤ë³´ë“œ shift ë²„íŠ¼ ê¸°ëŠ¥
 	@FXML
 	private void shiftKeyboardValue() {
 		if(languageFlag) {
@@ -353,7 +353,7 @@ public class PanelOverviewController {
 		}
 	}
 	
-	//Å°º¸µå ÇÑ/¿µ º¯È¯ ¹öÆ° ±â´É
+	//í‚¤ë³´ë“œ í•œ/ì˜ ë³€í™˜ ë²„íŠ¼ ê¸°ëŠ¥
 	@FXML
 	private void changeKeyboardValue(ActionEvent event) {
 		if(languageFlag == true) {
@@ -374,9 +374,9 @@ public class PanelOverviewController {
 		}
 	}
 	
-	//-----------------------------------------searching ±â´É-----------------------------------------
+	//-----------------------------------------searching ê¸°ëŠ¥-----------------------------------------
 	
-	//Å°º¸µåÀÇ Enter³ª °Ë»öÃ¢ ¿·ÀÇ °Ë»ö ¹öÆ°À» ´­·¶À» ¶§ °Ë»ö °á°ú¸¦ ¶ç¿öÁØ´Ù.
+	//í‚¤ë³´ë“œì˜ Enterë‚˜ ê²€ìƒ‰ì°½ ì˜†ì˜ ê²€ìƒ‰ ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ ê²€ìƒ‰ ê²°ê³¼ë¥¼ ë„ì›Œì¤€ë‹¤.
 	
 	@FXML
 	private void getBusSearching() {
@@ -393,24 +393,24 @@ public class PanelOverviewController {
 		String routeID = "";
 		String stationSeq = "";
 		
-		//»ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¹ö½º ¹øÈ£°¡ ÇöÀç Á¤·ùÀåÀ» Áö³ª´Â ¹ö½º ¸ñ·Ï¿¡ ÀÖ´ÂÁö Ã¼Å©
+		//ì‚¬ìš©ìê°€ ì…ë ¥í•œ ë²„ìŠ¤ ë²ˆí˜¸ê°€ í˜„ì¬ ì •ë¥˜ì¥ì„ ì§€ë‚˜ëŠ” ë²„ìŠ¤ ëª©ë¡ì— ìˆëŠ”ì§€ ì²´í¬
 		for(int i = 0; i < tempList.size(); i++) {
 			if(tempList.get(i).getBusNum().equals(keyword)) {
-				routeID += tempList.get(i).getRouteID();	//°°Àº ¹øÈ£ÀÎ Â÷·®ÀÇ routeID
-				stationSeq += tempList.get(i).getStationSeq();	//°°Àº ¹øÈ£ÀÎ Â÷·®ÀÇ stationSeq
+				routeID += tempList.get(i).getRouteID();	//ê°™ì€ ë²ˆí˜¸ì¸ ì°¨ëŸ‰ì˜ routeID
+				stationSeq += tempList.get(i).getStationSeq();	//ê°™ì€ ë²ˆí˜¸ì¸ ì°¨ëŸ‰ì˜ stationSeq
 				break;
 			}
 		}
 		
 		searchingList = searchingUtil.getBusStationList(routeID, stationSeq);
 		
-		//1.1 »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¹ö½º ¹øÈ£¿¡ ´ëÇÑ Á¤º¸°¡ ¾øÀ» ¶§
+		//1.1 ì‚¬ìš©ìê°€ ì…ë ¥í•œ ë²„ìŠ¤ ë²ˆí˜¸ì— ëŒ€í•œ ì •ë³´ê°€ ì—†ì„ ë•Œ
 		if(searchingList.size() == 0) {
-			result = "°Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù.";
+			result = "ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.";
 		}
-		//1.2 »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¹ö½º ¹øÈ£¿¡ ´ëÇÑ Á¤º¸°¡ ÀÖÀ» ¶§
+		//1.2 ì‚¬ìš©ìê°€ ì…ë ¥í•œ ë²„ìŠ¤ ë²ˆí˜¸ì— ëŒ€í•œ ì •ë³´ê°€ ìˆì„ ë•Œ
 		else {
-			result = "ÃÑ "+searchingList.size()+"°³ÀÇ °Ë»ö°á°ú°¡ ÀÖ½À´Ï´Ù.";
+			result = "ì´ "+searchingList.size()+"ê°œì˜ ê²€ìƒ‰ê²°ê³¼ê°€ ìˆìŠµë‹ˆë‹¤.";
 			for(int i = 0; i < searchingList.size(); i++) {
 
 				searchVBox.setSpacing(5);
@@ -461,13 +461,13 @@ public class PanelOverviewController {
 		
 		searchingList= searchingUtil.searchingStation(keyword);
 		
-		//2.1 »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Á¤·ùÀå ÀÌ¸§¿¡ ´ëÇÑ Á¤º¸°¡ ¾øÀ» ¶§
+		//2.1 ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì •ë¥˜ì¥ ì´ë¦„ì— ëŒ€í•œ ì •ë³´ê°€ ì—†ì„ ë•Œ
 		if(searchingList.size() == 0) {
-			result = "°Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù.";
+			result = "ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.";
 		}
-		//2.2 »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Á¤·ùÀå ÀÌ¸§¿¡ ´ëÇÑ Á¤º¸°¡ ÀÖÀ» ¶§
+		//2.2 ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì •ë¥˜ì¥ ì´ë¦„ì— ëŒ€í•œ ì •ë³´ê°€ ìˆì„ ë•Œ
 		else {
-			result = "ÃÑ "+searchingList.size()+"°³ÀÇ °Ë»ö°á°ú°¡ ÀÖ½À´Ï´Ù.";
+			result = "ì´ "+searchingList.size()+"ê°œì˜ ê²€ìƒ‰ê²°ê³¼ê°€ ìˆìŠµë‹ˆë‹¤.";
 			for(int i = 0; i < searchingList.size(); i++) {
 				
 				final int secondSearchingSize;
@@ -484,7 +484,7 @@ public class PanelOverviewController {
 					btnText += "[" + stationNum + " ]\t" + stationName;
 				}
 				else {
-					btnText += "[" + stationNum + " ]\t" + stationName + "\n\t\t(" + stationInfo + " ¹æ¸é)";
+					btnText += "[" + stationNum + " ]\t" + stationName + "\n\t\t(" + stationInfo + " ë°©ë©´)";
 				}
 				
 				
@@ -495,9 +495,9 @@ public class PanelOverviewController {
 				resultBtn.setAlignment(Pos.BASELINE_LEFT);
 				resultBtn.setStyle("-fx-background-color : white");
 				
-				//2.2.1 Á¤·ùÀå ¸ñ·ÏÀ» Å¬¸¯ÇßÀ» ¶§
+				//2.2.1 ì •ë¥˜ì¥ ëª©ë¡ì„ í´ë¦­í–ˆì„ ë•Œ
 				resultBtn.setOnAction((event) -> {
-					//»ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Á¤·ùÀåÀ» Áö³ª°¡´Â ¹ö½º°¡ ÀÖ´ÂÁö °Ë»ö ÈÄ ¶ç¿öÁØ´Ù
+					//ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì •ë¥˜ì¥ì„ ì§€ë‚˜ê°€ëŠ” ë²„ìŠ¤ê°€ ìˆëŠ”ì§€ ê²€ìƒ‰ í›„ ë„ì›Œì¤€ë‹¤
 					List<BusInfo> secondSearching = searchingUtil.getIsgo(mainApp.getBusStop().getStationID(), destiStationID);
 					showSecondSearchingResult(secondSearching);
 				});
@@ -524,7 +524,7 @@ public class PanelOverviewController {
 		searchResult.setText(result);
 	}
 	
-	//Á¤·ùÀå ÀÌ¸§À» °Ë»ö ÈÄ °Ë»ö °á°ú Áß ÇÏ³ª¸¦ Å¬¸¯ÇßÀ» ¶§ 2Â÷ °Ë»öÀ» ÇÑ´Ù. ÇöÀç Á¤·ùÀå¿¡¼­ Å¬¸¯ÇÑ Á¤·ùÀå±îÁö °¡´Â ¹ö½º¸¦ °Ë»öÇÏ°í ¶ç¿öÁØ´Ù. 
+	//ì •ë¥˜ì¥ ì´ë¦„ì„ ê²€ìƒ‰ í›„ ê²€ìƒ‰ ê²°ê³¼ ì¤‘ í•˜ë‚˜ë¥¼ í´ë¦­í–ˆì„ ë•Œ 2ì°¨ ê²€ìƒ‰ì„ í•œë‹¤. í˜„ì¬ ì •ë¥˜ì¥ì—ì„œ í´ë¦­í•œ ì •ë¥˜ì¥ê¹Œì§€ ê°€ëŠ” ë²„ìŠ¤ë¥¼ ê²€ìƒ‰í•˜ê³  ë„ì›Œì¤€ë‹¤. 
 	private void showSecondSearchingResult(List<BusInfo> secondSearching) {
 		searchVBox.getChildren().clear();
 		for(int i = 0; i < secondSearching.size(); i++) {
@@ -533,7 +533,7 @@ public class PanelOverviewController {
 			String routeID = secondSearching.get(i).getRouteID();
 			String routeNumber = secondSearching.get(i).getBusNum();
 			
-			String btnText = "[ " + routeID + " ]\t" + routeNumber + "¹ø";
+			String btnText = "[ " + routeID + " ]\t" + routeNumber + "ë²ˆ";
 			
 			Button resultBtn = new Button(btnText);
 			resultBtn.setMinWidth(460);
@@ -559,7 +559,7 @@ public class PanelOverviewController {
     		searchVBox.getChildren().add(resultBtn);
 		}
 		if(secondSearching.size() == 0) {
-			Button nullBtn = new Button("ÇØ´ç Á¤·ùÀåÀ» Áö³ª´Â ¹ö½º°¡ ¾ø½À´Ï´Ù.");
+			Button nullBtn = new Button("í•´ë‹¹ ì •ë¥˜ì¥ì„ ì§€ë‚˜ëŠ” ë²„ìŠ¤ê°€ ì—†ìŠµë‹ˆë‹¤.");
 			nullBtn.setMinWidth(460);
 			nullBtn.setMinHeight(50);
 			nullBtn.setAlignment(Pos.BASELINE_CENTER);
@@ -574,9 +574,9 @@ public class PanelOverviewController {
 		
 	}
 	
-	//-----------------------------------------Arriving Bus Box ¼³Á¤-----------------------------------------
+	//-----------------------------------------Arriving Bus Box ì„¤ì •-----------------------------------------
 	
-	//ÃÊ±â Arriving Bus Box¸¦ »ı¼ºÇÑ´Ù.
+	//ì´ˆê¸° Arriving Bus Boxë¥¼ ìƒì„±í•œë‹¤.
 	public void createArrivingBusBox() {
 		
 		arrivingBusBox.setSpacing(5);
@@ -588,9 +588,9 @@ public class PanelOverviewController {
         	hbox.setStyle("-fx-background-color:white");
         	hbox.setAlignment(Pos.CENTER);
         	
-        	Label busNum = new Label(tempArrivingBus.getBusNumber()+" ¹ø");
-    		Label busTime = new Label(tempArrivingBus.getTimeRemaining()+" ºĞ Àü");
-    		Label busStop = new Label(tempArrivingBus.getCurrentStop()+" Á¤°ÅÀå Àü");
+        	Label busNum = new Label(tempArrivingBus.getBusNumber()+" ë²ˆ");
+    		Label busTime = new Label(tempArrivingBus.getTimeRemaining()+" ë¶„ ì „");
+    		Label busStop = new Label(tempArrivingBus.getCurrentStop()+" ì •ê±°ì¥ ì „");
     		
     		busNum.setFont(new Font("Hancom Gothic", 16));
     		busNum.setStyle("-fx-padding: 10;");
@@ -610,7 +610,7 @@ public class PanelOverviewController {
         }
 	}
 	
-	//Arriving Bus BoxÀÇ ¹ö½º ¸ñ·ÏÀ» Å¬¸¯ÇßÀ» ¶§ Å¬¸¯ÇÑ ¸ñ·ÏÀÇ »öÀ» º¯°æÇÏ°í ÇØ´ç ¹ö½º°¡ ¿¹¾àµÇ¾úÀ½À» ¼³Á¤ÇÑ´Ù. 
+	//Arriving Bus Boxì˜ ë²„ìŠ¤ ëª©ë¡ì„ í´ë¦­í–ˆì„ ë•Œ í´ë¦­í•œ ëª©ë¡ì˜ ìƒ‰ì„ ë³€ê²½í•˜ê³  í•´ë‹¹ ë²„ìŠ¤ê°€ ì˜ˆì•½ë˜ì—ˆìŒì„ ì„¤ì •í•œë‹¤. 
 	private void boxifyBoxes() {
 		
 		for(Node child : arrivingBusBox.getChildren()) {
@@ -649,7 +649,7 @@ public class PanelOverviewController {
 		return busListIndex;
 	}
 	
-	//Arriving Bus BoxÀÇ ¹ö½º ¸ñ·ÏÀ» BusInfoListÀÇ °ªÀ» ¹ÙÅÁÀ¸·Î ¾÷µ¥ÀÌÆ® ÇÑ´Ù. 
+	//Arriving Bus Boxì˜ ë²„ìŠ¤ ëª©ë¡ì„ BusInfoListì˜ ê°’ì„ ë°”íƒ•ìœ¼ë¡œ ì—…ë°ì´íŠ¸ í•œë‹¤. 
 	public void updateBoxes() {
 		
 		int index;
@@ -660,9 +660,9 @@ public class PanelOverviewController {
 			
 			ArrivingBus tempArrivingBus = arrivingBusData.get(index);
 			
-			Label busNum = new Label(tempArrivingBus.getBusNumber()+" ¹ø");
-    		Label busTime = new Label(tempArrivingBus.getTimeRemaining()+" ºĞ Àü");
-    		Label busStop = new Label(tempArrivingBus.getCurrentStop()+" Á¤°ÅÀå Àü");
+			Label busNum = new Label(tempArrivingBus.getBusNumber()+" ë²ˆ");
+    		Label busTime = new Label(tempArrivingBus.getTimeRemaining()+" ë¶„ ì „");
+    		Label busStop = new Label(tempArrivingBus.getCurrentStop()+" ì •ê±°ì¥ ì „");
     		
     		busNum.setFont(new Font("Hancom Gothic", 16));
     		busNum.setStyle("-fx-padding: 10;");
@@ -707,7 +707,7 @@ public class PanelOverviewController {
 		
 		for(int i = 0; i < arrivingBusData.size(); i++) {
 			if(arrivingBusData.get(i).getCurrentStop().equals("1")) {
-				busNumList += arrivingBusData.get(i).getBusNumber() + "¹ø,";
+				busNumList += arrivingBusData.get(i).getBusNumber() + "ë²ˆ,";
 				count++;
 			}
 		}
@@ -719,7 +719,7 @@ public class PanelOverviewController {
 	}
 	
 	
-	//-----------------------------------------mainApp¿¡¼­ »ç¿ëÇÏ´Â setMainApp-----------------------------------------
+	//-----------------------------------------mainAppì—ì„œ ì‚¬ìš©í•˜ëŠ” setMainApp-----------------------------------------
 
 	@FXML
 	public void setMainApp(MainApp mainApp){
@@ -732,13 +732,13 @@ public class PanelOverviewController {
 			public void handle(ActionEvent event) {
 				
 				if(settingText.getText().length() != 5) {
-					settingResult.setText("5ÀÚ¸®ÀÇ Á¤·ùÀå ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!");
+					settingResult.setText("5ìë¦¬ì˜ ì •ë¥˜ì¥ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!");
 				}
 				else if(ssu.searchingBusStop(settingText.getText()).getBusStopName().equals("")) {
-					settingResult.setText("Á¸ÀçÇÏÁö ¾ÊÀº Á¤·ùÀåÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä!");
+					settingResult.setText("ì¡´ì¬í•˜ì§€ ì•Šì€ ì •ë¥˜ì¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”!");
 				}
 				else if(settingText.getText().equals("00000")) {
-					settingResult.setText("À¯È¿ÇÏÁö ¾Ê´Â Á¤·ùÀåÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ»õ¿ä!");
+					settingResult.setText("ìœ íš¨í•˜ì§€ ì•ŠëŠ” ì •ë¥˜ì¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ìƒˆìš”!");
 				}
 				else {
 					settingPane.setVisible(false);

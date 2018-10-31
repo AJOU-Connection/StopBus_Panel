@@ -29,17 +29,17 @@ public class BusInfoUtil {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
 			conn.setDoOutput(true);
-			conn.setRequestMethod("POST"); // º¸³»´Â Å¸ÀÔ
+			conn.setRequestMethod("POST"); // ë³´ë‚´ëŠ” íƒ€ì…
 
-			// µ¥ÀÌÅÍ
+			// ë°ì´í„°
 			String param = "{\"stationID\":\"" + stationID + "\"}";
 
-			// Àü¼Û
+			// ì „ì†¡
 			OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
 			osw.write(param);
 			osw.flush();
 
-			// ÀÀ´ä
+			// ì‘ë‹µ
 			BufferedReader br = null;
 			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			String line = null;
@@ -67,7 +67,7 @@ public class BusInfoUtil {
 				busInfoList.add(tempBusInfo);
 			}
 
-			// ´İ±â
+			// ë‹«ê¸°
 			osw.close();
 			br.close();
 		} catch (Exception e) {
@@ -86,17 +86,17 @@ public class BusInfoUtil {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
 			conn.setDoOutput(true);
-			conn.setRequestMethod("POST"); // º¸³»´Â Å¸ÀÔ
+			conn.setRequestMethod("POST"); // ë³´ë‚´ëŠ” íƒ€ì…
 
-			// µ¥ÀÌÅÍ
+			// ë°ì´í„°
 			String param = "{\"stationID\":\"" + stationID + "\"}";
 
-			// Àü¼Û
+			// ì „ì†¡
 			OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
 			osw.write(param);
 			osw.flush();
 
-			// ÀÀ´ä
+			// ì‘ë‹µ
 			BufferedReader br = null;
 			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			String line = null;
@@ -132,7 +132,7 @@ public class BusInfoUtil {
 				}
 
 			}
-			// ´İ±â
+			// ë‹«ê¸°
 			osw.close();
 			br.close();
 		} catch (Exception e) {

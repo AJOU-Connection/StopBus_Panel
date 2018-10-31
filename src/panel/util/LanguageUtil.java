@@ -1,20 +1,20 @@
 package panel.util;
 
 public class LanguageUtil {
-	private char[] cho = {
-			'¤¡','¤¢', '¤¤', '¤§', '¤¨', '¤©', '¤±', '¤²', '¤³', '¤µ', '¤¶', '¤·', '¤¸', '¤¹', '¤º', '¤»', '¤¼', '¤½', '¤¾' 
-	};
+	private char[] cho = {0x3131, 0x3132, 0x3134, 0x3137, 0x3138, 0x3139, 0x3141, 
+	        0x3142, 0x3143, 0x3145, 0x3146, 0x3147, 0x3148, 
+	        0x3149, 0x314a, 0x314b, 0x314c, 0x314d, 0x314e};
 	
-	private char[] jung = {
-			'¤¿', '¤À', '¤Á', '¤Â', '¤Ã', '¤Ä', '¤Å', '¤Æ', '¤Ç', '¤È',
-			'¤É', '¤Ê', '¤Ë', '¤Ì', '¤Í', '¤Î', '¤Ï', '¤Ğ', '¤Ñ', '¤Ò','¤Ó' 
-	};
+	private char[] jung = {0x314f, 0x3150, 0x3151, 0x3152, 0x3153, 0x3154, 0x3155, 
+	        0x3156, 0x3157, 0x3158, 0x3159, 0x315a, 0x315b, 
+	        0x315c, 0x315d, 0x315e, 0x315f, 0x3160,    0x3161,    
+	        0x3162, 0x3163};
 	
-	private char[] jong = {
-			' ', '¤¡', '¤¢', '¤£', '¤¤', '¤¥', '¤¦', '¤§', '¤©', '¤ª', 
-			'¤«', '¤¬', '¤­', '¤®', '¤¯', '¤°', '¤±', '¤²', '¤´', '¤µ',
-			'¤¶', '¤·', '¤¸', '¤º', '¤»', '¤¼', '¤½', '¤¾'
-	};
+	private char[] jong = {0x0000, 0x3131, 0x3132, 0x3133, 0x3134, 0x3135, 0x3136, 
+	        0x3137, 0x3139, 0x313a, 0x313b, 0x313c, 0x313d, 
+	        0x313e, 0x313f, 0x3140, 0x3141, 0x3142, 0x3144, 
+	        0x3145, 0x3146, 0x3147, 0x3148, 0x314a, 0x314b, 
+	        0x314c, 0x314d, 0x314e};
 	
 	public int findChosung (char c) {
 		int index = 0;
@@ -123,45 +123,45 @@ public class LanguageUtil {
 		int cho_index = findChosung(cho);
 		
 		switch(jong_index) {
-		case 1:	//¤¡
+		case 1:	//ã
 			if(cho_index == 9) {
-				return 3;	//¤£
+				return 3;	//ãƒ
 			}
 			break;
-		case 4:	//¤¤
+		case 4:	//ã„
 			if(cho_index == 12) {
-				return 5;	//¤¥
+				return 5;	//ã…
 			}
 			else if(cho_index == 18) {
-				return 6;	//¤¦
+				return 6;	//ã†
 			}
 			break;
-		case 8:	//¤©
+		case 8:	//ã‰
 			if(cho_index == 0) {
-				return 9;	//¤ª
+				return 9;	//ãŠ
 			}
 			else if(cho_index == 6) {
-				return 10;	//¤«
+				return 10;	//ã‹
 			}
 			else if(cho_index == 7) {
-				return 11;	//¤¬
+				return 11;	//ãŒ
 			}
 			else if(cho_index == 9) {
-				return 12;	//¤­
+				return 12;	//ã
 			}
 			else if(cho_index == 16) {
-				return 13;	//¤®
+				return 13;	//ã
 			}
 			else if(cho_index == 17) {
-				return 14;	//¤¯
+				return 14;	//ã
 			}
 			else if(cho_index == 18) {
-				return 15;	//¤°
+				return 15;	//ã
 			}
 			break;
 		case 17:
 			if(cho_index == 9) {
-				return 18;	//¤´
+				return 18;	//ã”
 			}
 			break;
 		}
@@ -170,27 +170,27 @@ public class LanguageUtil {
 	
 	public int deleteBadchim(int jong_index) {
 		switch(jong_index){
-		case 3:	//¤£
+		case 3:	//ãƒ
 			return 1;
-		case 5:	//¤¥
+		case 5:	//ã…
 			return 4;
-		case 6:	//¤¦
+		case 6:	//ã†
 			return 4;
-		case 9:	//¤ª
+		case 9:	//ãŠ
 			return 8;
-		case 10:	//¤«
+		case 10:	//ã‹
 			return 8;
-		case 11:	//¤¬
+		case 11:	//ãŒ
 			return 8;
-		case 12:	//¤­
+		case 12:	//ã
 			return 8;
-		case 13:	//¤®
+		case 13:	//ã
 			return 8;
-		case 14:	//¤¯
+		case 14:	//ã
 			return 8;
-		case 15:	//¤°
+		case 15:	//ã
 			return 8;
-		case 18:	//¤´
+		case 18:	//ã”
 			return 17;
 		}
 		return -1;
