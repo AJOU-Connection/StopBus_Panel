@@ -1,6 +1,6 @@
 # **아주대학교 2018-1학기 캡스톤디자인 Connection팀**
 [![Build Status](https://travis-ci.org/AJOU-Connection/StopBus_Driver.svg?branch=master)](https://travis-ci.org/AJOU-Connection/StopBus_Driver)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL3.0-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 
 ## **프로젝트 팀**
 - 학과: 정보통신대학 소프트웨어학과
@@ -15,7 +15,6 @@
 
 
 ## **StopBus for Panel 기능**
-
 - 버스 승차 예약
 - 버스 정보 조회
 - 버스 정보 검색
@@ -25,3 +24,14 @@
 2. Trello: 팀 프로젝트 관리
 3. Slack: 팀 프로젝트 간 채팅 프로그램 - Trello & GitHub와 연동
 4. Javafx: java 기반의 UI 제작
+
+## **오픈소스 라이선스**
+**JLayer**
+http://www.javazoom.net/javalayer/javalayer.html
+Copyright (c) 1999, JLayer project
+LGPL 2.1
+
+**json-simple**
+https://code.google.com/archive/p/json-simple/
+Copyright (c) 2004, Yidong Fang
+Apache License 2.0
