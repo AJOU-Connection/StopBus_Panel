@@ -26,12 +26,12 @@
 4. Javafx: java 기반의 UI 제작
 
 ## **오픈소스 라이선스**
-**JLayer**
-http://www.javazoom.net/javalayer/javalayer.html
-Copyright (c) 1999, JLayer project
-LGPL 2.1
-
-**json-simple**
-https://code.google.com/archive/p/json-simple/
-Copyright (c) 2004, Yidong Fang
-Apache License 2.0
+**JLayer**  
+http://www.javazoom.net/javalayer/javalayer.html  
+Copyright (c) 1999, JLayer project  
+LGPL 2.1  
+  
+**json-simple**  
+https://code.google.com/archive/p/json-simple/  
+Copyright (c) 2004, Yidong Fang  
+Apache License 2.0  
